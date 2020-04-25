@@ -99,7 +99,7 @@ Ani provides the following rich set of features over WAAPI:
     }
     ```
 
-+ **Other usefull methods.** See below for available methods.
++ **Other usefull methods.** See below.
 
 ## Methods
 + [`ready()`](/firedom/api/ani/Ani/ready.md) - Accepts a callback that runs when the animation is created and ready.

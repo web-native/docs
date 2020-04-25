@@ -36,7 +36,7 @@ setTimeout(() => {
 ```
 
 ## Features
-:
+
 + **Runtime manipulation of timeline.** *Timeline* allows you to add/remove animation instances at runtime without altering coordination and synchronization.
     ```js
     // Fade out from current opacity level

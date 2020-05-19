@@ -1,6 +1,5 @@
 # JSEN
-
-JSEN is a tool for parsing and evaluating JavaScript expressions. It is designed for general-purpose usage and comes suited for these use-cases far more than the `eval()` in many programming languages.
+JSEN is a general-purpose library for parsing JavaScript expressions that execute in user-defined scopes.
 
 This project is opensource and [hosted on Github](https://github.com/web-native/jsen).
 

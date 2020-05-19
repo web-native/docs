@@ -1,46 +1,146 @@
 ---
-description: 'An HTML-based, UI design system that’s as simple and universal as HTML Itself!'
+description: 'Put up amazing UIs in one go - complete with styling and automatic functionality without leaving HTML!'
 ---
 
 # CHTML
+CHTML is a suite of short specifications and technologies that bring a component-based architecture to the HTML language itself. This lets us create the UI and its components entirely in HTML. A pure-HTML approach is new and requires no build tools, nor compilers, nor even a template syntax!
 
-CHTML is a pure HTML-based, **UI functional design system** that lets you build your UI from smaller html components and have everything work as one wonderful piece of craftsmanship. This is a fundamental shift that finally brings UI development from the **engineering** realm of JavaScript back to the **design** field of HTML \(the original markup language for the web\)!
+This project is opensource and available on [GitHub](https://github.com/web-native/chtml).
 
-Build elegant user interfaces without learning a template syntax or a build tool! Share your html-based components around and use them anywhere HTML works and forget about a compile step or a dependency! This is the luxury of an HTML-based design system! CHTML **empowers the design side of you** and enriches your overall design experience by _minimizing your engagement with JavaScript_ on the UI; all that engineering should really be the concern of the application layer.
+## Overview
+CHTML is centered on using the web platform itself to put up elegant user interfaces. A few specifications make this possible by easing out platform limitions that have made this difficult to do.
++ [**Scoped HTML**](/chtml/scoped-html/) - Scope-based markup pattern that lets us break an HTML document into smaller-sized structural boundaries.
++ [**Scoped JS**](/chtml/scoped-js/) - JavaScript-based presentational logic that works within the realms of its containing element.
++ [**Scoped CSS**](/chtml/scoped-css/) - CSS styling that is only applicable to its containing element and its descendants.
++ [**HTML Transport**](/chtml/html-transport/) - An import/export system that lets us define, extend, and distribute HTML components.
 
-This project is opensource and [hosted on Github](https://github.com/web-native/chtml).
+While all four technologies fit together seamlessly, they can also be used independently.
 
-Take the [Getting Started Guide](guide/) or continue here for an introduction to CHTML.
+### Scoped HTML
+Scoped HTML is a semantic markup pattern that translates to an intuitve structural API for applications. Here, you simply establish a scope with a name of your choice, and optionally associate key elements from within its subtree to the scope.
 
-## Why CHTML
+```html
+<div id="el" scope="article">
+    <div class="wrapper">
+        <div scope="article-title"></div>
+        <div scope="article-content"></div>
+    </div>
+</div>
+```
 
-We simply discovered that the sanest way to approach the UI is to take aside the _rigid framework_ and embrace a _design system_! If you're new to the idea of design systems, you will be intrigued at how much order they bring to your design and development process.
+This gives us a *scope-node* relationship or model that an application can always bank on.
 
-### Rich Design Experience
+```html
+article
+  |- title
+  |- content
+```
 
-Today's prevailing frameworks have overwhelmed our most-exciting realm of design - the UI - with full application engineering; think the data-fetching logic, routing, and the business logic lurking deep in UI elements. Design has never been this altered! **If you're currently engineering all the way, say** _**Hi**_ **to a design system!**
+We also have a *scoped-HTML* API that makes it easy to traverse the model.
 
-With CHTML you can regain focus on just the things that matter in the UI: structure, aesthetics, and behaviour. **You should really be working in an overall design experience that's void of the influence a framework exerts!**
+```js
+let article = document.querySelector('#el');
+let title = article.scope.title;
+let content = article.scope.content;
+// And if we had nested a child scope into "content", we could also do...
+let nested = content.scope.nested;
+```
 
-* **Play Away**: With components now living as plain HTML files, think how much now gets out of the way! No compiling from language A to language B; no build step; no complex tooling; no overkill.
+Semantic markup with intuitive API access can save an application (or bot) a lot of structural guesswork and inefficient DOM queries.
 
-### The Flexibility of a Design System!
+Visit the [Scoped HTML Specs](/chtml/scoped-html/) to learn more.
 
-There's much to be said about **the trap of coupling the UI with a full-fledged application framework** \(a la React, Angular, Ember, et al\). For one thing, you have a technology dependency that inherently limits where that UI can go.
+### Scoped JS
+Scoped JS is a breakthrough technology that lets us place JavaScript functionality anywhere in a page, just right where they are needed. Instead of retreiving elements into one huge global scope to imperatively manipulate them, we would simply take the functionality to the elements.
 
-With CHTML, you have a **specifications-driven system that's totally implementation-agnostic**! You approach your implementation with a wider variety of technologies, your own design principles \(think style guides, best practices, etc\), and project-specific requirements, and at the end, come off with consistent results! CHTML is how everything - whatever it is - fits together!
+```html
+<div scope="alert">
+    <div scope="alert-message">This task is now complete!</div>
+    <div scope="alert-exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      this.scope.exit.addEventListener('click', () => {
+          this.remove();
+      });
+    </script>
+</div>
+```
 
-* **Evolve Quickly**: Change, growth, and the rest of tomorrow's unknown are the most certain things we know of! How do you want to face the challenge? With a rigid foundation or a flexible one? .
+Noteworthy is the script's isolation from the global scope, with the *this* reference pointing to the script's containing element.
 
-### The Web-Native Advantage!
+With an explicit setting, certain global variables could however be accessed from scoped scripts.
 
-Tooling is essential to a design system if we must obtain something usable from the specifications - think all the browser-based technologies that translate our HTML, CSS, and JavaScript blueprints into an amazing UI. **But the more generic the design and tooling, the more universal the system gets.** The is the good news with CHTML!
+```js
+// Lets make jQuery available to scoped scripts
+window.WebNative.ScopedJS.ENV.globals.$ = window.jQuery;
+```
 
-Much like the web platform itself, CHTML has been intentionally designed as a generic foundation on which anyone can build, and thus **sets its limits on vanilla HTML, JavaScript and CSS for structure, behaviour, and presentation respectively**! This makes it easy to leverage platform features and APIs and gives you a zero-abstraction layer from which to take your application to any level of engineering.
+```html
+<div scope="alert">
+    <div scope="alert-message">This task is now complete!</div>
+    <div scope="alert-exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      $(this.scope.exit).on('click', () => {
+          $(this).remove();
+      });
+    </script>
+</div>
+```
 
-* **Meet the Future**: Underpinned on tags and attributes, CHTML helps you secure a future-proof approach to your UI! There can't be a better bet on stability and relevance than a native foundation!
+A scope may also receive application data, and further distribute received data to child scopes. Automatic *reactivity* steps in to do the dirty work of keeping the UI in sync with application state.
 
-## Getting Started!
+Visit the [Scoped JS Specs](/chtml/scoped-js/) to learn more.
 
-We have a 5-minute walk-through that brings you to your first CHTML page - [The Getting Started Guide](guide/).
+### Scoped CSS
+Scoped CSS allows us to define styles that only apply to the containing element and its descendants. Scoped styles were once promised in the CSS standards and are now even more demanded than ever across the web.
 
+Scoped CSS is currently being reconceived in CHTML.
+
+### HTML Transport
+HTML Transport is an export/import distribution system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
+
+```html
+<template is="chtml-bundle">
+
+    <div namespace="export/one"></div>
+    <div namespace="export/two"></div>
+
+</template>
+```
+
+These *exports* can be easily placed anywhere in the main document.
+
+```html
+<body>
+    <micro-import namespace="export/one"></micro-import>
+    <micro-import namespace="export/two"></micro-import>
+</body>
+```
+
+And we can programmatically import a micro module.
+
+```js
+let import1 = MicroModules.import('export/one');
+```
+
+Taking things further, micro modules can be dynamically bundled on the server as regular HTML files. An `src` attribute is used on a `<template>` element to import this remote bundle.
+
+**file://bundle.html**
+
+```html
+<div namespace="export/one"></div>
+<div namespace="export/two"></div>
+```
+
+**file://index.html**
+
+```html
+<template is="chtml-bundle" src="bundle.html"></template>
+```
+
+Code organization, extensibility and composability are HTML Transport' powerful features that lets us build an entire app with much fewer components.
+
+Visit the [HTML Transport Specs](/chtml/html-transport/) to learn more.
+
+## Guide
++ [Installation Guide](/chtml/guide/installation-guide.md)
++ [Server-Side Rendering](/chtml/guide/server-side-rendering.md)

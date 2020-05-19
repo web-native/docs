@@ -1,0 +1,211 @@
+# Scoped JS
+ScopedJS is JavaScript functionality that works within the scope of its containing element. Instead of retreiving elements into one global scope of functionality, ScopedJS lets us take concise functionality to them.
+
+## On this page:
++ [A Scoped Script](#a-scoped-script)
++ [Automatic Observability](#automatic-observability)
++ [Globals](#globals)
++ [ScopedJS Configuration](#scopedjs-configuration)
+
+## A Scoped Script
+The script below is scoped to the `#alert` element. And the `this` reference is the `#alert` element.
+
+```html
+<div id="alert">
+    <div class="message">This task is now complete!</div>
+    <div class="exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      this.querySelector('.exit').addEventListener('click', () => {
+          this.remove();
+      });
+    </script>
+</div>
+```
+
+The closest we could get with native HTML would be the use of intrinsic events. And we would quickly be hitting the limits of what's possible with such an approach.
+
+```html
+<div id="alert">
+    <div class="message">This task is now complete!</div>
+    <div class="exit" title="Close this message." onclick="this.parentNode.remove()">X</div>
+</div>
+```
+
+To take things further, it is possible to receive external values, usually data from an application, in a scoped script. This is done by binding variables to the sope.
+
+```js
+let alertEl = document.querySelector('#alert');
+alertEl.bind({
+    message: 'This task is now complete!',
+});
+```
+
+```html
+<div id="alert">
+    <div class="message"></div>
+    <div class="exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      let messageEl = this.querySelector('.message');
+      messageEl.innerHTML = message;
+      this.querySelector('.exit').addEventListener('click', () => {
+          this.remove();
+      });
+    </script>
+</div>
+```
+
+## Automatic Observability
+Change detection is a critical feature in client-side scripting. And this is a native feature in ScopedJS! ScopedJS supports the [Reflex API](/reflex/) for making live changes to an object or array that has already been bound. New changes are automatically picked up and the specific ScopedJS **statement** that relies on the changed value will be re-executed.
+
+Below is an example showing how the final state of an animation is kept in sync with the state of an external reference.
+
+```html
+<div id="alert">
+    <div class="message"></div>
+    <div class="exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+
+      if (message) {
+          let messageEl = this.querySelector('.message');
+          messageEl.innerHTML = message;
+      }
+
+      // Let's fade-out the element
+      let animation = this.animate([{opacity:1}, {opacity:0}], {duration: 400});
+      animation.onfinish = () => {
+          // But after fade-out, the visibility of this element should now
+          // depend on whatever the application decides for this.data.opacityLevel
+          this.style.opacity = opacityLevel;
+      };
+
+    </script>
+</div>
+```
+
+Our area of interest is the statement `this.style.opacity = opacityLevel` within the animation's `onfinish` block. By referencing the `opacityLevel` variable, this statement is now bound to the `opacityLevel` variable, and will rerun whenever the `opacityLevel` binding changes. In our application, we could keep blinking the element simply by changing the value of `opacityLevel` at intervals. We are now using the Reflex API to modify `opacityLevel` in-place instead of rebinding the data object afresh.
+
+```js
+let alertEl = document.querySelector('#alert');
+
+// Initial values
+let data = {
+    message: 'This task is now complete!',
+    opacityLevel: 0,
+};
+alertEl.bind(data);
+
+// The blinking logic
+let opacityLevel = 0;
+setInterval(() => {
+    opacityLevel = opacityLevel ? 0 : 1;
+    Reflex.set(data, 'opacityLevel', opacityLevel);
+}, 600);
+```
+
+## Globals
+Unless explicitly given, ScopedJS can not have access to any variable in the global scope. The `ENV.globals` is where we could create the global scope ScopedJS sees.
+
+If ScopedJS was loaded via a script tag, we could access `ENV.globals` this way:
+
+```js
+let ScopedJS_ENV = window.WebNative.ScopedJS.ENV;
+let ScopedJSGlobals = ScopedJS_ENV.globals;
+```
+
+An import statement could be used otherwise:
+
+```js
+// Import directly
+import {ENV} from '@web-native-js/chtml/src/scoped-js/index.js';
+let ScopedJSGlobals = ENV.globals;
+
+// We could also access the same ENV object from Chtml's ENV object
+import {ENV as CHTML_ENV} from '@web-native-js/chtml';
+let ScopedJSGlobals = CHTML_ENV.ScopedJS.globals;
+```
+
+Now we can assign global references. jQuery is a good example.
+
+```js
+ScopedJSGlobals.$ = window.jQuery;
+```
+
+```html
+<div scope="alert">
+    <div class="message"></div>
+    <div class="exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      $('.exit', this).on('click', () => {
+          $(this).remove();
+      });
+    </script>
+</div>
+```
+
+## ScopedJS Configuration
+ScopedJS has been designd to be fully customizable. Simply obtain ScopedJS's `ENV` object and configure its `params` property.
+
+```js
+// If ScopedJS has been loaded via a script tag
+let ENV = window.WebNative.ScopedJS.ENV;
+
+// To use the import method
+import {ENV} from '@web-native-js/chtml/src/scoped-js/index.js';
+// To access the same ENV from the Chtml's ENV
+import {ENV as CHTML_ENV} from '@web-native-js/chtml';
+let ENV = CHTML_ENV.ScopedJS;
+```
+
+Here are the configuration options.
+
++ **ENV.params.scriptElement** - (String): This setting configures script element specifiers on a page. The default is `script[type="text/scoped-js"]`. Only change this where it is absolutely necessary, and be sure it is not a standard MIME type.
+
+    ```js
+    ENV.params.scriptElement = 'script[type="text/javascript+scoped"]';
+    ```
+
+    ```html
+    <div>
+      <script type="text/javascript+scoped">
+      // Code...
+      </script>
+    </div>
+    ```
+
++ **ENV.params.autoHide** - (Boolean): This setting determines whether or not ScopedJS scripts are automatically removed from the DOM once parsed. The default is `true` - remove.
+
++ **ENV.params.bindMethodName** - (String): This setting specifies the method name for binding data on an element's scoped script. The default is `bind`.
+
+    ```js
+    ENV.params.bindMethodName = 'render';
+    ```
+
+    ```js
+    let alertEl = document.querySelector('#alert');
+    let data = {
+        message: 'This task is now complete!',
+    };
+
+    alertEl.render(data);
+
+    // Only subsequent deep modifications may require Reflex
+    setTimeout(() => {
+        Reflex.set(data, 'opacityLevel', 1);
+        Reflex.deleteProperty(data, 'message');
+    }, 100)l
+    ```
+
++ **ENV.params.innertContexts** - (Array): This setting specifies the elements under which scoped scripts should be innert. The default is unset.
+
+    ```js
+    ENV.params.innertContexts.append('my-custom-element');
+    ```
+    
+    ```js
+    <my-custom-element>
+      <!-- This scoped script will be innert -->
+      <script type="text/javascript+scoped">
+      // Code...
+      </script>
+    </my-custom-element>
+    ```

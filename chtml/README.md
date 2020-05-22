@@ -3,7 +3,7 @@ description: 'Put up amazing UIs in one go - complete with styling and automatic
 ---
 
 # CHTML
-CHTML is a suite of short specifications and technologies that **bring a component architecture to the HTML language itself**. This lets us create the UI and its components entirely in HTML. Meet the new **pure-HTML** approach that requires no build tools, or compilers, or even a template syntax!
+CHTML is a suite of short specifications and technologies that **bring a component architecture to the HTML language itself**. This lets us create the UI and its components entirely in HTML. With a **pure-HTML** approach, we can now do without build tools, compilers, and weird template syntaxes!
 
 [Check this project out on GitHub](https://github.com/web-native/chtml).
 

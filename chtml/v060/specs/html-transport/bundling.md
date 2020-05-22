@@ -4,9 +4,9 @@ Namespaces in the HTML Transport system can be implemented in a folder-based lay
 The following *article* components can be redefined as standalone files as shown:
 
 ```html
-<template is="chtml-bundle">
-    <div namespace="html/components/article/readonly" scope="article">...</div>
-    <div namespace="html/components/article/editable" scope="article">...</div>
+<template is="html-bundle">
+    <div namespace="html/components/article/readonly" root>...</div>
+    <div namespace="html/components/article/editable" root>...</div>
 </template>
 ```
 
@@ -22,13 +22,13 @@ The *namespace* attribute is not needed for components in a file; a component's 
 file://components/article/readonly.html
 
 ```html
-<div scope="article">...</div>
+<div root>...</div>
 ```
 
 file://components/article/editable.html
 
 ```html
-<div scope="article">...</div>
+<div root>...</div>
 ```
 
 To put all our components back into one file, we would need to *bundle* them. This time, namespaces would be automatically derived and assigned to each component based on their file location. All of this can be automated using the nodejs-based *Bundler* utility.
@@ -36,7 +36,7 @@ To put all our components back into one file, we would need to *bundle* them. Th
 ## Usage
 
 ```js
-import Bundler from ‘@web-native-js/chtml/src/html-transport/Bundler.js’;
+import Bundler from '@web-native-js/chtml/src/html-transport/Bundler.js';
 const bundler = new Bundler(entry[, params = {}]);
 ```
 
@@ -60,7 +60,7 @@ The `Bundler.bundle()` function may also be used
 Bundler.bundle(entry[, outputFile[, params]]);
 ```
 
-Let’s demonstrate this with the sample file structure below.
+Let's demonstrate this with the sample file structure below.
 
 ```html
 root
@@ -76,34 +76,33 @@ root
 
 Now we bundle the files in the `project-files` directory into `public-folder`.
 
-```javascript
-const bundler = new Bundler(‘/root/project-files/’);
-bundler.output(‘/root/public-folder/bundle.html’);
+```js
+const bundler = new Bundler('/root/project-files/');
+bundler.output('/root/public-folder/bundle.html');
 ```
 
 This file can now be loaded as a CHTML bundle.
 
 ```html
-<template is=”chtml-bundle” src=”public-folder/bundle.html”></template>
+<template is=”html-bundle” src=”public-folder/bundle.html”></template>
 ```
 
-On checking the bundle, you will notice that the namespace of each module is prefixed with the extension name of their original file. Here’s how that could look:
+On checking the bundle, you will notice that the namespace of each module is prefixed with the extension name of their original file. Here's how that could look:
 
 ```html
-<div namespace=”html/components/article/readonly" scope="article"></div>
-<div namespace=”html/components/article/editable" scope="article"></div>
+<div namespace=”html/components/article/readonly" root></div>
+<div namespace=”html/components/article/editable" root></div>
 <div namespace=”html/page1”></div>
 <div namespace=”html/page2”></div>
 ```
 
 ## Bundling From Multiple Entries
-
 To create multiple bundles from multiple entries, use the static `Bundler.bundle()` method. This method accepts a list of entries as an object and returns an object with each bundle name mapped to their respective bundle content.
 
 ```js
 var bundles = Bundler.bundle({
-    images: ‘project-files/images/’,
-    template: ‘project-files/templates/’,
+    images: 'project-files/images/',
+    template: 'project-files/templates/',
 });
 console.log(bundles.images);
 ```
@@ -112,9 +111,9 @@ To save all bundles to a common public directory, provide an output file path as
 
 ```js
 Bundler.bundle({
-    images: ‘project-files/images/’,
-    templates: ‘project-files/templates/’,
-}, ‘/public-folder/[name].bundle.html’);
+    images: 'project-files/images/',
+    templates: 'project-files/templates/',
+}, '/public-folder/[name].bundle.html');
 ```
 
 Notice the `[name]` placeholder in the destination filename. For each of the bundles, this placeholder is replaced with the unique bundle name. So, while all bundles are saved to `/public-folder/`, each bundle is saved with a unique filename. \(If a placeholder is not in the given template file path, something bad happens – each bundle is saved to the same file and previous bundles are overwritten!\)
@@ -122,13 +121,12 @@ Notice the `[name]` placeholder in the destination filename. For each of the bun
 We can now load each bundle.
 
 ```html
-<template is=”chtml-bundle” src=”public-folder/images.bundle.html”></template>
-<template is=”chtml-bundle” src=”public-folder/templates.bundle.html”></template>
+<template is=”html-bundle” src=”public-folder/images.bundle.html”></template>
+<template is=”html-bundle” src=”public-folder/templates.bundle.html”></template>
 ```
 
 ## Bundling Assets
-
-While HTML modules are created by reading the file’s contents, assets, like images, are handled differently. These files are copied from their location into the output directory where the regular bundles are located. An appropriate HTML element that points to this new location is automatically generated in the bundle. This is illustrated below.
+While HTML modules are created by reading the file's contents, assets, like images, are handled differently. These files are copied from their location into the output directory where the regular bundles are located. An appropriate HTML element that points to this new location is automatically generated in the bundle. This is illustrated below.
 
 This is the normal file structure. It now contains an image.
 
@@ -146,11 +144,11 @@ root
   |-- public-folder
 ```
 
-Let’s bundle the files in the `project-files` directory.
+Let's bundle the files in the `project-files` directory.
 
 ```js
-const bundler = new Bundler(‘/root/project-files/’);
-bundler.output(‘/root/public-folder/bundle.html’);
+const bundler = new Bundler('/root/project-files/');
+bundler.output('/root/public-folder/bundle.html');
 ```
 
 Now the image at `/root/project-files/images/image1.png` will now be copied to `/root/public-folder/images/image1.png` and an `<img>` element pointing to this new location is added to the bundle.
@@ -177,8 +175,8 @@ root
 And our `bundle.html` should look like this:
 
 ```html
-<div namespace=”html/components/article/readonly" scope="article"></div>
-<div namespace=”html/components/article/editable" scope="article"></div>
+<div namespace=”html/components/article/readonly" root></div>
+<div namespace=”html/components/article/editable" root></div>
 <img namespace=”png/images/image1” src=”images/image1.png” />
 <div namespace=”html/page1”></div>
 <div namespace=”html/page2”></div>
@@ -208,8 +206,8 @@ The `params` parameter can be used to influence the way modules are bundled.
     ```
 
     ```html
-    <div ns=”html/components/article/readonly" scope="article"></div>
-    <div ns=”html/components/article/editable" scope="article"></div>
+    <div ns=”html/components/article/readonly" root></div>
+    <div ns=”html/components/article/editable" root></div>
     <img ns=”png/images/image1” src=”images/image1.png” />
     <div ns=”html/page1”></div>
     <div na=”html/page2”></div>
@@ -224,4 +222,53 @@ The `params` parameter can be used to influence the way modules are bundled.
         }
     });
     ```
+
+## Bundling With an NPM Script
+Using npm scripts, we could easily run our bundler setup from the command line. All we need to do is to place our bundler script in a place relative to our project's *package.json* file. The folder structure could look like this:
+
+```html
+root
+  |-- project-files
+  |  |-- components
+  |  |  |-- article
+  |  |    |-- readonly.html
+  |  |    |-- editable.html
+  |  |-- images
+  |  |  |-- image1.png
+  |  |-- page1.html
+  |  |-- page2.html
+  |-- public-folder
+  |-- bundler-setup.js
+  |-- package.json
+```
+
+Here's our bundler script.
+
+file://root/bundler-setup.js
+
+```js
+const bundler = new Bundler('project-files/');
+bundler.output('public-folder/bundle.html');
+```
+
+And here's our *package.json* file.
+
+file://root/package.json
+
+```json
+{
+  "nane": "project-name",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "node ./bundler-setup.js"
+  }
+}
+```
+
+Now from the command line:
+
+```shell
+npm run bundle
+```
 

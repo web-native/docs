@@ -3,7 +3,7 @@ HTML Transport is an import/export system that lets us define, extend, and distr
 
 Put together, exports, imports, and dynamic recomposition make it possible for us to build entire applications with much fewer components.
 
-HTML Transport also natively supports [ScopedHTML](/chtml/scoped-html/) and [ScopedJS](/chtml/scoped-js/) where used in the same document.
+HTML Transport also natively supports [ScopedHTML](/chtml/v060/specs/scoped-html/) and [ScopedJS](/chtml/v060/specs/scoped-js/) where used in the same document.
 
 ## On this page:
 + [Exports](#exports)
@@ -14,10 +14,10 @@ HTML Transport also natively supports [ScopedHTML](/chtml/scoped-html/) and [Sco
 + [HTMLTransport Configuration](#htmltransport-configuration)
 
 ## Exports
-CHTML exports are fragments of HTML markup defined for later use, bundled together in a special `<template>` element. Each export is assigned a unique namespace for reference purposes. Below, we've chosen to use the `namespace` attribute, but this can be changed.
+HTML exports are fragments of HTML markup defined for later use, bundled together in a special `<template>` element. Each export is assigned a unique namespace for reference purposes. Below, we've chosen to use the `namespace` attribute, but this can be changed.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
   <div namespace="html/content/article"></div>
 </template>
 ```
@@ -25,7 +25,7 @@ CHTML exports are fragments of HTML markup defined for later use, bundled togeth
 Namespaces are like file paths. They organize exports into virtual categories. Above, we've placed article under a category named *content*. There could be other types in this category. And we can have subcategories to as much as organization requires.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <!-- Displays article -->
   <div namespace="html/content/article/readonly"></div>
@@ -53,7 +53,7 @@ Remote bundles can be easily loaded into a `<template>` element using a custom `
 <!-- index.html -->
 <html>
   <head>
-    <template is="chtml-bundle" src="/bundle.html"></template>
+    <template is="html-bundle" src="/bundle.html"></template>
     <!-- The src attribute demands that the <template> element be empty -->
   </head>
   <body></body>
@@ -67,8 +67,8 @@ Now multiple bundles can be used on the same document - whether defined statical
 <html>
   <head>
 
-    <template is="chtml-bundle" src="/bundle.html"></template>
-    <template is="chtml-bundle">
+    <template is="html-bundle" src="/bundle.html"></template>
+    <template is="html-bundle">
 
         <!-- components -->
         <div namespace="html/badge/user"></div>
@@ -98,11 +98,11 @@ Now multiple bundles can be used on the same document - whether defined statical
 ```
 
 ## Imports
-CHTML imports are special elements that let us retreive and place *exports* into any location in a HTML document. An import is the `chtml-import` element.
+HTML imports are special elements that let us retreive and place *exports* into any location in a HTML document. An import is the `html-import` element.
 
 ```html
 <body>
-  <chtml-import namespace="html/content/article/readonly"></chtml-import>
+  <html-import namespace="html/content/article/readonly"></html-import>
 </body>
 ```
 
@@ -112,8 +112,8 @@ Imports use the `namespace` attribute to reference exports. They are only a plac
 By default, import elements are resolved as soon as they get connected to the DOM. This makes sense most of the times. At other times, we may want imports to resolve *on-demand* - just at the time they are accessed in an application. This is achieved with the `ondemand` *Boolean* attribute.
 
 ```html
-<div scope="article">
-  <chtml-import ondemand namespace="html/badge/user"></chtml-import>
+<div root>
+  <html-import ondemand namespace="html/badge/user"></html-import>
 </div>
 ```
 
@@ -124,7 +124,7 @@ The import element itself gets replaced and is never part of the shadow DOM nor 
 
 ```html
 <div id="host">
-  <chtml-import shadow namespace=" html/badge/user"></chtml-import>
+  <html-import shadow namespace=" html/badge/user"></html-import>
 </div>
 ```
 
@@ -132,8 +132,8 @@ We could even send some `<style>` element into the shadow DOM.
 
 ```html
 <div id="host">
-  <chtml-import shadow namespace=" html/badge/user"></chtml-import>
-  <chtml-import shadow namespace="css/badge"></chtml-import>
+  <html-import shadow namespace=" html/badge/user"></html-import>
+  <html-import shadow namespace="css/badge"></html-import>
 </div>
 ```
 
@@ -154,13 +154,13 @@ There are three aspects of a component that can be recomposed on each import we 
 Certain attributes meant for the incoming component can be predefined on the import element. For example, if we wanted an incoming component to have an ID, we would set this on the import element.
 
 ```html
-<chtml-import namespace="html/badge/user" id="some-id"></chtml-import>
+<html-import namespace="html/badge/user" id="some-id"></html-import>
 ```
 
 We could import the same component in another place yo take on a different ID.
 
 ```html
-<chtml-import namespace="html/badge/user" id="some-other-id"></chtml-import>
+<html-import namespace="html/badge/user" id="some-other-id"></html-import>
 ```
 
 For some types of attribute, any existing values on the component will be replaced; for others, values will be merged.
@@ -170,22 +170,22 @@ For some types of attribute, any existing values on the component will be replac
 Below, we're importing the *user* component to take on the `article-author` role for an *article* component.
 
 ```html
-<template is="chtml-bundle">
-  <div namespace="html/badge/user" scope="user" class="class0">...</div>
+<template is="html-bundle">
+  <div namespace="html/badge/user" root>...</div>
 </template>
 ```
 
 ```html
-<div scope="article">
-  <chtml-import namespace="html/badge/user" scope="article-author" class="class1 class2"></chtml-import>
+<div root>
+  <html-import namespace="html/badge/user" scoped:id="author" class="class1 class2"></html-import>
 </div>
 ```
 
 This is how the final composition would look; notice how the `class` and `scope` attributes were composed into the imported component:
 
 ```html
-<div scope="article">
-  <div namespace="html/badge/user" scope="user article-author" class="class0 class1 class2">...</div>
+<div root>
+  <div namespace="html/badge/user" scoped:id="author" class="class0 class1 class2">...</div>
 </div>
 ```
 
@@ -196,13 +196,13 @@ It is possible to configure additional *list-type* attributes. Simply [obtain HT
 Below, we're importing a component to take on a blue color by overriding its default red color.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
   <div namespace="html/badge/user" style="color: red"></div>
 </template>
 ```
 
 ```html
-<chtml-import namespace="html/badge/user" style="color: blue"></chtml-import>
+<html-import namespace="html/badge/user" style="color: blue"></html-import>
 ```
 
 This is how the final composition would look; notice how the `style` attribute was recomposed on the imported component:
@@ -221,28 +221,28 @@ Although HTML Transport does not require ScopedJS, it does provide native suppor
 This is what happens below.
 
 ```html
-<template is="chtml-bundle">
-  <div namespace="html/alert/success" scope="alert">
-    <div scope="alert-message">...</div>
+<template is="html-bundle">
+  <div namespace="html/alert/success" root>
+    <div scoped:id="message">...</div>
   </div>
 </template>
 ```
 
 ```html
-<chtml-import namespace="html/alert/success">
+<html-import namespace="html/alert/success">
   <script type="text/scoped-js">
     this.querySelector('.exit').addEventListener('click', () => {
         this.remove();
     });
   </script>
-</chtml-import>
+</html-import>
 ```
 
 The final composition would give us:
 
 ```html
-<div namespace="html/alert/success" scope="alert">
-  <div scope="alert-message">...</div>
+<div namespace="html/alert/success" root>
+  <div scoped:id="message">...</div>
   <script type="text/scoped-js">
     this.querySelector('.exit').addEventListener('click', () => {
         this.remove();
@@ -257,29 +257,29 @@ Although HTML Transport does not require ScopedHTML, it does provide native supp
 This is what happens below where we import an *alert* component, but with the original *alert-message* part completely replaced with a richer one.
 
 ```html
-<template is="chtml-bundle">
-  <div namespace="html/alert/success" scope="alert">
-    <div scope="alert-message" style="color: blue;">...</div>
+<template is="html-bundle">
+  <div namespace="html/alert/success" root>
+    <div scoped:id="message" style="color: blue;">...</div>
   </div>
 </template>
 ```
 
 ```html
-<chtml-import namespace="html/alert/success">
-  <div scope="alert-message">
-    <div scope="message-title" style="text-transform: uppercase; font-weight: bold;"></div>
-    <div scope="message-content"></div>
+<html-import namespace="html/alert/success">
+  <div scoped:id="message">
+    <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
+    <div scoped:id="content"></div>
   </div>
-</chtml-import>
+</html-import>
 ```
 
 The final composition would give us:
 
 ```html
-<div namespace="html/alert/success" scope="alert">
-  <div scope="alert-message message" style="color: blue;">
-    <div scope="message-title" style="text-transform: uppercase; font-weight: bold;"></div>
-    <div scope="message-content"></div>
+<div namespace="html/alert/success" root>
+  <div scoped:id="message message" style="color: blue;">
+    <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
+    <div scoped:id="content"></div>
   </div>
 </div>
 ```
@@ -295,33 +295,33 @@ Notice that *replacement parts* also inherit properties of their *original parts
 In our code above, we statically typed an *alert-message* replacement part. But it is also possible for a replacement part to be an import of its own.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
-  <div namespace="html/alert/success" scope="alert">
-    <div scope="alert-message" style="color: blue;">...</div>
+  <div namespace="html/alert/success" root>
+    <div scoped:id="message" style="color: blue;">...</div>
   </div>
 
-  <div namespace="html/message" scope="message">
-    <div scope="message-title" style="text-transform: uppercase; font-weight: bold;"></div>
-    <div scope="message-content"></div>
+  <div namespace="html/message" root>
+    <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
+    <div scoped:id="content"></div>
   </div>
 
 </template>
 ```
 
 ```html
-<chtml-import namespace="html/alert/success">
-  <chtml-import namespace="html/message" scope="alert-message"></chtml-import>
-</chtml-import>
+<html-import namespace="html/alert/success">
+  <html-import namespace="html/message" scoped:id="message"></html-import>
+</html-import>
 ```
 
 The final composition would give us the same result as before:
 
 ```html
-<div namespace="html/alert/success" scope="alert">
-  <div scope="alert-message message" style="color: blue;">
-    <div scope="message-title" style="text-transform: uppercase; font-weight: bold;"></div>
-    <div scope="message-content"></div>
+<div namespace="html/alert/success" root>
+  <div scoped:id="message message" style="color: blue;">
+    <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
+    <div scoped:id="content"></div>
   </div>
 </div>
 ```
@@ -329,20 +329,20 @@ The final composition would give us the same result as before:
 We have just performed a recursive import as we replaced the *alert-message* part. Now, with the *alert-message* replacement part being an import of its own, we now also have the power of the import element. For example, We could replace the *message-title* part on this new level of import.
 
 ```html
-<chtml-import namespace="html/alert/success">
-  <chtml-import namespace="html/message" scope="alert-message">
-    <div scope="message-title" style="font-size: larger;"></div>
-  </chtml-import>
-</chtml-import>
+<html-import namespace="html/alert/success">
+  <html-import namespace="html/message" scoped:id="message">
+    <div scoped:id="title" style="font-size: larger;"></div>
+  </html-import>
+</html-import>
 ```
 
 The final composition would give us the same result as before, but with a replaced *message-title* part:
 
 ```html
-<div namespace="html/alert/success" scope="alert">
-  <div scope="alert-message message" style="color: blue;">
-    <div scope="message-title" style="text-transform: uppercase; font-weight: bold; font-size: larger;"></div>
-    <div scope="message-content"></div>
+<div namespace="html/alert/success" root>
+  <div scoped:id="message message" style="color: blue;">
+    <div scoped:id="title" style="text-transform: uppercase; font-weight: bold; font-size: larger;"></div>
+    <div scoped:id="content"></div>
   </div>
 </div>
 ```
@@ -357,13 +357,13 @@ By default, only attributes are implicitly inherited. Where ScopedJS is used in 
 Below, we have two *article* components. The first one is the base article component. The second is a derivation of this base component; we simply extended the namespace into a *dark-mode* version.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <!-- Standard, readonly article -->
-  <div namespace="html/content/article/readonly" scope="article">
+  <div namespace="html/content/article/readonly" root>
 
-    <div scope="article-title"></div>
-    <div scope="article-content"></div>
+    <div scoped:id="title"></div>
+    <div scoped:id="content"></div>
 
     <script type="text/scoped-js">
       this.scope.content.append('Thanks for reading!');
@@ -374,8 +374,8 @@ Below, we have two *article* components. The first one is the base article compo
   <!-- Dark-mode, readonly article -->
   <div namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;">
 
-    <div scope="article-title"></div>
-    <div scope="article-content"></div>
+    <div scoped:id="title"></div>
+    <div scoped:id="content"></div>
 
   </div>
 
@@ -385,10 +385,10 @@ Below, we have two *article* components. The first one is the base article compo
 Above, our second component would be implicitly inheriting the *scope* attribute and the ScopedJS script. Importing this *dark-mode* component would give us a richly-composed result.
 
 ```html
-<div namespace="html/content/article/readonly/dark-mode" scope="article" style="color: white; background-color: black;">
+<div namespace="html/content/article/readonly/dark-mode" scoped:id="color: black;">
 
-    <div scope="article-title"></div>
-    <div scope="article-content"></div>
+    <div scoped:id="title"></div>
+    <div scoped:id="content"></div>
 
     <script type="text/scoped-js">
       this.scope.content.append('Thanks for reading!');
@@ -400,9 +400,9 @@ Above, our second component would be implicitly inheriting the *scope* attribute
 Inheritance has, indeed, saved us much repetition! The only aspects we repeated from the base component are the structural parts - *article-title* and *article-content*. Even these could be inherited; this time, using an explicit approach. To inherit structural parts, the namespace extension would be defined as an import.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
-  <chtml-import namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;"></chtml-import>
+  <html-import namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;"></html-import>
 
 </template>
 ```
@@ -410,12 +410,12 @@ Inheritance has, indeed, saved us much repetition! The only aspects we repeated 
 Using an *import* construct now also gves us the power of import-based composition. If we so desired, the inherited structural parts could be replaced!
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <!-- Dark-mode, readonly article, with a new "content" part  -->
-  <chtml-import namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;">
-    <div scope="article-content" style="border-color:white"></div>
-  </chtml-import>
+  <html-import namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;">
+    <div scoped:id="content" style="border-color:white"></div>
+  </html-import>
 
 </template>
 ```
@@ -426,7 +426,7 @@ Since properties are implicitly inherited by subnamespaces, it is safe to query 
 Right below, we're importing a component that is assumed to be an animated edition of an *alert* component. But since we're yet to actually implement this subnamespace, the query will be falling back to the standard alert component.
 
 ```html
-<chtml-import namespace="html/alert/success/animated"></chtml-import>
+<html-import namespace="html/alert/success/animated"></html-import>
 ```
 
 Now this really allows us to progressively build features into an app while using a real layout plan from the start.
@@ -437,13 +437,13 @@ When multiple bundles are defined on a document, they are all used in a cascaded
 The derived *dark-mode* article in our code earlier could be in a diffrent bundle. Inheritance would apply as expected, this time, cross-bundle.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <!-- Standard, readonly article -->
-  <div namespace="html/content/article/readonly" scope="article">
+  <div namespace="html/content/article/readonly" root>
 
-    <div scope="article-title"></div>
-    <div scope="article-content"></div>
+    <div scoped:id="title"></div>
+    <div scoped:id="content"></div>
 
     <script type="text/scoped-js">
       this.scope.content.append('Thanks for reading!');
@@ -453,13 +453,13 @@ The derived *dark-mode* article in our code earlier could be in a diffrent bundl
 
 </template>
 
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <!-- Dark-mode, readonly article -->
   <div namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;">
 
-    <div scope="article-title"></div>
-    <div scope="article-content"></div>
+    <div scoped:id="title"></div>
+    <div scoped:id="content"></div>
 
   </div>
 
@@ -472,7 +472,7 @@ As a general rule, everything found on an import element are stripped off and co
 **Using the Norecompose Attribute:** To object to recomposition on an element, the *norecompose* attribute can be used. If without a value, this attribute disables recomposition completely. Setting its value to `*` achieves the same thing. A list of attribute names may, however, be set to specify the attributes that should be excluded from composition.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
   <div namespace="html/badge/user" style="color: blue;" norecompose="style"></div>
 </template>
 ```
@@ -492,7 +492,7 @@ To exclude scoped scripts from recomposition, the `--scoped-js` expression shoul
 The *norecompose* directive may also be set generally for all exports in a bundle.
 
 ```html
-<template is="chtml-bundle" norecompose="style --scoped-js">
+<template is="html-bundle" norecompose="style --scoped-js">
 
   <div namespace="component/badge/user" style="color: blue;">
 
@@ -513,7 +513,7 @@ With the HTML Transport system and the presence of ScopedHTML and ScopedJS, it i
 First, we would define one reusable item component, then the list container having a two-part namespace that references the reusable item component, with both parts of the namespace separated by two forward slashes.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <li namespace="html/item"></li>
 
@@ -526,7 +526,7 @@ Now, we can simply import the list container into the page.
 
 ```html
 <body>
-  <chtml-import namespace="html/list"></chtml-import>
+  <html-import namespace="html/list"></html-import>
 </body>
 ```
 
@@ -535,8 +535,8 @@ Now when we send in a data array into the list container the ScopedJS way, the l
 ```js
 let listContainer = document.querySelector('ul');
 listContainer.bind([
-    'item-1',
-    'item-2',
+    {content: 'item-1'},
+    {content: 'item-2'},
 ]);
 ```
 
@@ -563,7 +563,7 @@ listContainer.bind({
 To render individual data entry into the generated items, we would simply add a scoped script to the item definition to do the job.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <li namespace="html/item">
     <script type="text/scoped-js">
@@ -595,12 +595,12 @@ As noted earlier, items are automatically imported into, or removed from a list 
 To render additional items to our list above, we would simply add extra entries to our data. Below, we've added two more entries. Since two item elements already exists in the list container, only two new imports will now be made.
 
 ```js
-listContainer.sync = {
+listContainer.bind({
     item1: {content: 'item-1'},
     item2: {content: 'item-2'},
     item3: {content: 'item-3'},
     item4: {content: 'item-4'},
-};
+});
 ```
 
 ```html
@@ -694,7 +694,7 @@ The same pattern holds true for data objects. For an object like `{key1: {conten
 This makes it possible to create components that are unique to specific indexes, if we so desire. For example, while every item would be imported with the regular `html/item`, we could have a unique implementation for the first item.
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <li namespace="html/item"></li>
   <li namespace="html/item/0" style="font-weight: bold;"></li>
@@ -709,7 +709,7 @@ Item-specific imports can be even more dynamic using dynamic namespace expressio
 ```html
 <body>
 
-  <chtml-import namespace="html/list//html/item/[lang]"></chtml-import>
+  <html-import namespace="html/list//html/item/[lang]"></html-import>
 
 </body>
 ```
@@ -724,7 +724,7 @@ listContainer.bind([
 ```
 
 ```html
-<template is="chtml-bundle">
+<template is="html-bundle">
 
   <li namespace="html/item"></li>
   <li namespace="html/item/en" style="color: blue;"></li>
@@ -740,7 +740,7 @@ Placeholders, could also use the dot (.) notation to reference deep in a the giv
 ```html
 <body>
 
-  <chtml-import namespace="html/list//html/item/[lang.code]"></chtml-import>
+  <html-import namespace="html/list//html/item/[lang.code]"></html-import>
 
 </body>
 ```
@@ -805,9 +805,9 @@ Here are the configuration options.
 
 + `ENV.params.namespaceAttribute` - (String): The namespace attribute for import and exports. This is `namespace` by default.
 
-+ `ENV.params.bundleElement` - (String): The name of the bundle element, implemented as a *Customized Built-In*. This is `chtml-bundle` by default.
++ `ENV.params.bundleElement` - (String): The name of the bundle element, implemented as a *Customized Built-In*. This is `html-bundle` by default.
 
-+ `ENV.params.importElement` - (String): The name of the import element, implemented as a *Custom Element*. This is `chtml-import` by default.
++ `ENV.params.importElement` - (String): The name of the import element, implemented as a *Custom Element*. This is `html-import` by default.
 
 + `ENV.params.keyValAttributes` - (Array): Attributes to be treated as *key-value* attributes, in addtion to the `style` attribute. This is empty by default.
 

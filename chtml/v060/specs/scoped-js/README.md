@@ -22,7 +22,7 @@ The script below is scoped to the `#alert` element. And the `this` reference is 
 </div>
 ```
 
-The closest we could get with native HTML would be the use of intrinsic events. And we would quickly be hitting the limits of what's possible with such an approach.
+The closest we could get with native HTML would be the use of intrinsic event attributes. And we would quickly be hitting the limits of what's possible with such an approach.
 
 ```html
 <div id="alert">
@@ -31,7 +31,7 @@ The closest we could get with native HTML would be the use of intrinsic events. 
 </div>
 ```
 
-To take things further, it is possible to receive external values, usually data from an application, in a scoped script. This is done by binding variables to the sope.
+Taking things further, it is possible to receive external values in a scoped script, usually a data object from an application. Properties of the data object bound to a soped script can be accessed by name.
 
 ```js
 let alertEl = document.querySelector('#alert');
@@ -54,6 +54,23 @@ alertEl.bind({
 </div>
 ```
 
+It is also possible to bind non-objects to a scoped script. This time, our script would need to **directly recieve** the bound value *as-is*. To do this, we would define the recieving function in our script and make it the script's return value.
+
+```html
+<div id="alert">
+    <div class="message"></div>
+    <div class="exit" title="Close this message.">X</div>
+    <script type="text/scoped-js">
+      var alternativeText = 'Hello World!';
+      return (boundValue) => {
+          this.innerHTML = boundValue ? boundValue : alternativeText;
+      };
+    </script>
+</div>
+```
+
+Now, calling `alertEl.bind('Hello World!')` would also invoke our recieving function with the same arguments.
+
 ## Automatic Observability
 Change detection is a critical feature in client-side scripting. And this is a native feature in ScopedJS! ScopedJS supports the [Reflex API](/reflex/) for making live changes to an object or array that has already been bound. New changes are automatically picked up and the specific ScopedJS **statement** that relies on the changed value will be re-executed.
 
@@ -74,7 +91,7 @@ Below is an example showing how the final state of an animation is kept in sync 
       let animation = this.animate([{opacity:1}, {opacity:0}], {duration: 400});
       animation.onfinish = () => {
           // But after fade-out, the visibility of this element should now
-          // depend on whatever the application decides for this.data.opacityLevel
+          // depend on whatever the application decides for opacityLevel
           this.style.opacity = opacityLevel;
       };
 
@@ -82,7 +99,7 @@ Below is an example showing how the final state of an animation is kept in sync 
 </div>
 ```
 
-Our area of interest is the statement `this.style.opacity = opacityLevel` within the animation's `onfinish` block. By referencing the `opacityLevel` variable, this statement is now bound to the `opacityLevel` variable, and will rerun whenever the `opacityLevel` binding changes. In our application, we could keep blinking the element simply by changing the value of `opacityLevel` at intervals. We are now using the Reflex API to modify `opacityLevel` in-place instead of rebinding the data object afresh.
+Our area of interest is the statement `this.style.opacity = opacityLevel` within the animation's `onfinish` block. By referencing the `opacityLevel` variable, this statement is now bound to the `opacityLevel` variable, and will rerun whenever the `opacityLevel` binding changes. So in our application, we could keep blinking the element simply by changing the value of `opacityLevel` at intervals. Below, we are now using the Reflex API to modify `opacityLevel` in-place instead of rebinding the data object afresh.
 
 ```js
 let alertEl = document.querySelector('#alert');
@@ -131,7 +148,7 @@ ScopedJSGlobals.$ = window.jQuery;
 ```
 
 ```html
-<div scope="alert">
+<div id="alert">
     <div class="message"></div>
     <div class="exit" title="Close this message.">X</div>
     <script type="text/scoped-js">

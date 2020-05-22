@@ -36,7 +36,7 @@ Chtml.init(JSDOM.window);
 // -----------
 HTMLTransport.ready(() => {
     let app = {};
-    JSDOM.window.document.body.sync = app;
+    JSDOM.window.document.body.bind(app);
 });
 ```
 

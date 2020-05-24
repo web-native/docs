@@ -2,7 +2,7 @@
 
 * [Docs - Web-Native.Dev](README.md)
 * [CHTML](/chtml/README.md)
-  * [CHTML](/chtml/v060/specs/README.md)
+  * [CHTML Specs](/chtml/v060/specs/README.md)
     * [Scoped HTML](/chtml/v060/specs/scoped-html/README.md)
     * [Scoped CSS](/chtml/v060/specs/scoped-css/README.md)
     * [Scoped JS](/chtml/v060/specs/scoped-js/README.md)

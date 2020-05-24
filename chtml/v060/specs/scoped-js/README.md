@@ -145,7 +145,7 @@ import {ENV as CHTML_ENV} from '@web-native-js/chtml';
 let ScopedJSGlobals = CHTML_ENV.ScopedJS.globals;
 ```
 
-Now we can assign global references. jQuery is a good example.
+Now we can assign global references. jQuery is a good example. (But consider using the more resilient DOM and UI manipulation library - [PlayUI](/play-ui/).)
 
 ```js
 ScopedJSGlobals.$ = window.jQuery;

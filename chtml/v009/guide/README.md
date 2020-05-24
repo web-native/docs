@@ -6,13 +6,13 @@ CHTML is an adaptable system of specifications and tooling that brings UI compon
 
 **Problem is:** you cannot encapsulate subtrees in a HTML document. Every element in a HTML document just happens to be associated with the global scope of the document's scripts and styles.
 
-![Everything is connected to a global scope](../../.gitbook/assets/chtml.fw.png)
+![Everything is connected to a global scope](/.gitbook/assets/chtml.fw.png)
 
 The above leads to specificity wars in CSS selectors. -`body > div:first-child {}` - and other naming mechanism that quickly becomes very difficult to maintain - `querySelectorAll('#first-div')`.
 
 **What we want is:** the ability to imply encapsulated subtrees that are functionally independent. They should also be able to bundle their own CSS and JavaScript.
 
-![Subtrees that establish their own scope for CSS and JavaScript](../../.gitbook/assets/chtml-2.fw.png)
+![Subtrees that establish their own scope for CSS and JavaScript](/.gitbook/assets/chtml-2.fw.png)
 
 The above represents a document composed of functionally-independent blocks that might have been **defined statically** or dropped into their current locations **dynamically**.
 
@@ -61,7 +61,7 @@ This component model is going to be the basis for anyone or any script/bot to in
 
 Now whatever later becomes of this component wouldn't be anyone's headache!
 
-![](../../.gitbook/assets/chtml-3.fw.png)
+![](/.gitbook/assets/chtml-3.fw.png)
 
 #### Nesting Components
 

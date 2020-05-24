@@ -2,9 +2,9 @@
 Chtml can be embedded as a script tag on your HTML page or installed via *npm*. In each case, you can choose to install the entire suite or a selection of its component libraries.
 
 ## On this Page
-+ [mbed As Script](#embed-as-script)
-  + [mbed The Complete Build](#embed-the-complete-build)
-  + [mbed Complete Builds](#embed-individual-builds)
++ [Embed As Script](#embed-as-script)
+  + [Embed The Complete Build](#embed-the-complete-build)
+  + [Embed Complete Builds](#embed-individual-builds)
 + [Install Via NPM](#install-via-npm)
   + [Import The Default Export](#import-the-default-export)
   + [Import Individual Modules](#import-individual-modules)

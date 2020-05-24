@@ -1,24 +1,24 @@
 # PlayUI API
 The PlayUI API can be used individually as standalone static function or together as instance methods.
 
-## As Individual Functions
-These functions are organized in categories.
+## PlayUI Core
+By design, PlayUI is a collection of standalone functions organized in categories.
 * [The DOM](/play-ui/api/dom/README.md) - DOM manipulation APIs.
 * [CSS](/play-ui/api/css/README.md) - CSS-processing utilities.
 * [Animation](/play-ui/api/ani/README.md) - Animation utilities.
 * [Event](/play-ui/api/evt/README.md) - Utilities for binding events and gestures.
 * [The UI](/play-ui/api/ui/README.md) - Utilities for manipulating the rendered UI.
 
-## As Instance Methods
-Each of the following instance methods are based on a static standalone function which should be consulted for a detailed documentation. Each method maintains the same function definition as their respective static counterpart, with the instance's matched element serving as the first parameter to the original function.
+## PlayUI Constructible
+PlayUI can be used as a *constructible function* (like the jQuery function) with its core functions available as instance methods.
 
-On [importing PlayUI](/play-ui/guide.md), create an instance by calling PlayUI with a DOM element or a CSS selector.
+Each of the following instance methods is mapped to a core standalone function and maintains the same function definition as their respective core counterpart. But where a core function defines a DOM element (the subject element) as its first parameter, instance methods implicitly use the element matched by the instance. And where a core function would return the given subject element, an instance method would simply return the instance object.
+
+For the code examples below, create an instance by calling PlayUI with a DOM element or a CSS selector.
 
 ```js
 // The PlayUI instance
 let instance = $('#el');
-// The underlying DOM element
-let el = instance.el;
 ```
 
 ### The DOM
@@ -392,7 +392,7 @@ This method observes when the current matched element is added to, or removed fr
 // Observe "onmutated"
 $('#el').onmutated(connectedState => {
     // If connectedState === 1, connected else if connectedState === 0, disconnected
-    console.log('I am now ' + connectedState ? 'connected to' : 'disconnected from' + ' the DOM!');
+    console.log('I am now ' + (connectedState ? 'connected to' : 'disconnected from') + ' the DOM!');
 });
 ```
 

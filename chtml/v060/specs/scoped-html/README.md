@@ -1,13 +1,19 @@
 # Scoped HTML
-Scoped HTML is a markup pattern that lets us break an HTML document into a hierarchy of smaller-sized structural scopes. A scope may be explicitly designated or implicitly inferred from HTML's semantic scoping.
+Scoped HTML is an HTML document that is based on a hierarchy of smaller-sized structural scopes instead of one global document scope. It provides a more semantic document structure that is easier to think about and work with. Thinking and working in scopes is the modern key to effortlessly building and maintaining the UI.
+
+This specification defines a standard way of explicitly declaring scopes and encapsulating structure, and also incorporates the implicit scopes that are inherent to semantic HTML. It further introduces *scopeTree* API for traversing scoped structures.
 
 ## On this page:
-+ [Explicit Scopes](#explicit-scopes)
-+ [Implicit Scopes](#implicit-scopes)
-+ [The Scope API](#the-scope-api)
++ [Scopes](#scopes)
+  + [Explicit Scopes](#explicit-scopes)
+  + [Implicit Scopes](#implicit-scopes)
++ [The `scopeTree` API](#the-scopetree-api)
 + [ScopedHTML Configuration](#scopedhtml-configuration)
 
-## Explicit Scopes
+## Scopes
+A scope is a *virtual encapsulation* of a subtree*. It functions as a reference point for accessing semantic parts of the subtree.
+
+### Explicit Scopes
 A scope is explicitly designated on an element using the `root` *Boolean* attribute.
 
 ```html
@@ -20,10 +26,10 @@ A scope is explicitly designated on an element using the `root` *Boolean* attrib
 </div>
 ```
 
-The `root` attribute creates a context for naming elements within a subtree. The special `scoped:id` attribute is used to name elements that are uniquely associated with this context.
+The context created by the `root` attribute allows us to use element IDs that apply only within the scope. Scoped IDs are based on the `scoped:id` attribute.
 
 ```html
-<div id="article" root>
+<div root id="article">
   <div>
     <h1 scoped:id="title">COVID19 Situation Report</h1>
     <div scoped:id="content">Many more countries are in!</div>
@@ -32,7 +38,7 @@ The `root` attribute creates a context for naming elements within a subtree. The
 </div>
 ```
 
-Scoped-IDs are expecially important in exposing a scope's structural parts called nodes. We could use them to implement structural APIs over the DOM tree. So above, our structural API would be:
+Scoped IDs are expecially important in maintaining a semantic structure that can be used as a scope's public structural API. Our structural API above would be:
 
 ```html
 #article
@@ -41,40 +47,41 @@ Scoped-IDs are expecially important in exposing a scope's structural parts calle
   |-- author
 ```
 
-Now, regardless of how complex the document tree eventually becomes, there will always be a consistent model for an application to bank on, saving everyone much structural guesswork.
+Now, regardless of how complex the document tree eventually becomes, there will always be a consistent structural API that an application can bank on. Much structural guesswork also gets out of the way for everyone else.
 
-### Nested Scopes
-A *node* may constitute a new scope of its own, and have its own nodes. An *article* scope, for example, could have an `author` node that is itself a new root.
+#### Nested Scopes
+A *semantic node* may establish a scope of its own, and have its own semantic nodes. An `article` scope, for example, could have an `author` node that functions as the *root* of a new scope.
 
 ```html
-<div id="article" root>
+<div root id="article">
   <div>
     <h1 scoped:id="title">COVID19 Situation Report</h1>
     <div scoped:id="content">Many more countries are in!</div>
   </div>
-  <div scoped:id="author" root>
+  <div root scoped:id="author">
     <div scoped:id="name"></div>
     <div scoped:id="avatar"></div>
   </div>
 </div>
 ```
 
-This would produce the following model.
+This would produce the following API.
 
 ```html
 #article
+  |-- title
+  |-- content
   |-- author
-  |  |-- avatar
-  |  |-- name
-  |- content
+     |-- avatar
+     |-- name
 ```
 
-## Implicit Scopes
-The idea of scoping is inherent to many native HTML elements. These implicit scopes are automatically recognized in Scoped HTML and need not be explicitly redesigned.
+### Implicit Scopes
+The concept of scoping is inherent to many native HTML elements. These implicit scopes are automatically recognized in Scoped HTML and need not be explicitly redefined.
 
-The [HTML standard](https://html.spec.whatwg.org/multipage) maintains a design specification that dictates an element's **category** and its **content model** (or permissible elements). Where an element’s *category* is defined, its permissible elements are implicitly-scoped to this category. Here are a few examples.
+The [HTML standard](https://html.spec.whatwg.org/multipage) maintains a design specification that dictates an element's **category** and its **content model** (or permissible elements). Here, an element’s permissible elements are implicitly-scoped to its *category*.
 
-The `<html>` element has two direct elements in its content model.
+For example, the `<html>` element has two direct elements in its content model that are implicitly-scoped.
 
 ```html
 <html>
@@ -83,7 +90,7 @@ The `<html>` element has two direct elements in its content model.
 </html>
 ```
 
-Its model would look like this:
+Its strucutral API would now be:
 
 ```html
 html
@@ -91,9 +98,7 @@ html
   |-- body
 ```
 
-The `<head>` element defines *Metadata* elements in its content model; that is, elements in the *Metadata* category.
-
-Below, the following *Metadata* elements can only be used once in the `<head>` element.
+As another example, the `<head>` element defines *Metadata* elements in its content model; that is, elements in the *Metadata* category. So below, the following *Metadata* elements are soped to the `<head>` element and can only be used once in the `<head>` element.
 
 ```html
 <head>
@@ -102,7 +107,7 @@ Below, the following *Metadata* elements can only be used once in the `<head>` e
 </head>
 ```
 
-The model would look like this:
+The strucutral API would now be:
 
 ```html
 head
@@ -110,7 +115,7 @@ head
   |-- base
 ```
 
-But certain elements are also permitted to appear any number of times within their permissible scope. The `<head>` element, again, permits multiple `<meta>` elements.
+Certain elements are also permitted to appear any number of times within their permissible scope. The `<head>` element, again, permits multiple `<meta>` elements.
 
 ```html
 <head>
@@ -122,7 +127,7 @@ But certain elements are also permitted to appear any number of times within the
 </head>
 ```
 
-This would give us the following model. \(Notice the list notation on the meta node.\)
+This would give us the following strucutral API. \(Notice the list notation on the *meta* node.\)
 
 ```html
 head
@@ -131,10 +136,10 @@ head
   |-- base
 ```
 
-### Recursive Scopes
+#### Recursive Scopes
 Where two identical scopes are nested, elements are associated with the scope that is closest to them up the hierarchy. The `<body>` element and the `<blockquote>` element are a good example of recursive scopes.
 
-The `<body>` element is categorized as a *Sectioning Root* element that permits *Flow Content* elements in its content model. The `<blockquote>` element is one of those *Flow Content* elements, but at the same time, a *Sectioning Root* element that could have its own *Flow Content* elements. This gives us a recursive *Flow Content* scope as seen below.
+The `<body>` element is categorized as a *Sectioning Root* element that permits *Flow Content* elements in its content model. The `<blockquote>` element is one of those *Flow Content* elements, but also happens to be a *Sectioning Root* element that could have its own *Flow Content* elements. This gives us a recursive *Flow Content* scope as seen below.
 
 ```html
 <body> <!-- Sectioning Root -->
@@ -150,7 +155,7 @@ The `<body>` element is categorized as a *Sectioning Root* element that permits 
 </body>
 ```
 
-So above, every *Flow Content* element is semantically associated with the body's *Sectioning Root* scope except those within blockquote's *Sectioning Root* scope. This gives us the following relationship.
+So above, every *Flow Content* element is semantically associated with the body's *Sectioning Root* scope except those within the blockquote's *Sectioning Root* scope. This gives us the following strucutral API.
 
 ```html
 body
@@ -178,7 +183,7 @@ Another form of the *Sectioning Root* category is *Sectioning Content*. Elements
 </body>
 ```
 
-This would give us the following model.
+This would give us the following strucutral API.
 
 ```html
 body
@@ -189,8 +194,8 @@ body
       |-- div (1)
 ```
 
-### ARIA Roles
-The implicit and explicit roles defined in the ARIA specification are automatically recognized in Scoped HTML. Elements that have an explicit or implicit ARIA role can be accessed by both their *rolename* and their *tagname*.
+#### ARIA Roles
+The scopes created by the roles defined in the ARIA specification are automatically recognized in Scoped HTML. Elements that have an explicit or implicit ARIA role can be accessed by both their *rolename* and their *tagname*.
 
 ```html
 <body>
@@ -202,7 +207,7 @@ The implicit and explicit roles defined in the ARIA specification are automatica
 </body>
 ```
 
-This would give us the following model.
+This would give us the following strucutral API.
 
 ```html
 body
@@ -225,7 +230,7 @@ The `<section>` element has the implicit ARIA role *region*. So both the names *
 </body>
 ```
 
-This would produce the following model.
+This would produce the following strucutral API.
 
 ```html
 body
@@ -253,32 +258,16 @@ body
 
 Notice above that the `<li>` element does not reflect in the `<body>` as their permissible scope ends with the `<ul>` element.
 
-## The Scope API
-The Scope API is a set of properties and methods that lets us access scopes on any element. This is made possible by the [*ScopedHTML* JavaScript library](/chtml/guide/installation.md).
+## The `scopeTree` API
+To make it easier to work with scoped documents, Scoped HTML introduces the `scopeTree` property as part of the DOM API. This property can be used to directly access elements by `scoped:id`.
 
-### The `scopeSelector()` Instance Method
-This method is used to query a scope using CSS selectors, much like the `querySelector()` method. The distinguishing factor is that only elements within the boundaries of the scope are matched. Additionally, the ID `#` selector is mapped to the `scoped:id` attribute instead of the `id` attribute.
-
-```js
-// Let's retrieve the #article element itself using document.querySelector()
-let article = document.querySelector('#article');
-
-// Let's query elements by "scoped-id"
-let articleTitle = article.scopeSelector('#title');
-let articleContent = article.scopeSelector('#content');
-
-// Chained queries would just take us into nested scopes
-let articleAuthorName = article.scopeSelector('#author').scopeSelector('#name');
-```
-
-### The `scopeTree` Property
-This property can be used to directly access named elements.
+This API is made available by the [*ScopedHTML* JavaScript module](/chtml/v060/guide/installation.md).
 
 ```js
 // Let's retrieve the #article element itself using document.querySelector()
 let article = document.querySelector('#article');
 
-// The article's title part
+// Let's access elements by "scoped-id"
 let articleTitle = article.scopeTree.title;
 let articleContent = article.scopeTree.content;
 
@@ -286,26 +275,43 @@ let articleContent = article.scopeTree.content;
 let articleAuthorName = article.scopeTree.author.scopeTree.name;
 ```
 
-To directly use the `scopeTree` property as seen above, a technique is however be necessary. This is because the `scopeTree` property is implemented as a *live* object instead of a static one.
+ The `scopeTree` property is however a live object and not a static one as ScopedHTML follows a strategy of not querying the DOM until a specific *node* is requested. In other words, nodes are lazily-loaded into the *scopeTree* object as a reaction to a query; so something has to trigger this query the first time. But this is easy to do.
 
-ScopedHTML follows a strategy of not querying the DOM until a specific *node* is requested from the root element. So nodes arrive in the *scopeTree* property after the first eager query.
-
-```js
-// At first, the article's title node would be undefined in scopeTree
-let articleTitle = article.scopeTree.title; // undefined
-
-// It should now be available after the first eager query
-let articleTitle = article.scopeSelector('#title');
-let articleTitle = article.scopeTree.title; // works
-```
-
-But we do not always have to initially call the `scopeSelector()` method either. ScopedHTML allows us to use the `Reflex.get()` function (from the general-purpose [Reflex API](/reflex/)) to eagerly read the `scopeTree` object.
+ScopedHTML allows us to use the `Reflex.get()` function (from the general-purpose [Reflex API](/reflex/)) to eagerly read the `scopeTree` object. Reflex-based access would automatically trigger the appropriate DOM query.
 
 ```js
 let articleTitle = Reflex.get(article.scopeTree, 'title');
 ```
 
-We could also [configure](#configuration) ScopedHTML to automatically return the `scopeTree` object as a `Proxy` instance. Accessing the returned Proxy will automatically eagerly query the DOM for us.
+Being based on Reflex also gives us the ability to observe when a node arrives or exits the `scopeTree` object. We could bind an observer to give us this insight, which might be useful for debugging purposes.
+
+```js
+Reflex.observe(article.scopeTree, nodes => {
+  console.log(nodes);
+});
+
+let articleTitle = Reflex.get(article.scopeTree, 'title');
+```
+
+Although we have explicitly used `Reflex.get()` above, this may not even be necessary when using the `scopeTree` property within reflex-driven APIs as these naturally follow the above methodology under the hood in working with objects.
+
+[Scoped JS](/chtml/v060/specs/scoped-js/), for example, provides a reflex-based runtime that fires reflex actions as it evaluates statements that read or modify an object.
+
+```html
+<div root id="article">
+  <div>
+    <h1 scoped:id="title">COVID19 Situation Report</h1>
+    <div scoped:id="content">Many more countries are in!</div>
+  </div>
+  <div scoped:id="author"></div>
+  <script type="text/scoped-js">
+    // Below, this.scopeTree.author is read reflexively
+    this.scopeTree.author.innerHTML = 'John Doe';
+  </script>
+</div>
+```
+
+Outside of Reflex-driven code, we could [configure](#configuration) ScopedHTML to automatically return the `scopeTree` object as a `Proxy` instance. Returned Proxies are configured to actively react to read operations.
 
 ```js
 // Configure ScopedHTML to always return a Proxy for scope objects
@@ -317,7 +323,7 @@ ENV.params.proxyScopedObjects = true;
 let articleTitle = article.scopeTree.title;
 ```
 
-Using Proxies and `Reflex.get()`, we could even do a *per-instance* implementation. This is even preferred to globally configuring the `ENV.params.proxyScopedObjects` parameter.
+Better yet, using Proxies and `Reflex.get()`, we could even do a *per-instance* implementation instead of globally configuring the `ENV.params.proxyScopedObjects` parameter.
 
 ```js
 // We can npw
@@ -351,11 +357,11 @@ Here are the configuration options.
   
     ```js
     // Lets change how we access an element's scope
-    ENV.params.scopeTreePropertyName = 'scopeParts';
+    ENV.params.scopeTreePropertyName = 'scopedIDs';
     ```
       
     ```js
-    // We should now be using .scopeParts instead of .scopeTree
+    // We should now be using .scopedIDs instead of .scopeTree
     let article = document.querySelector('#article');
-    let articleTitle = article.scopeParts.title;
+    let articleTitle = article.scopedIDs.title;
     ```

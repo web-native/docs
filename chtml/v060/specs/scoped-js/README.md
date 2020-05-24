@@ -1,14 +1,16 @@
 # Scoped JS
-ScopedJS is JavaScript functionality that works within the scope of its containing element. Instead of retreiving elements into one global scope of functionality, ScopedJS lets us take concise functionality to them.
+Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. Instead of the traditional way of retrieving elements into scripts, Scoped JS lets us place functionality just right where they are needed.
 
 ## On this page:
-+ [A Scoped Script](#a-scoped-script)
++ [Scoped Scripts](#scoped-scripts)
 + [Automatic Observability](#automatic-observability)
 + [Globals](#globals)
 + [ScopedJS Configuration](#scopedjs-configuration)
 
-## A Scoped Script
-The script below is scoped to the `#alert` element. And the `this` reference is the `#alert` element.
+## Scoped Scripts
+*Scoped scripts* go by the special `text/scoped-js` MIME type. This differentiates them from regular scripts and sets them apart from normal browser handling.
+
+The script below is scoped to the `#alert` element. And the `this` reference is uniquely pointed to the `#alert` element.
 
 ```html
 <div id="alert">
@@ -61,7 +63,7 @@ It is also possible to bind non-objects to a scoped script. This time, our scrip
     <div class="message"></div>
     <div class="exit" title="Close this message.">X</div>
     <script type="text/scoped-js">
-      var alternativeText = 'Hello World!';
+      var alternativeText = 'Alternative Hello World!';
       return (boundValue) => {
           this.innerHTML = boundValue ? boundValue : alternativeText;
       };
@@ -72,7 +74,7 @@ It is also possible to bind non-objects to a scoped script. This time, our scrip
 Now, calling `alertEl.bind('Hello World!')` would also invoke our recieving function with the same arguments.
 
 ## Automatic Observability
-Change detection is a critical feature in client-side scripting. And this is a native feature in ScopedJS! ScopedJS supports the [Reflex API](/reflex/) for making live changes to an object or array that has already been bound. New changes are automatically picked up and the specific ScopedJS **statement** that relies on the changed value will be re-executed.
+Change detection is a critical feature in client-side scripting. And this is a native feature in ScopedJS! ScopedJS supports the [Reflex API](/reflex/) for making live changes to an object or array that has already been bound. Live changes automatically trigger the specific Scoped JS **statements** that rely on the changed properties.
 
 Below is an example showing how the final state of an animation is kept in sync with the state of an external reference.
 
@@ -99,7 +101,9 @@ Below is an example showing how the final state of an animation is kept in sync 
 </div>
 ```
 
-Our area of interest is the statement `this.style.opacity = opacityLevel` within the animation's `onfinish` block. By referencing the `opacityLevel` variable, this statement is now bound to the `opacityLevel` variable, and will rerun whenever the `opacityLevel` binding changes. So in our application, we could keep blinking the element simply by changing the value of `opacityLevel` at intervals. Below, we are now using the Reflex API to modify `opacityLevel` in-place instead of rebinding the data object afresh.
+Our area of interest is the statement `this.style.opacity = opacityLevel` within the animation's `onfinish` block. By referencing the `opacityLevel` variable, this statement is now bound to the state of the `opacityLevel` property, and will rerun whenever `opacityLevel` is updated. So in our application, we could keep blinking the element simply by changing the value of `opacityLevel` at intervals.
+
+Below, we are now using the Reflex API to modify `opacityLevel` in-place instead of rebinding the data object afresh.
 
 ```js
 let alertEl = document.querySelector('#alert');
@@ -120,16 +124,16 @@ setInterval(() => {
 ```
 
 ## Globals
-Unless explicitly given, ScopedJS can not have access to any variable in the global scope. The `ENV.globals` is where we could create the global scope ScopedJS sees.
+Unless explicitly given, Scoped JS wouldn't have access to any variable in the global scope. The Scoped JS's `ENV.globals` configuration parameter is where we create the global scope that Scoped JS sees.
 
-If ScopedJS was loaded via a script tag, we could access `ENV.globals` this way:
+If *ScopedJS* was loaded via a script tag, `ENV.globals` would be available from the window object:
 
 ```js
 let ScopedJS_ENV = window.WebNative.ScopedJS.ENV;
 let ScopedJSGlobals = ScopedJS_ENV.globals;
 ```
 
-An import statement could be used otherwise:
+An import statement would be used otherwise:
 
 ```js
 // Import directly
@@ -212,16 +216,16 @@ Here are the configuration options.
     }, 100)l
     ```
 
-+ **ENV.params.innertContexts** - (Array): This setting specifies the elements under which scoped scripts should be innert. The default is unset.
++ **ENV.params.inertContexts** - (Array): This setting specifies the elements under which scoped scripts should be *inert*. The default is an empty list.
 
     ```js
-    ENV.params.innertContexts.append('my-custom-element');
+    ENV.params.inertContexts.append('my-custom-element');
     ```
     
     ```js
     <my-custom-element>
       <!-- This scoped script will be innert -->
-      <script type="text/javascript+scoped">
+      <script type="text/scoped-js">
       // Code...
       </script>
     </my-custom-element>

@@ -1,5 +1,5 @@
 # Overview
-CHTML is centered on using the web platform itself to create elegant user interfaces. It brings together a few specifications that ease out historic platform limitations that have made the UI a complex subject.
+CHTML is centered on using the web platform itself to create elegant user interfaces. It brings together a few specifications that ease out certain platform limitations that have historically made the UI a complex thing.
 + [**Scoped HTML**](/chtml/v060/specs/scoped-html/) - Scope-based markup pattern that lets us break an HTML document into smaller-sized structural scopes.
 + [**Scoped JS**](/chtml/v060/specs/scoped-js/) - Scripts that are scoped to their containing elements.
 + [**Scoped CSS**](/chtml/v060/specs/scoped-css/) - Stylesheets that are scoped to their containing elements.
@@ -8,12 +8,12 @@ CHTML is centered on using the web platform itself to create elegant user interf
 While all four technologies fit together seamlessly, they can also be used independently.
 
 ### Scoped HTML
-Scoped HTML is a semantic markup pattern that lets us create an HTML document as a hierachy of smaller-sized scopes. Each scope represents its own *root* and implements a semantic structural API for applications.
+Scoped HTML follows a semantic markup pattern that lets us create an HTML document as a hierachy of smaller-sized scopes. Each scope represents a *root* or reference point for naming elements within its subtree.
 
-First, designate a scope with the *Boolean* `root` attribute. Then define its structural model using the `scoped:id` attribute.
+A scope is designated on an element by simply adding the *Boolean* `root` attribute. This creates a context for implementing scoped IDs.
 
 ```html
-<div id="article" root>
+<div root id="article">
     <div class="wrapper">
         <div scoped:id="title"></div>
         <div scoped:id="content"></div>
@@ -21,7 +21,7 @@ First, designate a scope with the *Boolean* `root` attribute. Then define its st
 </div>
 ```
 
-This gives us a *scope*'s high-level view and a structural model that an application can always bank on.
+Scoped IDs are especially useful in maintaining a structural API for applications. Above, our structural API would be:
 
 ```html
 #article
@@ -29,26 +29,26 @@ This gives us a *scope*'s high-level view and a structural model that an applica
   |- content
 ```
 
-We also have a *scoped-HTML* API that makes it easy to traverse structural models.
+We also have the *ScopedHTML* API that makes it easy to traverse these structural models.
 
 ```js
 // The regular querySelector() function would give us the #article element
 let article = document.querySelector('#article');
 
-// The new scopeSelector() function would give us the structural parts
-let title = article.scopeSelector('#title');
-let content = article.scopeSelector('#content');
+// The new scopeTree DOM property would give us the structural parts
+let title = article.scopeTree.title;
+let content = article.scopeTree.content;
 ```
 
-Scopes, can be nested to form a tree.
+Scopes, can also be nested to form a tree.
 
 ```html
-<div id="article" root>
+<div root id="article">
     <div class="wrapper">
         <div scoped:id="title"></div>
         <div scoped:id="content"></div>
     </div>
-    <div scoped:id="user" root>
+    <div root scoped:id="author">
         <div class="wrapper">
             <div scoped:id="avatar"></div>
             <div scoped:id="name"></div>
@@ -61,24 +61,22 @@ Scopes, can be nested to form a tree.
 #article
   |- title
   |- content
-  |- user
+  |- author
     |- avatar
     |- name
 ```
 
 ```js
-// We could chain the scopeSelector() call
-let authorName = article.scopeSelector('#title').scopeSelector('#name');
-// We could also use a path-based ID
-let authorName = article.scopeSelector('#title/name');
+// We could chain the acccess
+let authorName = article.scopeTree.author.scopeTree.name;
 ```
 
-Much structural guesswork and inefficient DOM queries can now be avoided using this semantic markup that translates to a hierarchy of scopes and structural API.
+Now, much structural guesswork and inefficient DOM queries have been avoided with a simple semantic markup pattern.
 
 Visit the [Scoped HTML Specs](/chtml/v060/specs/scoped-html/) to learn more.
 
 ### Scoped CSS
-Scoped CSS is a styling approach that lets us create stylesheets that are scoped to their containing elements.
+Scoped CSS is a styling approach that lets us couple smaller-sized stylesheets with elements in an HTML document. Defined rules now get scoped to these containing elements.
 
 You define a scoped CSS with the *Boolean* `scoped` attribute. The special `:root` pseudo-class is used to address its implicit root element.
 
@@ -94,10 +92,10 @@ You define a scoped CSS with the *Boolean* `scoped` attribute. The special `:roo
 </div>
 ```
 
-Scoped HTML's structural models are specially supported. If we qualified the `#article` element as *root*, then we would be able to style its structural parts by ID. The ID selector `#` would now map to the `scoped:id` attribbute instead of the normal `id` attribbute.
+Scoped CSS fits right in with Scoped HTML. If we designated the `#article` element as *root*, then we would be able to style its structural parts by ID. The ID selector `#` would now map to the `scoped:id` attribbute instead of the normal `id` attribbute.
 
 ```html
-<div id="article">
+<div root id="article">
     <style scoped>
         :root {
             color: red;
@@ -120,7 +118,7 @@ Scoped HTML's structural models are specially supported. If we qualified the `#a
 If we wanted to style the structural parts of deeply nested scopes, a path-based ID could be used. 
 
 ```html
-<div id="article">
+<div root id="article">
     <style scoped>
         :root {
             color: red;
@@ -140,7 +138,7 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
         <div scoped:id="title"></div>
         <div scoped:id="content"></div>
     </div>
-    <div scoped:id="user" root>
+    <div root scoped:id="author">
         <div class="wrapper">
             <div scoped:id="avatar"></div>
             <div scoped:id="name"></div>
@@ -149,10 +147,12 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
 </div>
 ```
 
-Scoped CSS is still a work in progress and will be available soon.
+Scoped styles save us the specificity wars that comes with document-level stylesheets. We also gain the ease of maintenace and progressive development.
+
+Visit the [Scoped CSS Specs](/chtml/v060/specs/scoped-css/) to learn more.
 
 ### Scoped JS
-Scoped JS is a special technology that lets us place JavaScript functionality anywhere in a page, just right where they are needed.
+Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. Instead of the traditional way of retrieving elements into scripts, Scoped JS lets us place functionality just right where they are needed.
 
 We define a *scoped script* with the special `text/scoped-js` MIME type.
 
@@ -170,7 +170,7 @@ We define a *scoped script* with the special `text/scoped-js` MIME type.
 
 Noteworthy is the script's isolation from the global scope, with its *this* reference pointing to the script's containing element.
 
-With an explicit setting, certain global variables could however be accessible to *scoped scripts*.
+With an explicit setting, certain global variables could also be accessible to *scoped scripts*.
 
 ```js
 // Lets make jQuery available to scoped scripts
@@ -192,7 +192,7 @@ window.WebNative.ScopedJS.ENV.globals.$ = window.jQuery;
 If we employed Scoped HTML in our markup, we could simply traverse the *scope tree* and do without *selectors* altogether. Notice below that we are directly accessing the root element's [`scopeTree` property](/chtml/v060/specs/scoped-html/README.md#the-scopetree-property).
 
 ```html
-<div id="alert" root>
+<div root id="alert">
     <div scoped:id="message">This task is now complete!</div>
     <div scoped:id="exit" title="Close this message.">X</div>
     <script type="text/scoped-js">
@@ -203,12 +203,12 @@ If we employed Scoped HTML in our markup, we could simply traverse the *scope tr
 </div>
 ```
 
-A scope may also receive application data, and further distribute received data to child scopes. Automatic *reactivity* steps in to do the dirty work of keeping the UI in sync with application state.
+A scope may also receive application data, and further distribute received data to child scopes. Automatic *observability* steps in to do the dirty work of keeping the UI in sync with application state.
 
 Visit the [Scoped JS Specs](/chtml/v060/specs/scoped-js/) to learn more.
 
 ### HTML Transport
-HTML Transport is an export/import distribution system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
+HTML Transport is an export/import system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
 
 ```html
 <template is="html-bundle">
@@ -219,7 +219,7 @@ HTML Transport is an export/import distribution system for HTML. Here, reusable 
 </template>
 ```
 
-These *exports* would now be easily placed anywhere in the main document.
+*Exports* can be easily placed anywhere in the main document.
 
 ```html
 <body>
@@ -234,18 +234,19 @@ In a script, we could programmatically import an *export*.
 let import1 = HTMLTransport.import('export/one');
 ```
 
-While we have statically defined exports in a `<template>` element above, we could also define them as standalone HTML files on the server to dynamically bundle them together into a file that lives as a remote *HTML bundle*.
+Now, while we have statically defined exports in a `<template>` element above, we could also define them as standalone HTML files on the server to dynamically bundle them together as a remote *HTML bundle*.
 
 Here is how a remote *HTML bundle* file on the server could look:
 
 **file://bundle.html**
 
 ```html
+<!-- file content -->
 <div namespace="export/one"></div>
 <div namespace="export/two"></div>
 ```
 
-This remote bundle could be automatically imported into a document using a `<template>` element with an `src` attribute.
+This remote bundle is easily connected to a page by using the `src` attribute on a `<template>` element.
 
 **file://index.html**
 
@@ -258,6 +259,6 @@ This remote bundle could be automatically imported into a document using a `<tem
 </html>
 ```
 
-Code organization, extensibility and composability are HTML Transport's powerful features that lets us build an entire app with much fewer components.
+Code organization, extensibility and composability are HTML Transport's distinguishing features that let us build an entire app with much fewer components.
 
 Visit the [HTML Transport Specs](/chtml/v060/specs/html-transport/) to learn more.

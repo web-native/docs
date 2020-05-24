@@ -3,7 +3,7 @@ description: 'Put up amazing UIs in one go - complete with styling and automatic
 ---
 
 # CHTML
-CHTML is a suite of short specifications and technologies that **bring a component architecture to the HTML language itself**. This lets us create the UI and its components entirely in HTML. Meet the new **pure-HTML** approach that requires no build tools, or compilers, or even a template syntax!
+CHTML is a suite of short specifications and technologies that **bring a component architecture to the HTML language itself**. This lets us create the UI and its components entirely in HTML - a new **pure-HTML** approach that requires no build tools, or compilers, or even a template syntax!
 
 [Check this project out on GitHub](https://github.com/web-native/chtml).
 
@@ -14,8 +14,8 @@ CHTML is a suite of short specifications and technologies that **bring a compone
 + [Scoped JS](/chtml/v060/specs/scoped-js/README.md)
 + [HTML Transport](/chtml/v060/specs/html-transport/README.md)
 
-You should next [include CHTML on your page](/chtml/v060/guide/installation-guide.md) and bring the excitement home.
+You should next [include CHTML on your page](/chtml/v060/guide/installation.md) and bring the excitement home.
 
 ## Guides
-+ [Installation Guide](/chtml/v060/guide/installation-guide.md)
++ [Installation Guide](/chtml/v060/guide/installation.md)
 + [Server-Side Rendering](/chtml/v060/guide/server-side-rendering.md)

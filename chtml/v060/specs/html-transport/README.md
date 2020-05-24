@@ -1,20 +1,30 @@
 # HTML Transport
 HTML Transport is an import/export system that lets us define, extend, and distribute HTML components. Its two most-important concepts are *exports* and *imports*. Inbetween is the concept of *dynamic recomposition*.
 
-Put together, exports, imports, and dynamic recomposition make it possible for us to build entire applications with much fewer components.
+The combination of exports, imports, and dynamic recomposition makes it possible for us to build entire applications with much fewer components.
 
 HTML Transport also natively supports [ScopedHTML](/chtml/v060/specs/scoped-html/) and [ScopedJS](/chtml/v060/specs/scoped-js/) where used in the same document.
 
 ## On this page:
 + [Exports](#exports)
+  + [Bundles](#bundles)
 + [Imports](#imports)
+  + [Imports Ondemand](#imports-ondemand)
+  + [Shadow Imports](#shadow-imports)
 + [Dynamic Compositions](#dynamic-compositions)
+  + [Import-Based Recomposition](#import-based-recomposition)
+  + [Inheritance-Based Recomposition](#inheritance-based-recomposition)
+  + [Managing Recomposition](#managing-recomposition)
 + [List Composition](#list-composition)
+  + [Updating a List](#updating-a-list)
+  + [Dynamic Item Namespaces](#dynamic-item-namespaces)
 + [The HTMLTransport API](#the-htmltransport-api)
 + [HTMLTransport Configuration](#htmltransport-configuration)
 
 ## Exports
-HTML exports are fragments of HTML markup defined for later use, bundled together in a special `<template>` element. Each export is assigned a unique namespace for reference purposes. Below, we've chosen to use the `namespace` attribute, but this can be changed.
+HTML exports are fragments of HTML markup defined for later use, bundled together in a special `<template>` element. Each export is assigned a unique namespace for reference purposes.
+
+Below, we've chosen to use the `namespace` attribute, but this can be changed.
 
 ```html
 <template is="html-bundle">
@@ -22,7 +32,7 @@ HTML exports are fragments of HTML markup defined for later use, bundled togethe
 </template>
 ```
 
-Namespaces are like file paths. They organize exports into virtual categories. Above, we've placed article under a category named *content*. There could be other types in this category. And we can have subcategories to as much as organization requires.
+Namespaces are like file paths. They organize exports into virtual categories. So above, we just placed *article* under a category named *content*. We could go to add other types under this category. And we can have subcategories to as much as organization requires.
 
 ```html
 <template is="html-bundle">
@@ -39,7 +49,7 @@ Namespaces are like file paths. They organize exports into virtual categories. A
 Note that a namespace is required to be of, at least, two parts. So a single word like `content` wouldn't be valid.
 
 ### Bundles
-While exports can be statically defined in a bundle - `<template>` element, they could also be defined as standalone files on the server that could be dynamically combined into a single file. The process that brings them together is called *bundling* and this can even be automated using an included [little Bundler](/chtml/html-transport/bundling.md). The dynamically-created file is called a remote bundle.
+While exports can be statically defined in a bundle - a `<template>` element, they could also be defined as standalone files on the server while being able to dynamically combine them back into a single file. The process that brings them together is called *bundling* and can even be automated using an included [little Bundler](/chtml/v060/specs/html-transport/bundling.md). The dynamically-created file is called a *remote bundle*.
 
 Remote bundles can be easily loaded into a `<template>` element using a custom `src` attribute.
 
@@ -98,7 +108,7 @@ Now multiple bundles can be used on the same document - whether defined statical
 ```
 
 ## Imports
-HTML imports are special elements that let us retreive and place *exports* into any location in a HTML document. An import is the `html-import` element.
+HTML imports are special elements that let us retreive and place *exports* into any location in an HTML document. Import go by the `html-import` tag.
 
 ```html
 <body>
@@ -106,10 +116,10 @@ HTML imports are special elements that let us retreive and place *exports* into 
 </body>
 ```
 
-Imports use the `namespace` attribute to reference exports. They are only a placeholder, so on importing, the import element itself is automatically replaced by the imported element.
+Imports use the `namespace` attribute to reference exports. They function as mere placeholders as they are automatically replaced by the componet they import.
 
 ### Imports Ondemand
-By default, import elements are resolved as soon as they get connected to the DOM. This makes sense most of the times. At other times, we may want imports to resolve *on-demand* - just at the time they are accessed in an application. This is achieved with the `ondemand` *Boolean* attribute.
+By default, import elements are resolved as soon as they get connected to the DOM. This makes sense most of the times. At other times, we may want imports to resolve *on-demand* - just at the time they are queried by an application. This is achieved with the `ondemand` *Boolean* attribute.
 
 ```html
 <div root>
@@ -118,9 +128,7 @@ By default, import elements are resolved as soon as they get connected to the DO
 ```
 
 ### Shadow Imports
-It is possible to import components directly into an element's shadow DOM. This form of import is called shadow import. Shadow imports are qualified with the `shadow` *Boolean* attribute. An import's *Shadow Host* is its immediate parent.
-
-The import element itself gets replaced and is never part of the shadow DOM nor the light DOM. Imported components are never visible anywhere in the DOM but live hidden in the host element's shadow DOM.
+It is possible to import components directly into an element's shadow DOM. *Shadow imports* are qualified with the `shadow` *Boolean* attribute. An import's *Shadow Host* is its immediate parent.
 
 ```html
 <div id="host">
@@ -138,12 +146,12 @@ We could even send some `<style>` element into the shadow DOM.
 ```
 
 ## Dynamic Compositions
-In addition to its *define once, use everywhere* paradigm, HTML Transport further empowers us with other powerful, dynamic compositional features:
+In addition to its *define once, use everywhere* paradigm, HTML Transport further empowers us with other dynamic compositional features:
 + [Import-Based Recomposition](#import-based-recomposition)
 + [Inheritance-Based Recomposition](#inheritance-based-recomposition)
 
 ### Import-Based Recomposition
-Import elements can do more than just place a component. They can be empowered to recompose the component they import. We do this by predefining additional properties on the import element itself to be automatically composed into the component they import. The import element is replaced as usual, but this time, with a richly composed component.
+Import elements can do more than just place a component. They can be empowered to recompose the component they import. We do this by predefining additional properties on the import element for the imported element to inherit. The import element is replaced as usual, but this time, with a richly composed component.
 
 There are three aspects of a component that can be recomposed on each import we make of it:
 + [Attribute Recomposition](#attribute-recomposition)
@@ -151,23 +159,45 @@ There are three aspects of a component that can be recomposed on each import we 
 + [Structural Recomposition](#structural-recomposition)
 
 #### Attribute Recomposition
-Certain attributes meant for the incoming component can be predefined on the import element. For example, if we wanted an incoming component to have an ID, we would set this on the import element.
+Attributes can be predefined on an import element for the imported element to inherit. For example, if we wanted an incoming component to have an ID, we would set this on the import element.
 
 ```html
 <html-import namespace="html/badge/user" id="some-id"></html-import>
 ```
 
-We could import the same component in another place yo take on a different ID.
+We could import the same component in another place to take on a different ID.
 
 ```html
 <html-import namespace="html/badge/user" id="some-other-id"></html-import>
 ```
 
-For some types of attribute, any existing values on the component will be replaced; for others, values will be merged.
+Using this same approach, we could import components to inherit *scoded-IDs* to form part of a scope's structural API. Below, we are importing a *user* component to take on the `author` role for an *article* component.
 
-**List-Type Attributes:** Where list-type attributes, like the `class` and `role` attributes, are predefined on an import element, they will be transfered to the imported component, with newer values placed after the component's existing list, if any. If ScopedHTML is used in the same document, the `scope` and `scope-parts` attributes (or whatever ScopedHTML's structural attributes have been configued to be) will be treated the same way.
+```html
+<template is="html-bundle">
+  <div namespace="html/badge/user" root>...</div>
+</template>
+```
 
-Below, we're importing the *user* component to take on the `article-author` role for an *article* component.
+```html
+<div root>
+  <html-import namespace="html/badge/user" scoped:id="author"></html-import>
+</div>
+```
+
+This is how the final composition would look:
+
+```html
+<div root>
+  <div namespace="html/badge/user" scoped:id="author">...</div>
+</div>
+```
+
+As seen, inherited single-value attributes like ID replace any existing value that the component may already have. For other types of attributes, inherited values are merged with any existing values.
+
+**List-Type Attributes:** Where list-type attributes, like the `class` and `role` attributes, are predefined on an import element, they will be transfered to the imported component, with newer values placed after the component's existing list, if any.
+
+Below, we're importing a component to take on additional classes.
 
 ```html
 <template is="html-bundle">
@@ -181,7 +211,7 @@ Below, we're importing the *user* component to take on the `article-author` role
 </div>
 ```
 
-This is how the final composition would look; notice how the `class` and `scope` attributes were composed into the imported component:
+This is how the final composition would look; notice the recomposition on the `class` attribute:
 
 ```html
 <div root>
@@ -191,7 +221,7 @@ This is how the final composition would look; notice how the `class` and `scope`
 
 It is possible to configure additional *list-type* attributes. Simply [obtain HTML Transport's `ENV` object](#configuration) and add to the `ENV.params.listTypeAttributes` array.
 
-**Key-Value Attributes:** Where key-value attributes, like the `style` attribute, are predefined on an import element, they will be transfered to the imported component, with newer rules placed after the component's existing rules, if any. For the `style` attribute, CSS cascading will automatically take effect, where newer rules get to override existing rules.
+**Key-Value Attributes:** Where key-value attributes, like the `style` attribute, are predefined on an import element, they will be transfered to the imported component, with newer declarations placed after the component's existing declarations, if any. For the `style` attribute, CSS cascading automatically takes effect this way, where newer rules get to override existing rules.
 
 Below, we're importing a component to take on a blue color by overriding its default red color.
 
@@ -213,10 +243,8 @@ This is how the final composition would look; notice how the `style` attribute w
 
 It is possible to configure additional *key-value* attributes. Simply [obtain HTML Transport's `ENV` object](#configuration) and add to the `ENV.params.keyValAttributes` array.
 
-**Other Attributes:** Any other attribute found on an import element \(except the `namespace` attribute\) will be *set* on the imported component if not already exists.
-
 #### Functional Recomposition
-Although HTML Transport does not require ScopedJS, it does provide native support for scoped scripts where used in the same document. Here, additional ScopedJS functionalities for an incoming component could be predefined on the import element. The new ScopedJS *statements* will be composed into the imported component; placed after the component's existing *statements*, if any.
+Although HTML Transport does not require ScopedJS, it does provide native support for scoped scripts where used in the same document. Here, a ScopedJS script can be defined on an import element for the incoming component to inherit. The new ScopedJS *statements* will be composed into the imported component; placed after the component's existing *statements*, if any.
 
 This is what happens below.
 
@@ -224,6 +252,9 @@ This is what happens below.
 <template is="html-bundle">
   <div namespace="html/alert/success" root>
     <div scoped:id="message">...</div>
+    <script type="text/scoped-js">
+      this.innerHTML = 'Hello World!';
+    </script>
   </div>
 </template>
 ```
@@ -244,6 +275,7 @@ The final composition would give us:
 <div namespace="html/alert/success" root>
   <div scoped:id="message">...</div>
   <script type="text/scoped-js">
+    this.innerHTML = 'Hello World!';
     this.querySelector('.exit').addEventListener('click', () => {
         this.remove();
     });
@@ -252,9 +284,9 @@ The final composition would give us:
 ```
 
 #### Structural Recomposition
-Although HTML Transport does not require ScopedHTML, it does provide native support for ScopedHTML's *scope/part* structural models where used in the same document. Here, components that define a *scope* may have their *parts* replaced on importing them. To replace parts of an incoming component, we would simply create the replacement parts inside the import element itself.
+Although HTML Transport does not require Scoped HTML, it does provide native support for scoped-IDs where used in the same document. Here, components that define a scope may have their scoped *nodes* replaced on importing them. To replace nodes of an incoming scoped component, we would simply create the replacement nodes inside the import element itself.
 
-This is what happens below where we import an *alert* component, but with the original *alert-message* part completely replaced with a richer one.
+This is what happens below where we import an *#alert* component, but with the default *message* node completely replaced with a richer one.
 
 ```html
 <template is="html-bundle">
@@ -266,7 +298,7 @@ This is what happens below where we import an *alert* component, but with the or
 
 ```html
 <html-import namespace="html/alert/success">
-  <div scoped:id="message">
+  <div scoped:id="message" root>
     <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
     <div scoped:id="content"></div>
   </div>
@@ -277,22 +309,22 @@ The final composition would give us:
 
 ```html
 <div namespace="html/alert/success" root>
-  <div scoped:id="message message" style="color: blue;">
+  <div scoped:id="message" root style="color: blue;">
     <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
     <div scoped:id="content"></div>
   </div>
 </div>
 ```
 
-Notice that *replacement parts* also inherit properties of their *original parts*. So before a replacement occurs, any attributes and scoped scripts that may have been defined on the *original part* are composed into the *replacement part*. Our final *alert-message* part above has now rightly picked up a blue color.
+Notice that *replacement nodes* also inherit properties of their *original nodes*. So before a replacement occurs, any attributes and scoped scripts that may have been defined on the *original node* are composed into the *replacement node*. Thus, our final *message* node above has now rightly inherited a blue color.
 
 **Now a few notes apply:**
-* Replacement parts must be at the root of the import element if they must be discovered.
-* The *part name* of the *replacement part* is what determines the *original part* to be replaced. To replace an *alert-message* part, for example, a replacement part must also define the *alert-message* scope.
-* Root-level elements without a *part name* are copied to the root of the imported component.
+* Replacement nodes must be at the root of the import element if they must be discovered.
+* The scoped ID of the *replacement node* is what determines the *original node* to be replaced. To replace an *message* node, for example, a replacement node must also define the *message* scoped ID.
+* Root-level elements without a `scoped:id` attribute are simply copied to the root of the imported component.
 
 ##### Recursive Structural Recomposition
-In our code above, we statically typed an *alert-message* replacement part. But it is also possible for a replacement part to be an import of its own.
+In our code above, we statically typed a *message* replacement node. But it is also possible for a replacement node to be an import of its own.
 
 ```html
 <template is="html-bundle">
@@ -319,14 +351,14 @@ The final composition would give us the same result as before:
 
 ```html
 <div namespace="html/alert/success" root>
-  <div scoped:id="message message" style="color: blue;">
+  <div scoped:id="message" root style="color: blue;">
     <div scoped:id="title" style="text-transform: uppercase; font-weight: bold;"></div>
     <div scoped:id="content"></div>
   </div>
 </div>
 ```
 
-We have just performed a recursive import as we replaced the *alert-message* part. Now, with the *alert-message* replacement part being an import of its own, we now also have the power of the import element. For example, We could replace the *message-title* part on this new level of import.
+We have just performed a recursive import as we replaced the *message* node. But with the *message* replacement node being an import of its own, we now also have the power of the import element. For example, We could replace the *title* node on this new level of import.
 
 ```html
 <html-import namespace="html/alert/success">
@@ -340,7 +372,7 @@ The final composition would give us the same result as before, but with a replac
 
 ```html
 <div namespace="html/alert/success" root>
-  <div scoped:id="message message" style="color: blue;">
+  <div scoped:id="message" root style="color: blue;">
     <div scoped:id="title" style="text-transform: uppercase; font-weight: bold; font-size: larger;"></div>
     <div scoped:id="content"></div>
   </div>
@@ -352,7 +384,7 @@ We could go even deeper to a third level, and a fourth, and as far as compositio
 ### Inheritance-Based Recomposition
 Namespaces in HTML Transport are based on inheritance. Exports in a namespace are believed to be built off their supernamespace. So, a component at `html/content/article/readonly/dark-mode` would be implicitly inheriting properties from the component at `html/content/article/readonly`, which in itself, would be inheriting from `html/content/article`.
 
-By default, only attributes are implicitly inherited. Where ScopedJS is used in the same document, scoped scripts are also automatically inherited. It is also possible for *structural parts*, to be inherited, where ScopedHTML is used in the same document. But structural inheritance is done explicitly.
+By default, only attributes are implicitly inherited. Where ScopedJS is used in the same document, scoped scripts are also automatically inherited. It is also possible for *structural nodes*, to be inherited, where ScopedHTML is used in the same document. But structural inheritance is done explicitly.
 
 Below, we have two *article* components. The first one is the base article component. The second is a derivation of this base component; we simply extended the namespace into a *dark-mode* version.
 
@@ -366,7 +398,7 @@ Below, we have two *article* components. The first one is the base article compo
     <div scoped:id="content"></div>
 
     <script type="text/scoped-js">
-      this.scope.content.append('Thanks for reading!');
+      this.scopeTree.content.append('Thanks for reading!');
     </script>
 
   </div>
@@ -382,22 +414,22 @@ Below, we have two *article* components. The first one is the base article compo
 </template>
 ```
 
-Above, our second component would be implicitly inheriting the *scope* attribute and the ScopedJS script. Importing this *dark-mode* component would give us a richly-composed result.
+Above, our second component would be implicitly inheriting the *root* attribute and the ScopedJS script. Importing this *dark-mode* component would give us a richly-composed result.
 
 ```html
-<div namespace="html/content/article/readonly/dark-mode" scoped:id="color: black;">
+<div namespace="html/content/article/readonly/dark-mode" root style="color: black;">
 
     <div scoped:id="title"></div>
     <div scoped:id="content"></div>
 
     <script type="text/scoped-js">
-      this.scope.content.append('Thanks for reading!');
+      this.scopeTree.content.append('Thanks for reading!');
     </script>
 
   </div>
 ```
 
-Inheritance has, indeed, saved us much repetition! The only aspects we repeated from the base component are the structural parts - *article-title* and *article-content*. Even these could be inherited; this time, using an explicit approach. To inherit structural parts, the namespace extension would be defined as an import.
+Inheritance has, indeed, saved us much repetition! The only aspects we repeated from the base component are the structural parts - *title* and *content*. Even these could be inherited; this time, using an explicit approach. To inherit structural nodes, the namespace extension would be defined as an import.
 
 ```html
 <template is="html-bundle">
@@ -407,13 +439,13 @@ Inheritance has, indeed, saved us much repetition! The only aspects we repeated 
 </template>
 ```
 
-Using an *import* construct now also gves us the power of import-based composition. If we so desired, the inherited structural parts could be replaced!
+Using an `html-import` element now also gves us the power of import-based composition. If we so desired, the inherited structural node could be overridden!
 
 ```html
 <template is="html-bundle">
 
-  <!-- Dark-mode, readonly article, with a new "content" part  -->
-  <html-import namespace="html/content/article/readonly/dark-mode" style="color: white; background-color: black;">
+  <!-- Dark-mode, readonly article, with a new "content" node  -->
+  <html-import namespace="html/content/article/readonly/dark-mode" root style="color: white; background-color: black;">
     <div scoped:id="content" style="border-color:white"></div>
   </html-import>
 
@@ -421,9 +453,9 @@ Using an *import* construct now also gves us the power of import-based compositi
 ```
 
 #### Inheritance and Fallbacks
-Since properties are implicitly inherited by subnamespaces, it is safe to query a non-existent subnamespace. The query would fallback to the closest implemented namespace up the hierarchy. In other words, a non-existent subnamespace also implicitly inherits from the closest implemented supernamespace.
+Since properties are implicitly inherited down a subnamespace path, it would be safe to query a descendant namespace this is really yet to exist. The query would fallback to the closest implemented namespace up the hierarchy. In other words, a non-existent subnamespace also implicitly inherits from the closest implemented supernamespace.
 
-Right below, we're importing a component that is assumed to be an animated edition of an *alert* component. But since we're yet to actually implement this subnamespace, the query will be falling back to the standard alert component.
+Right below, we're importing a component that is assumed to be built off an *alert* component. But since we're yet to actually implement this subnamespace, the query will be falling back to the standard alert component.
 
 ```html
 <html-import namespace="html/alert/success/animated"></html-import>
@@ -505,7 +537,7 @@ The *norecompose* directive may also be set generally for all exports in a bundl
 </template>
 ```
 
-With a bundle-level *norecompose* directive in place, exports will now be imported without having the listed attributes recomposed. An export-level *norecompose* directive could still be set to list additional export-specific attributes for exclusion.
+With a bundle-level *norecompose* directive in place, exports will now be imported without having the listed properties recomposed. An export-level *norecompose* directive could still be set to list additional export-specific properties for exclusion.
 
 ## List Composition
 With the HTML Transport system and the presence of ScopedHTML and ScopedJS, it is intuitive to make a list! Here, we able to define list containers that can auto-generate their items depending on the given data object or array. Items are automatically imported into, or removed from a list container, to keep in sync with the given data.
@@ -517,7 +549,7 @@ First, we would define one reusable item component, then the list container havi
 
   <li namespace="html/item"></li>
 
-  <ul namespace="html/list//html/item"></ul>
+  <ul namespace="html/list"></ul>
 
 </template>
 ```
@@ -526,11 +558,11 @@ Now, we can simply import the list container into the page.
 
 ```html
 <body>
-  <html-import namespace="html/list"></html-import>
+  <html-import namespace="html/list//html/item"></html-import>
 </body>
 ```
 
-Now when we send in a data array into the list container the ScopedJS way, the list will be auto-populated with items corresponding to the number of entries.
+Now when we send in a data array into the list container the ScopedJS way, the list will be auto-populated with items corresponding to the number of entries in the bound data object.
 
 ```js
 let listContainer = document.querySelector('ul');
@@ -573,7 +605,7 @@ To render individual data entry into the generated items, we would simply add a 
     </script>
   </li>
 
-  <ul namespace="html/list//html/item"></ul>
+  <ul namespace="html/list"></ul>
 
 </template>
 ```
@@ -590,9 +622,9 @@ Our list should now have each item rendered:
 ```
 
 ### Updating a List
-As noted earlier, items are automatically imported into, or removed from a list container, to keep in sync with the given data.
+As noted earlier, items are automatically imported into, or removed from a list container, to keep in sync with the given data object or array.
 
-To render additional items to our list above, we would simply add extra entries to our data. Below, we've added two more entries. Since two item elements already exists in the list container, only two new imports will now be made.
+To render additional items to our list above, we would simply add extra entries to our data object. Below, we've added two more entries. Since two item elements already exists in the list container, only two new imports will now be made.
 
 ```js
 listContainer.bind({
@@ -646,7 +678,7 @@ Reflex.set(dataArray, 1, {content: 'item-2'});
 Reflex.set(dataArray, 2, {content: 'item-3'});
 ```
 
-Still with the help of Reflex, we can directly call the data array's prototype methods to achieve the same result.
+Additionally, with the help of Reflex, we can directly call the data array's prototype methods to achieve the same result.
 
 ```javascript
 // Charge the array's push(), splice() and unshift() methods with Reflex actions
@@ -678,8 +710,8 @@ The last item `newest item-1` should still come first, and `item-8` should still
 </ul>
 ```
 
-### Implementing Sub-Namespaces
-To import an item in an auto-generated a list, the *item* namespace given in the container's two-part namespace is used. But it is possible to automatically suffix each import's namespace with the current item *index*. So in our list above, the first item could be imported using the namespace `html/item/0`, while the second item could also be imported using the namespace `html/item/1`, and so on. This is achieved by appending an empty pair of square brackets to the namespace template.
+### Dynamic Item Namespaces
+To import an item in an auto-generated list, the *item* namespace given in the container's two-part namespace is used. But it is possible to dynamically suffix each import's namespace with the current item *index*. So in our list above, the first item could be imported using the namespace `html/item/0`, while the second item could also be imported using the namespace `html/item/1`, and so on. This is achieved by appending an empty pair of square brackets to the namespace template.
 
 ```html
 <body>
@@ -699,9 +731,17 @@ This makes it possible to create components that are unique to specific indexes,
   <li namespace="html/item"></li>
   <li namespace="html/item/0" style="font-weight: bold;"></li>
 
-  <ul namespace="html/list//html/item/[]"></ul>
+  <ul namespace="html/list"></ul>
 
 </template>
+```
+
+```html
+<body>
+
+  <html-import namespace="html/list//html/item/[]"></html-import>
+
+</body>
 ```
 
 Item-specific imports can be even more dynamic using dynamic namespace expressions that contain placeholders. Placeholders are references to properties of the given data entry. They are enclosed in square brackets `[]`.
@@ -718,8 +758,8 @@ The `lang` property in each item below will be used to resolve the namespace for
 
 ```js
 listContainer.bind([
-    {lang: 'en', value:'Hello World!'},
-    {lang: 'fr', value:'Bonjour!'},
+    {lang: 'en', value: 'Hello World!'},
+    {lang: 'fr', value: 'Bonjour!'},
 ]);
 ```
 
@@ -730,12 +770,12 @@ listContainer.bind([
   <li namespace="html/item/en" style="color: blue;"></li>
   <li namespace="html/item/fr" style="color: magenta;"></li>
 
-  <ul namespace="html/list//html/item"></ul>
+  <ul namespace="html/list"></ul>
 
 </template>
 ```
 
-Placeholders, could also use the dot (.) notation to reference deep in a the given data entry.
+Placeholders could also use the dot (.) notation to reference deep in a the given data entry.
 
 ```html
 <body>
@@ -747,13 +787,13 @@ Placeholders, could also use the dot (.) notation to reference deep in a the giv
 
 ```js
 listContainer.bind([
-    {lang: {code: 'en', display: 'English'}, value:'Hello World!'},
-    {lang: {code: 'fr', display: 'French'}, value:'Bonjour!'},
+    {lang: {code: 'en', display: 'English'}, value: 'Hello World!'},
+    {lang: {code: 'fr', display: 'French'}, value: 'Bonjour!'},
 ]);
 ```
 
 ## The HTMLTransport API
-HTMLTransport offers certain methods for working with modules and exports.
+HTMLTransport offers certain methods for working with bundles and exports.
 
 ### The `HTMLTransport.import()` Static Method
 This method simply provides a programmatic way to retrieve an export.
@@ -771,7 +811,7 @@ HTMLTransport.ready(() => {
 });
 ```
 
-This method also extends to wait for HTML Transport bundles to load. This is useful when running code that relies on remote bundles. As it is, bundles have to be loaded in order to access their exports. In fact, a mild warning is raised on attempting to import while bundles are still loading.
+This method also extends to wait for remote HTML bundles to load. This is useful when running code that relies on remote bundles. As it is, bundles have to be loaded in order to access their exports. In fact, a mild warning is raised on attempting to import while bundles are still loading.
 
 ```js
 HTMLTransport.ready(() => {

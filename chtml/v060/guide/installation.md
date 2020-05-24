@@ -1,7 +1,17 @@
 # Installation Guide
 Chtml can be embedded as a script tag on your HTML page or installed via *npm*. In each case, you can choose to install the entire suite or a selection of its component libraries.
 
-## Embed as script
+## On this Page
++ [mbed As Script](#embed-as-script)
+  + [mbed The Complete Build](#embed-the-complete-build)
+  + [mbed Complete Builds](#embed-individual-builds)
++ [Install Via NPM](#install-via-npm)
+  + [Import The Default Export](#import-the-default-export)
+  + [Import Individual Modules](#import-individual-modules)
+  + [Initialization](#initialization)
++ [Next Steps](#next-steps)
+
+## Embed As Script
 
 ### Embed The Complete Build
 The complete build ships everything about CHTML - ScopedHTML, ScopedJS, ScopeCSS, and HTMLTransport.
@@ -73,7 +83,7 @@ const HTMLTransport = window.WebNative.HTMLTransport;
 </script>
 ```
 
-## Install via npm
+## Install Via NPM
 
 ```text
 $ npm i -g npm
@@ -152,7 +162,7 @@ ScopedHTML.init(window);
 
 To initialize CHTML libraries on the server for server-side rendering, an emulation of a *window* is required. This is obtainable with the [jsdom](https://github.com/jsdom/jsdom) library.
 
-Simply install *jsdom* and initial CHTML with the jsdom window object.
+Simply install *jsdom* and initialize CHTML with the jsdom window object.
 
 ```shell
 $ npm i jsdom
@@ -178,7 +188,7 @@ const JSDOM = new jsdom.JSDOM(documentFile.toString());
 Chtml.init(JSDOM.window);
 ```
 
-More about server-side rendering is covered [here](/chtml/guide/server-side-rendering.md).
+More about server-side rendering is covered [here](/chtml/v060/guide/server-side-rendering.md).
 
 ## Next Steps
 Let's now learn the core concepts of CHTML.

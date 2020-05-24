@@ -1,5 +1,5 @@
 # Overview
-CHTML is centered on using the web platform itself to create elegant user interfaces. It brings together a few specifications that ease out certain platform limitations that have historically made the UI a complex thing.
+Here is the suite of specifications and tooling that lets you build elegant user interfaces using the web platform itself.
 + [**Scoped HTML**](/chtml/v060/specs/scoped-html/) - Scope-based markup pattern that lets us break an HTML document into smaller-sized structural scopes.
 + [**Scoped JS**](/chtml/v060/specs/scoped-js/) - Scripts that are scoped to their containing elements.
 + [**Scoped CSS**](/chtml/v060/specs/scoped-css/) - Stylesheets that are scoped to their containing elements.

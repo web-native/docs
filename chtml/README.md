@@ -8,14 +8,19 @@ CHTML is a suite of short specifications and technologies that **bring a compone
 [Check this project out on GitHub](https://github.com/web-native/chtml).
 
 ## Getting Started
-[Here is a brief overview](/chtml/v060/specs/) of CHTML that gives you a vertical takeoff! You may also dive straight into a topic:
+[Start here](/chtml/v060/specs/) for a brief overview of CHTML, then follow each topic to learn more. You may also dive straight into a subject:
 + [Scoped HTML](/chtml/v060/specs/scoped-html/README.md)
 + [Scoped CSS](/chtml/v060/specs/scoped-css/README.md)
 + [Scoped JS](/chtml/v060/specs/scoped-js/README.md)
-+ [HTML Transport](/chtml/v060/specs/html-transport/README.md)
++ [HTML Transport](/chtml/v060/specs/html-transport/README.md) 
 
-You should next [include CHTML on your page](/chtml/v060/guide/installation.md) and bring the excitement home.
+Next, follow the [installation guide](/chtml/v060/guide/installation.md) to add CHTML to your page.
 
 ## Guides
 + [Installation Guide](/chtml/v060/guide/installation.md)
 + [Server-Side Rendering](/chtml/v060/guide/server-side-rendering.md)
+
+## Issues
+We're sure there will be errors around here - typos on our docs, clever bugs in code. Feel free to bring these to our notice by filing a GitHub issue. 
+
+It's also important to note that CHTML is a bleeding edge technology and may change quickly. Please do thread safely! But as much as we know today, stability is just a few iterations away.

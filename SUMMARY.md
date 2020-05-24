@@ -10,6 +10,7 @@
       * [Bundling](/chtml/v060/specs/html-transport/bundling.md)
   * [CHTML Guide](/chtml/v060/guide/README.md)
     * [Installation](/chtml/v060/guide/installation.md)
+    * [Server-Side Rendering](/chtml/v060/guide/server-side-rendering.md)
   * [CHTML v0.0.9](/chtml/v009/guide/README.md)
     * [Strucutural Concepts](/chtml/v009/guide/structural-concepts/README.md)
       * [The Component Model](/chtml/v009/guide/structural-concepts/the-component-model.md)

@@ -73,7 +73,7 @@ let authorName = article.scopeTree.author.scopeTree.name;
 
 Now, much structural guesswork and inefficient DOM queries have been avoided with a simple semantic markup pattern.
 
-Visit the [Scoped HTML Specs](/chtml/v060/specs/scoped-html/) to learn more.
+Visit the [Scoped HTML docs](/chtml/v060/specs/scoped-html/) to learn more.
 
 ### Scoped CSS
 Scoped CSS is a styling approach that lets us couple smaller-sized stylesheets with elements in an HTML document. Defined rules now get scoped to these containing elements.
@@ -130,7 +130,7 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
         #content {
             font-weight: normal;
         }
-        #user:hover #user/name {
+        #user:hover #user / #name {
             font-weight: bold;
         }
     </style>
@@ -147,12 +147,12 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
 </div>
 ```
 
-Scoped styles save us the specificity wars that comes with document-level stylesheets. We also gain the ease of maintenace and progressive development.
+Scoped styles save us the specificity wars that come with document-level stylesheets. We also gain the ease of maintenace and progressive development.
 
-Visit the [Scoped CSS Specs](/chtml/v060/specs/scoped-css/) to learn more.
+Visit the [Scoped CSS docs](/chtml/specs/scoped-css) to learn more.
 
 ### Scoped JS
-Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. Instead of the traditional way of retrieving elements into scripts, Scoped JS lets us place functionality just right where they are needed.
+Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. While we traditionally maintain elements and their presentational logic separately, Scoped JS lets us place functionality just right where they are needed.
 
 We define a *scoped script* with the special `text/scoped-js` MIME type.
 
@@ -219,7 +219,7 @@ HTML Transport is an export/import system for HTML. Here, reusable HTML fragment
 </template>
 ```
 
-*Exports* can be easily placed anywhere in the main document.
+These *exports* can be easily placed anywhere in the main document.
 
 ```html
 <body>
@@ -228,7 +228,7 @@ HTML Transport is an export/import system for HTML. Here, reusable HTML fragment
 </body>
 ```
 
-In a script, we could programmatically import an *export*.
+And in a script, we could programmatically import an *export*.
 
 ```js
 let import1 = HTMLTransport.import('export/one');

@@ -234,15 +234,17 @@ And in a script, we could programmatically import an *export*.
 let import1 = HTMLTransport.import('export/one');
 ```
 
-Now, while we have statically defined exports in a `<template>` element above, we could also define them as standalone HTML files on the server to dynamically bundle them together as a remote *HTML bundle*.
+Now, while we have statically defined exports in a `<template>` element above, we could also have defined them as standalone HTML files on the server with a view to dynamically bundling them together as a remote *HTML bundle*.
 
 Here is how a remote *HTML bundle* file on the server could look:
 
 **file://bundle.html**
 
 ```html
-<!-- file content -->
+<!-- the file at some-path/export/one.html -->
 <div namespace="export/one"></div>
+
+<!-- the file at some-path/export/two.html -->
 <div namespace="export/two"></div>
 ```
 

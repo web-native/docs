@@ -219,7 +219,7 @@ HTML Transport is an export/import system for HTML. Here, reusable HTML fragment
 </template>
 ```
 
-These *exports* can be easily placed anywhere in the main document.
+These *exports* could be easily placed anywhere in the main document.
 
 ```html
 <body>

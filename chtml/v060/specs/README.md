@@ -130,7 +130,7 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
         #content {
             font-weight: normal;
         }
-        #user:hover #user / #name {
+        #author:hover #author / #name {
             font-weight: bold;
         }
     </style>

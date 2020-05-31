@@ -115,7 +115,7 @@ Scoped CSS fits right in with Scoped HTML. If we designated the `#article` eleme
 </div>
 ```
 
-If we wanted to style the structural parts of deeply nested scopes, a path-based ID could be used. 
+If we wanted to style the structural parts of deeply nested scopes, a path notation would be used. 
 
 ```html
 <div root id="article">

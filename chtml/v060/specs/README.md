@@ -149,7 +149,7 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
 
 Scoped styles save us the specificity wars that come with document-level stylesheets. We also gain the ease of maintenace and progressive development.
 
-Visit the [Scoped CSS docs](/chtml/specs/scoped-css) to learn more.
+Visit the [Scoped CSS docs](/chtml/v060/specs/scoped-css) to learn more.
 
 ### Scoped JS
 Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. While we traditionally maintain elements and their presentational logic separately, Scoped JS lets us place functionality just right where they are needed.
@@ -205,7 +205,7 @@ If we employed Scoped HTML in our markup, we could simply traverse the *scope tr
 
 A scope may also receive application data, and further distribute received data to child scopes. Automatic *observability* steps in to do the dirty work of keeping the UI in sync with application state.
 
-Visit the [Scoped JS Specs](/chtml/v060/specs/scoped-js/) to learn more.
+Visit the [Scoped JS docs](/chtml/v060/specs/scoped-js/) to learn more.
 
 ### HTML Transport
 HTML Transport is an export/import system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
@@ -261,4 +261,4 @@ This remote bundle is easily connected to a page by using the `src` attribute on
 
 Code organization, extensibility and composability are HTML Transport's distinguishing features that let us build an entire app with much fewer components.
 
-Visit the [HTML Transport Specs](/chtml/v060/specs/html-transport/) to learn more.
+Visit the [HTML Transport docs](/chtml/v060/specs/html-transport/) to learn more.

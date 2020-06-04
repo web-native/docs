@@ -16,12 +16,12 @@ $(el1).on('doubletap', e => {
 });
 ```
 
-PlayUI's core functions may also be imported as individually to use in a project.
+PlayUI's core functions may also be imported individually to use in a project.
 
 ```js
-import {on} from '@web-native-js/play-ui/src/evt/index.js';
-import {play} from '@web-native-js/play-ui/src/ani/index.js';
-import {cssAsync} from '@web-native-js/play-ui/src/css/index.js';
+import on from '@web-native-js/play-ui/src/evt/on.js';
+import play from '@web-native-js/play-ui/src/ani/play.js';
+import cssAsync from '@web-native-js/play-ui/src/css/cssAsync.js';
 
 
 on(el1, 'doubletap', e => {

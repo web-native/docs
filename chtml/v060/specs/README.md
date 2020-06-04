@@ -8,7 +8,7 @@ Here is the suite of specifications and tooling that lets you build elegant user
 While all four technologies fit together seamlessly, they can also be used independently.
 
 ### Scoped HTML
-Scoped HTML follows a semantic markup pattern that lets us create an HTML document as a hierachy of smaller-sized scopes. Each scope represents a *root* or reference point for naming elements within its subtree.
+Scoped HTML follows a semantic markup pattern that lets us create an HTML document as a hierachy of smaller-sized scopes. Each scope establishes a new naming context for elements within its subtree.
 
 A scope is designated on an element by simply adding the *Boolean* `root` attribute. This creates a context for implementing scoped IDs.
 
@@ -130,7 +130,7 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
         #content {
             font-weight: normal;
         }
-        #user:hover #user/name {
+        #user:hover / #name {
             font-weight: bold;
         }
     </style>

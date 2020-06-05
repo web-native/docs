@@ -201,7 +201,7 @@ Below, we're importing a component to take on additional classes.
 
 ```html
 <template is="html-bundle">
-  <div namespace="html/badge/user" root>...</div>
+  <div namespace="html/badge/user" class="class0">...</div>
 </template>
 ```
 

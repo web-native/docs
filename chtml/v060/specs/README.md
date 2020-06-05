@@ -73,7 +73,7 @@ let authorName = article.scopeTree.author.scopeTree.name;
 
 Now, much structural guesswork and inefficient DOM queries have been avoided with a simple semantic markup pattern.
 
-Visit the [Scoped HTML Specs](/chtml/v060/specs/scoped-html/) to learn more.
+Visit the [Scoped HTML docs](/chtml/v060/specs/scoped-html/) to learn more.
 
 ### Scoped CSS
 Scoped CSS is a styling approach that lets us couple smaller-sized stylesheets with elements in an HTML document. Defined rules now get scoped to these containing elements.
@@ -115,7 +115,7 @@ Scoped CSS fits right in with Scoped HTML. If we designated the `#article` eleme
 </div>
 ```
 
-If we wanted to style the structural parts of deeply nested scopes, a path-based ID could be used. 
+If we wanted to style the structural parts of deeply nested scopes, a path notation would be used. 
 
 ```html
 <div root id="article">
@@ -147,12 +147,12 @@ If we wanted to style the structural parts of deeply nested scopes, a path-based
 </div>
 ```
 
-Scoped styles save us the specificity wars that comes with document-level stylesheets. We also gain the ease of maintenace and progressive development.
+Scoped styles save us the specificity wars that come with document-level stylesheets. We also gain the ease of maintenace and progressive development.
 
-Visit the [Scoped CSS Specs](/chtml/v060/specs/scoped-css/) to learn more.
+Visit the [Scoped CSS docs](/chtml/v060/specs/scoped-css) to learn more.
 
 ### Scoped JS
-Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. Instead of the traditional way of retrieving elements into scripts, Scoped JS lets us place functionality just right where they are needed.
+Scoped JS is a special technology that lets us couple JavaScript functionality with any element in a page. While we traditionally maintain elements and their presentational logic separately, Scoped JS lets us place functionality just right where they are needed.
 
 We define a *scoped script* with the special `text/scoped-js` MIME type.
 
@@ -205,7 +205,7 @@ If we employed Scoped HTML in our markup, we could simply traverse the *scope tr
 
 A scope may also receive application data, and further distribute received data to child scopes. Automatic *observability* steps in to do the dirty work of keeping the UI in sync with application state.
 
-Visit the [Scoped JS Specs](/chtml/v060/specs/scoped-js/) to learn more.
+Visit the [Scoped JS docs](/chtml/v060/specs/scoped-js/) to learn more.
 
 ### HTML Transport
 HTML Transport is an export/import system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
@@ -219,7 +219,7 @@ HTML Transport is an export/import system for HTML. Here, reusable HTML fragment
 </template>
 ```
 
-*Exports* can be easily placed anywhere in the main document.
+These *exports* could be easily placed anywhere in the main document.
 
 ```html
 <body>
@@ -228,21 +228,23 @@ HTML Transport is an export/import system for HTML. Here, reusable HTML fragment
 </body>
 ```
 
-In a script, we could programmatically import an *export*.
+And in a script, we could programmatically import an *export*.
 
 ```js
 let import1 = HTMLTransport.import('export/one');
 ```
 
-Now, while we have statically defined exports in a `<template>` element above, we could also define them as standalone HTML files on the server to dynamically bundle them together as a remote *HTML bundle*.
+Now, while we have statically defined exports in a `<template>` element above, we could also have defined them as standalone HTML files on the server with a view to dynamically bundling them together as a remote *HTML bundle*.
 
 Here is how a remote *HTML bundle* file on the server could look:
 
 **file://bundle.html**
 
 ```html
-<!-- file content -->
+<!-- the file at some-path/export/one.html -->
 <div namespace="export/one"></div>
+
+<!-- the file at some-path/export/two.html -->
 <div namespace="export/two"></div>
 ```
 
@@ -261,4 +263,4 @@ This remote bundle is easily connected to a page by using the `src` attribute on
 
 Code organization, extensibility and composability are HTML Transport's distinguishing features that let us build an entire app with much fewer components.
 
-Visit the [HTML Transport Specs](/chtml/v060/specs/html-transport/) to learn more.
+Visit the [HTML Transport docs](/chtml/v060/specs/html-transport/) to learn more.

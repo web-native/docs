@@ -1,4 +1,4 @@
-# Reflex Componemts
+# Reflex Components
 
 Reflex Componemts \(formerly Observables\) are a collection of Reflex-based objects \(routing, web monetization, forms, collections and more\) for building client-side applications.
 

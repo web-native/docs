@@ -16,7 +16,7 @@ Here are some exciting Web-Native tools that will help you get the most of web-n
 >
 > [Play UI](play-ui/) - _Manipulate the DOM and the UI with more resilience_
 >
-> [Observables](reflex-componemts/) - _Components for your reflex-based apps_
+> [Observables](reflex-components/) - _Components for your reflex-based apps_
 
 Everything in this technology stack is an independent library that can be used alone or together in high cohesion for a better Developer Experience and a happier app.
 

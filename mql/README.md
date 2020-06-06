@@ -2,5 +2,5 @@
 
 JavaScript-based \(My\)SQL library.
 
-[Get Started](/mql/guide.md)
+[Get Started](guide.md)
 

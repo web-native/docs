@@ -1,8 +1,8 @@
-# `DOM/attrSync()`
+# DOM/attrSync\(\)
 
 This function sets or gets an element's attribute. It is the shorter alternative to [`Element.setAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute), [`Element.getAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute), and [`Element.removeAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute). It also has special support for list-based attributes like `class`.
 
-The suffix _Sync_ differentiates this method from its _Async_ counterpart - [`attrAsync()`](/play-ui/api/dom/attrasync.md). Unlike the _Async_ counterpart, `attrSync()` is a normal function that runs in the same flow with that of the calling code.
+The suffix _Sync_ differentiates this method from its _Async_ counterpart - [`attrAsync()`](attrasync.md). Unlike the _Async_ counterpart, `attrSync()` is a normal function that runs in the same flow with that of the calling code.
 
 ## Import
 

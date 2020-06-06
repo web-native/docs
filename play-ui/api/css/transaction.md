@@ -1,15 +1,16 @@
-# `transaction()`
-This function establishes a CSS operation on the given element that can be rolledback safely. It is a convenient way to use the PlayUI's [Transaction](/play-ui/api/transaction.md) class.
+# CSS/transaction\(\)
+
+This function establishes a CSS operation on the given element that can be rolledback safely. It is a convenient way to use the PlayUI's [Transaction](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/transaction.md) class.
 
 ## Import
 
-```js
+```javascript
 import transaction from '@web-native-js/play-ui/src/css/transaction.js';
 ```
 
 ## Syntax
 
-```js
+```javascript
 // Single property transaction
 let transactionInstance = transaction(el, name);
 
@@ -17,16 +18,18 @@ let transactionInstance = transaction(el, name);
 let transactionInstance = transaction(el, [name]);
 ```
 
-#### Parameters
-+ `el` - `HTMLElement`: The source DOM element.
-+ `name` - `String|Array`: The CSS property or list of properties that should be rolled back after the transaction.
+### Parameters
 
-#### Return
-+ `Transaction` - The [Transaction](/play-ui/api/transaction.md) instance.
+* `el` - `HTMLElement`: The source DOM element.
+* `name` - `String|Array`: The CSS property or list of properties that should be rolled back after the transaction.
+
+### Return
+
+* `Transaction` - The [Transaction](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/transaction.md) instance.
 
 ## Examples
 
-```html
+```markup
 <style>
 div {
     background-color: yellow;
@@ -35,7 +38,7 @@ div {
 <div id="el" style="color:red"></div>
 ```
 
-```js
+```javascript
 let el = document.querySelector('#el');
 
 // Obtaine a Transaction instance
@@ -67,9 +70,9 @@ setTimeout(() => {
 }, 2000);
 ```
 
-In the code above, if another part of the app had changed one of those properties, then *rollback* would have left that property untouched to respect the other code.
+In the code above, if another part of the app had changed one of those properties, then _rollback_ would have left that property untouched to respect the other code.
 
-```js
+```javascript
 // Obtaine a Transaction instance
 let transactionInstance = transaction(el, ['background-color', 'color']);
 // Create a savepoint - savepoint1
@@ -96,3 +99,4 @@ setTimeout(() => {
     // But color will remain brown
 }, 2000);
 ```
+

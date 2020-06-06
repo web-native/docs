@@ -1,8 +1,8 @@
-# `DOM/classSync()`
+# DOM/classSync\(\)
 
-This function is a convenience function over [`attrSync()`](/play-ui/api/dom/attrsync.md) for setting/unsetting the _class_ attribute or adding/removing entries on an element's _class_ list.
+This function is a convenience function over [`attrSync()`](attrsync.md) for setting/unsetting the _class_ attribute or adding/removing entries on an element's _class_ list.
 
-The suffix _Sync_ differentiates this method from its _Async_ counterpart - [`classAsync()`](/play-ui/api/dom/classasync.md). Unlike the _Async_ counterpart, `classSync()` is a normal function that runs in the same flow with that of the calling code.
+The suffix _Sync_ differentiates this method from its _Async_ counterpart - [`classAsync()`](classasync.md). Unlike the _Async_ counterpart, `classSync()` is a normal function that runs in the same flow with that of the calling code.
 
 ## Import
 

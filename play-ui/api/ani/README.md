@@ -14,6 +14,8 @@ import play from '@web-native-js/play-ui/src/ani/play.js';
 ```
 
 ## API
-+ [`ANI/play()`](/play-ui/api/ani/play.md)
-+ [ANI/Ani](/play-ui/api/ani/Ani/README.md)
-+ [ANI/Timeline](/play-ui/api/ani/Timeline/README.md)
+
+* [`ANI/play()`](play.md)
+* [ANI/Ani](ani/)
+* [ANI/Timeline](timeline/)
+

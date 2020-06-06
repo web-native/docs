@@ -1,8 +1,8 @@
-# `DOM/prependSync()`
+# DOM/prependSync\(\)
 
 This function prepends content to an element. It works exactly the same as [`ParentNode.prepend()`](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/prepend) except that when the implied content is undefined, it is converted to an empty string.
 
-The suffix *Sync* differentiates this method from its *Async* counterpart - [`prependAsync()`](/play-ui/api/dom/prependasync.md). Unlike the *Async* counterpart, `prependSync()` is a normal function that runs in the same flow with that of the calling code.
+The suffix _Sync_ differentiates this method from its _Async_ counterpart - [`prependAsync()`](prependasync.md). Unlike the _Async_ counterpart, `prependSync()` is a normal function that runs in the same flow with that of the calling code.
 
 ## Import
 

@@ -1,8 +1,8 @@
-# `DOM/classAsync()`
+# DOM/classAsync\(\)
 
-This function is a convenience function over [`attrAsync()`](/play-ui/api/dom/attrasync.md) for setting/unsetting the _class_ attribute or adding/removing entries on an element's _class_ list.
+This function is a convenience function over [`attrAsync()`](attrasync.md) for setting/unsetting the _class_ attribute or adding/removing entries on an element's _class_ list.
 
-The suffix _Async_ differentiates this method from its _Sync_ counterpart - [`classSync()`](/play-ui/api/dom/classsync.md). Unlike the _Async_ counterpart, `classAsync()` is a promise-based function that runs in a different flow from that of the calling code.
+The suffix _Async_ differentiates this method from its _Sync_ counterpart - [`classSync()`](classsync.md). Unlike the _Async_ counterpart, `classAsync()` is a promise-based function that runs in a different flow from that of the calling code.
 
 ## Import
 
@@ -89,5 +89,5 @@ classAsync(article).then(classlist => {
 
 ## Implementation Note
 
-See [`attrAsync()`](/play-ui/api/dom/attrasync.md#implementation-note)
+See [`attrAsync()`](attrasync.md#implementation-note)
 

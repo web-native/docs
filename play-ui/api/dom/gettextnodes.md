@@ -1,27 +1,31 @@
-# `DOM/getTextNodes()`
+# DOM/getTextNodes\(\)
+
 This function finds and returns all text nodes within an element.
 
 ## Import
 
-```js
+```javascript
 import getTextNodes from '@web-native-js/play-ui/src/dom/getTextNodes.js';
 ```
 
 ## Syntax
 
-```js
+```javascript
 getTextNodes(el);
 ```
 
 ### Parameters
-+ `el` - `HTMLElement`: The source DOM element.
+
+* `el` - `HTMLElement`: The source DOM element.
 
 ### Return
-+ `Array` - The text nodes found.
+
+* `Array` - The text nodes found.
 
 ## Examples
 
-```js
+```javascript
 let textNodes = getTextNodes(document.body);
 console.log(textNodes); // Array
 ```
+

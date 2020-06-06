@@ -1,15 +1,16 @@
-# `readInline()`
+# CSS/readInline\(\)
+
 This function returns one or more style properties from the given element's style attribute. These are properties that might have been defined statically or dynamically via JavaScript and are different from the element's computed style.
 
 ## Import
 
-```js
+```javascript
 import readInline from '@web-native-js/play-ui/src/css/readInline.js';
 ```
 
 ## Syntax
 
-```js
+```javascript
 // Get a single inline property
 let value = readInline(el, name);
 
@@ -17,17 +18,19 @@ let value = readInline(el, name);
 let values = readInline(el, [name]);
 ```
 
-#### Parameters
-+ `el` - `HTMLElement`: The source DOM element.
-+ `name` - `String|Array`: The CSS property or list of properties to read. When an array, values are returnd as an object.
+### Parameters
 
-#### Return
-+ `String|Number` - The value for a single property.
-+ `Object` - The values for multiple properties.
+* `el` - `HTMLElement`: The source DOM element.
+* `name` - `String|Array`: The CSS property or list of properties to read. When an array, values are returnd as an object.
+
+### Return
+
+* `String|Number` - The value for a single property.
+* `Object` - The values for multiple properties.
 
 ## Examples
 
-```html
+```markup
 <style>
 div {
     background-color: yellow;
@@ -36,7 +39,7 @@ div {
 <div id="el" style="color:red"></div>
 ```
 
-```js
+```javascript
 let el = document.querySelector('#el');
 
 // Set attribute
@@ -51,3 +54,4 @@ console.log(values);
 }
 */
 ```
+

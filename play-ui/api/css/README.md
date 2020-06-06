@@ -14,14 +14,16 @@ import cssAsync from '@web-native-js/play-ui/src/css/cssAsync.js';
 ```
 
 ## API
-+ [`CSS/cssSync()`](/play-ui/api/css/csssync.md)
-+ [`CSS/cssAsync()`](/play-ui/api/css/cssasync.md)
-+ [`CSS/readSync()`](/play-ui/api/css/readsync.md)
-+ [`CSS/readAsync()`](/play-ui/api/css/readasync.md)
-+ [`CSS/writeSync()`](/play-ui/api/css/writesync.md)
-+ [`CSS/writeAsync()`](/play-ui/api/css/writeasync.md)
-+ [`CSS/readRendering()`](/play-ui/api/css/readrendering.md)
-+ [`CSS/readInline()`](/play-ui/api/css/readinline.md)
-+ [`CSS/readStylesheet()`](/play-ui/api/css/readstylesheet.md)
-+ [`CSS/transaction()`](/play-ui/api/css/transaction.md)
-+ [CSS/TransformRule](/play-ui/api/css/TransformRule/README.md)
+
+* [`CSS/cssSync()`](csssync.md)
+* [`CSS/cssAsync()`](cssasync.md)
+* [`CSS/readSync()`](readsync.md)
+* [`CSS/readAsync()`](readasync.md)
+* [`CSS/writeSync()`](writesync.md)
+* [`CSS/writeAsync()`](writeasync.md)
+* [`CSS/readRendering()`](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/css/readrendering.md)
+* [`CSS/readInline()`](readinline.md)
+* [`CSS/readStylesheet()`](readstylesheet.md)
+* [`CSS/transaction()`](transaction.md)
+* [CSS/TransformRule](transformrule.md)
+

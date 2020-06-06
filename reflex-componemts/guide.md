@@ -1,15 +1,15 @@
-# Observables Guide
+# Installation Guide
 
 ## Installation
 
 ### Embed as script
 
 ```markup
-<script src="https://unpkg.com/@web-native-js/observables/dist/main.js"></script>
+<script src="https://unpkg.com/@web-native-js/reflex-componemts/dist/main.js"></script>
 
 <script>
-// The above tag loads Observables into a global "WebNative" object.
-const Observables = window.WebNative.Observables;
+// The above tag loads ReflexComponemts into a global "WebNative" object.
+const ReflexComponemts = window.WebNative.ReflexComponemts;
 </script>
 ```
 
@@ -17,20 +17,18 @@ const Observables = window.WebNative.Observables;
 
 ```text
 $ npm i -g npm
-$ npm i --save @web-native-js/observables
+$ npm i --save @web-native-js/reflex-componemts
 ```
 
 #### Import
 
-Observables is written in and distributed as standard JavaScript modules, and is thus imported only with the `import` keyword.
-
-Observables works both in browser and server environments.
+Reflex Components are written in and distributed as standard JavaScript modules, and is thus imported only with the `import` keyword.
 
 ```javascript
 // Node-style import
-import Observables from '@web-native-js/observables';
+import * as ReflexComponemts from '@web-native-js/reflex-componemts';
 
 // Standard JavaScript import. (Actual path depends on where you installed Observables to.)
-import Observables from './node_modules/@web-native-js/observables/src/index.js';
+import * as ReflexComponemts from './node_modules/@web-native-js/reflex-componemts/src/index.js';
 ```
 

@@ -30,7 +30,7 @@
 * [Reflex](reflex/README.md)
   * [Reflex Guide](reflex/guide.md)
 * [Reflex Componemts](reflex-componemts/README.md)
-  * [Observables Guide](reflex-componemts/guide.md)
+  * [Installation Guide](reflex-componemts/guide.md)
 * [PlayUI](play-ui/README.md)
   * [PlayUI Guide](play-ui/guide.md)
   * [PlayUI API](play-ui/api/README.md)

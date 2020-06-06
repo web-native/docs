@@ -30,6 +30,6 @@ Observables works both in browser and server environments.
 // Node-style import
 import Observables from '@web-native-js/observables';
 
-// Standard JavaScript import. (Actual path depends on where you installed JSEN to.)
+// Standard JavaScript import. (Actual path depends on where you installed Observables to.)
 import Observables from './node_modules/@web-native-js/observables/src/index.js';
 ```

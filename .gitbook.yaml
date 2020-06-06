@@ -1,2 +1,2 @@
 redirects:  
-    reflex-components: ./observables/README.md
+    observables: ./reflex-components/README.md

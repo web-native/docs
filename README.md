@@ -1,21 +1,19 @@
 # Docs - Web-Native.Dev
 
-Welcome to the documentation for "web-native" tools!
+Welcome to the documentation for "web-native"!
+
+The Web-Native Project has a vision for a more empowering platform that helps us get more done with less dependencies!
 
 ## Overview
 
-Through engineering, the Web-Native Project aims to bridge major gaps on the web platform to meet modern development needs. A more empowering platform will be helping us get more done with less dependencies!
-
-Here are some exciting tools that will help you get the most of web-native development:
-
-> [CHTML](chtml/) - _Implement the UI entirely in HTML_
+> [CHTML](chtml/) - a suite of new DOM features that brings language support for a component-based architecture, data binding, and reactivity
 >
-> [Observer](observer/) - _Apply reactivity to any JavaScript object_
+> [Observer](observer/) - a simple set of functions for intercepting and observing JavaScript objects and arrays.
 >
-> [JSEN](jsen/) - _Run JavaScript expressions in user-defined scopes_
+> [JSEN](jsen/) - a small library for parsing and executing JavaScript expressions in custom scopes.
 >
-> [Play UI](play-ui/) - _Manipulate the DOM and the UI with more resilience_
+> [Play UI](play-ui/) - utilities for easing DOM-related concerns, UI manipulation, events and gestures, animations, and more.
 >
-> [Observables](reflex-components/) - _Components for your reflex-based apps_
+> [Observables](observables/) - a collection of observable components (routing, forms, collections and more) for building client-side applications.
 
 

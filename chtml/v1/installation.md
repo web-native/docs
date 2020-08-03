@@ -122,7 +122,7 @@ init();
 
 Let's now learn the core concepts of CHTML.
 
-[Chtml](/chtml/)
++ [Chtml](/chtml/)
 
 
 

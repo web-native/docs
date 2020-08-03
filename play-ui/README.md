@@ -2,7 +2,7 @@
 
 # PlayUI v0.0.2
 
-PlayUI provides APIs for easing DOM-related concerns, UI manipulation, events and gestures, animations, and more. It offers a minimal footprint with concise APIs that let the platform speak for itself.
+PlayUI provides utilities for easing DOM-related concerns, UI manipulation, events and gestures, animations, and more. It offers a minimal footprint with concise APIs that let the platform speak for itself.
 
 [Check this project out on GitHub](https://github.com/web-native/play-ui).
 

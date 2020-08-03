@@ -179,7 +179,7 @@ With the introduction of Scoped HTML, a few backwards-compatible changes will no
 
 All of *Scoped HTML*, excluding Scope Selectors, is currently implemented in the CHTML at Web-Native, but with the use of mutation observers. The implementation is also making do with the `scoped:id` attribute instead of the actual `id` attribute - to respect the current validition of HTML documents. Interestingly, a native implementation of scoped IDs can come at no risk to pre-CHTML websites as their lack of *roots* can forever keep their IDs scoped to the document root. Or possibly, a meta tag, or document-wide attribute can be required for Scoped HTML-based documents.
 
-[Read the full Scoped HTML docs](https://docs.web-native.dev/chtml/v1/scoped-html)
+[Read the full Scoped HTML docs](https://docs.web-native.dev/chtml/scoped-html)
 
 ### Scoped CSS
 
@@ -210,7 +210,7 @@ CHTML *reproposes* the ability to scope a stylesheet as a language feature and n
 </div>
 ```
 
-[Read the full Scoped CSS docs](https://docs.web-native.dev/chtml/v1/scoped-css)
+[Read the full Scoped CSS docs](https://docs.web-native.dev/chtml/scoped-css)
 
 ### Scoped JS
 
@@ -462,7 +462,7 @@ All of *Scoped JS* is currently implemented in the CHTML at Web-Native, but with
 
 The implementation is based on the [JSEN library](https://docs.web-native.dev/jsen) - an experimental implementation of a subset of the JavaScript language for user-defined use-cases.
 
-[Read the full Scoped JS docs](https://docs.web-native.dev/chtml/v1/scoped-js)
+[Read the full Scoped JS docs](https://docs.web-native.dev/chtml/scoped-js)
 
 ### HTML Partials
 
@@ -896,11 +896,11 @@ This is noteworthy because it is finally possible, so that we can stop looking t
 
 All of *HTML Partials* is currently implemented in the CHTML at Web-Native, but with mutation observers and a little more verbosed attribute and element names. The `<slot>` element is implemented as `<partials-slot>`. The `slot` attribute used by *partials* in a `<template>` is implemented as `partials-slot`.
 
-[Read the full HTML Partials docs](https://docs.web-native.dev/chtml/v1/html-partials)
+[Read the full HTML Partials docs](https://docs.web-native.dev/chtml/html-partials)
 
 ## Examples
 
-Here are some of CHTML's possibilities. To try the examples below with the current implementation of CHTML, please visit [docs.web-native.dev/chtml](https://docs.web-native.dev/chtml) to find the corresponding sample code in the examples given.
+Here are some of CHTML's possibilities. To try the examples below with the current implementation of CHTML, please visit [docs.web-native.dev/chtml](https://docs.web-native.dev/chtml/examples) to find the corresponding sample code in the examples given.
 
 ### A TODO List Example
 

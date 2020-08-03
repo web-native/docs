@@ -15,7 +15,7 @@ If you'd be interested in the motivation for this project, [here](/chtml/v1/expl
 
 ## Getting Started
 
-+ [Installation](/chtml/v1/installation.md) - Follow the installation guide to add CHTML to your page.
++ [Installation](/chtml/v1/installation.md) - Here is the installation guide to add CHTML to your page.
 + [Examples](/chtml/v1/examples) - Get a head start with these few examples. 
 
 ## Issues

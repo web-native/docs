@@ -15,7 +15,7 @@ CHTML is designed as a polyfill and can be embedded as a script tag on an HTML p
 
 ## Embed As Script 
 
-+ **Embed The Complete Suite** - The complete set ships everything about CHTML - Scoped HTML, Scope CSS, Scoped JS, and HTML Partials.
++ **Embed The Complete Suite** - The complete suite ships everything about CHTML - Scoped HTML, Scope CSS, Scoped JS, and HTML Partials.
 
   ```html
   <script src="https://unpkg.com/@web-native-js/chtml/dist/main.js"></script>

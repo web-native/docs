@@ -1,11 +1,5 @@
-<<<<<<< HEAD:play-ui/v002/api/css/transaction.md
 # `transaction()`
 This function establishes a CSS operation on the given element that can be rolledback safely. It is a convenient way to use the PlayUI's [Transaction](/play-ui/v002/api/transaction.md) class.
-=======
-# CSS/transaction\(\)
-
-This function establishes a CSS operation on the given element that can be rolledback safely. It is a convenient way to use the PlayUI's [Transaction](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/transaction.md) class.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/css/transaction.md
 
 ## Import
 
@@ -23,23 +17,12 @@ let transactionInstance = transaction(el, name);
 let transactionInstance = transaction(el, [name]);
 ```
 
-<<<<<<< HEAD:play-ui/v002/api/css/transaction.md
 **Parameters**
 + `el` - `HTMLElement`: The source DOM element.
 + `name` - `String|Array`: The CSS property or list of properties that should be rolled back after the transaction.
 
 **Return**
 + `Transaction` - The [Transaction](/play-ui/v002/api/transaction.md) instance.
-=======
-### Parameters
-
-* `el` - `HTMLElement`: The source DOM element.
-* `name` - `String|Array`: The CSS property or list of properties that should be rolled back after the transaction.
-
-### Return
-
-* `Transaction` - The [Transaction](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/transaction.md) instance.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/css/transaction.md
 
 ## Usage
 

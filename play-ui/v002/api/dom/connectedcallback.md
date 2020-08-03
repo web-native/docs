@@ -1,11 +1,5 @@
-<<<<<<< HEAD:play-ui/v002/api/dom/connectedcallback.md
 # `DOM/connectedCallback()`
 This function observes when the specified elements are added to the document or given context. This is a convenience function for [`mutationCallback()`](/play-ui/v002/api/dom/mutationcallback.md)
-=======
-# DOM/connectedCallback\(\)
-
-This function observes when the specified elements are added to the document or given context. This is a convenience function for [`mutationCallback()`](mutationcallback.md)
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/connectedcallback.md
 
 ## Import
 
@@ -27,14 +21,8 @@ connectedCallback(els, callback[, context = null[, observeIndirectMutation = tru
 * `context` - `DOMDocument|HTMLElement`: \(Optional\) The subtree to observe. This is the _document_ itself by default.
 * `observeIndirectMutation` - `Boolean`: \(Optional\) A specifier that tells whether to watch direct or indirect mutations of the specified elements.
 
-<<<<<<< HEAD:play-ui/v002/api/dom/connectedcallback.md
 **Return**
 + `MutationObserver` - The instantiated MutationObserver.
-=======
-#### Return
-
-* `MutationObserver` - The instantiated MutationObserver.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/connectedcallback.md
 
 ## Usage
 

@@ -18,7 +18,6 @@ let value = readStylesheet(el, name);
 let values = readStylesheet(el, [name]);
 ```
 
-<<<<<<< HEAD:play-ui/v002/api/css/readstylesheet.md
 **Parameters**
 + `el` - `HTMLElement`: The source DOM element.
 + `name` - `String|Array`: The CSS property or list of properties to read. When an array, values are returnd as an object.
@@ -26,17 +25,6 @@ let values = readStylesheet(el, [name]);
 **Return**
 + `String|Number` - The value for a single property.
 + `Object` - The values for multiple properties.
-=======
-### Parameters
-
-* `el` - `HTMLElement`: The source DOM element.
-* `name` - `String|Array`: The CSS property or list of properties to read. When an array, values are returnd as an object.
-
-### Return
-
-* `String|Number` - The value for a single property.
-* `Object` - The values for multiple properties.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/css/readstylesheet.md
 
 ## Usage
 

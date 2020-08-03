@@ -4,11 +4,11 @@ PlayUI can be installed and used as a composed, instantiable module. Its core fu
 
 ## On this Page
 
-* [Embed As Script](guide.md#embed-as-script)
-* [Install vVa NPM](guide.md#install-via-npm)
-  * [Import the Default Export](guide.md#import-the-default-export)
-  * [Import Individual Modules](guide.md#import-individual-modules)
-* [Next Steps](guide.md#next-steps)
+* [Embed As Script](#embed-as-script)
+* [Install Via NPM](#install-via-npm)
+  * [Import the Default Export](#import-the-default-export)
+  * [Import Individual Modules](#import-individual-modules)
+* [Next Steps](#next-steps)
 
 ## Embed As Script
 
@@ -62,12 +62,5 @@ import on from './node_modules/@web-native-js/play-ui/src/evt/on.js';
 ```
 
 ## Next Steps
-<<<<<<< HEAD:play-ui/v002/installation.md
 + Take [the introduction to PlayUI](/play-ui/).
 + Visit the [API reference](/play-ui/v002/api/).
-=======
-
-* Take [the introduction to PlayUI](./).
-* Visit the [API reference](api/).
-
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/guide.md

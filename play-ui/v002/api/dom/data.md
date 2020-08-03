@@ -32,7 +32,6 @@ let el = data(el, {
 });
 ```
 
-<<<<<<< HEAD:play-ui/v002/api/dom/data.md
 **Parameters**
 + `el` - `HTMLElement`: The target DOM element.
 + `key` - `String`: The key to set or unset.
@@ -40,17 +39,6 @@ let el = data(el, {
 
 **Return**
 + `HTMLElement` - The target DOM element.
-=======
-#### Parameters
-
-* `el` - `HTMLElement`: The target DOM element.
-* `key` - `String`: The key to set or unset.
-* `value` - `Any`: The data value to set. When `undefined`, the data key is unset from the element.
-
-#### Return
-
-* `HTMLElement` - The target DOM element.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/data.md
 
 ### &gt; Get Value
 
@@ -58,23 +46,12 @@ let el = data(el, {
 let value = data(el, key);
 ```
 
-<<<<<<< HEAD:play-ui/v002/api/dom/data.md
 **Parameters**
 + `el` - `HTMLElement`: The source DOM element.
 + `key` - `String`: The data key to read.
 
 **Return**
 + `Any` - The data value.
-=======
-#### Parameters
-
-* `el` - `HTMLElement`: The source DOM element.
-* `key` - `String`: The data key to read.
-
-#### Return
-
-* `Any` - The data value.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/data.md
 
 ## Usage
 

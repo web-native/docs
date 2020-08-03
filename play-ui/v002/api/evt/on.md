@@ -10,7 +10,6 @@ import on from '@web-native-js/play-ui/src/evt/on.js';
 
 ## Syntax
 
-<<<<<<< HEAD:play-ui/v002/api/evt/on.md
 ```js
 on(el, eventName, handler[, params = {}]);
 ```
@@ -24,21 +23,6 @@ on(el, eventName, handler[, params = {}]);
 
 **Return**
 A [*Listener* instance](#the-returned-listener-instance).
-=======
-```javascript
-on(el, type, callback);
-```
-
-### Parameters
-
-* `el` - `HTMLElement`: The source DOM element.
-* `type` - `String`: The event name.
-* `callback` - `Function`: The handler function.
-
-### Return
-
-* `Listener` - The `Listener` instance; part of PlayUI's event system.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/evt/on.md
 
 ## Usage
 
@@ -97,9 +81,4 @@ Ensure to include Hammer in your page.
 
 ```markup
 <script src="//unpkg.com/@web-native-js/cui/ext/hammer.min.js"></script>
-<<<<<<< HEAD:play-ui/v002/api/evt/on.md
 ```
-=======
-```
-
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/evt/on.md

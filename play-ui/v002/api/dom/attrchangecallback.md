@@ -21,14 +21,8 @@ attrChangeCallback(el, callback[, filter = []]);
   * `mutation` - `MutationEntry`: An object representing the mutation that occured.
 * `filter` - `Array`: \(Optional\) A more specific list of attributes to observe.
 
-<<<<<<< HEAD:play-ui/v002/api/dom/attrchangecallback.md
 **Return**
 + `MutationObserver` - The instantiated MutationObserver.
-=======
-#### Return
-
-* `MutationObserver` - The instantiated MutationObserver.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/attrchangecallback.md
 
 ## Usage
 

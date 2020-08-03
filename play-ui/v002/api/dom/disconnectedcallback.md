@@ -1,11 +1,5 @@
-<<<<<<< HEAD:play-ui/v002/api/dom/disconnectedcallback.md
 # `DOM/disconnectedCallback()`
 This function observes when the specified elements are removed from the document or given context. This is a convenience function for [`mutationCallback()`](/play-ui/v002/api/dom/mutationcallback.md)
-=======
-# DOM/disconnectedCallback\(\)
-
-This function observes when the specified elements are removed from the document or given context. This is a convenience function for [`mutationCallback()`](mutationcallback.md)
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/disconnectedcallback.md
 
 ## Import
 
@@ -27,14 +21,8 @@ disconnectedCallback(els, callback[, context = null[, observeIndirectMutation = 
 * `context` - `DOMDocument|HTMLElement`: \(Optional\) The subtree to observe. This is the _document_ itself by default.
 * `observeIndirectMutation` - `Boolean`: \(Optional\) A specifier that tells whether to watch direct or indirect mutations of the specified elements.
 
-<<<<<<< HEAD:play-ui/v002/api/dom/disconnectedcallback.md
 **Return**
 + `MutationObserver` - The instantiated MutationObserver.
-=======
-#### Return
-
-* `MutationObserver` - The instantiated MutationObserver.
->>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/disconnectedcallback.md
 
 ## Usage
 

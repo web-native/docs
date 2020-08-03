@@ -19,7 +19,7 @@ Scopes are designated with the `root` Boolean attribute.
 
 ***Scopes* and *Subscopes***
 
-Below is scopes at scale:
+Below is a hierarchy of scopes.
 
 ```html
 <body>

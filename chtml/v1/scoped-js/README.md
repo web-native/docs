@@ -1,6 +1,6 @@
 # Scoped JS
 
-Scoped JS is a DOM feature that makes it possible for scripts to be scoped to their containing element and completely out of the global browser scope.
+Scoped JS is a DOM feature that lets us implement `<script>` elements that are scoped their containing element and completely out of the global browser scope.
 
 ## On this page:
 + [Scoped Scripts](#scoped-scripts)

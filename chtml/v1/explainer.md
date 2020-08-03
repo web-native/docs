@@ -71,7 +71,7 @@ Scopes are designated with the `root` Boolean attribute.
 
 ***Scopes* and *Subscopes***
 
-Below is a hierarchy of scopes:
+Below is a hierarchy of scopes.
 
 ```html
 <body>

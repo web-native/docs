@@ -1,0 +1,17 @@
+{
+  "title": "Web-Native DOCS",
+  "description": "Documentation for Web-Native packages.",
+  "homepage": "https://docs.web-native.dev",
+  "author": {
+    "name": "Oxford Harrison",
+    "email": "oxharris.dev@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-native/docs.git"
+  },
+  "funding": {
+    "type": "patreon",
+    "url": "https://patreon.com/ox_harris"
+  }
+}

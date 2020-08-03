@@ -7,22 +7,26 @@ This example makes an SPA of *templates and slots* composition. Below, we're usi
 
     <head>
 
-        <template namespace="route/home">
-            <h1 partials-slot="headline">
-                Welcome Home!
-            </h1>
-            <p partials-slot="content">
-                <a href="#/about">About Me</a>
-            </p>
-        </template>
+        <template name="route">
 
-        <template namespace="route/about">
-            <h1 partials-slot="headline">
-                About Me!
-            </h1>
-            <p partials-slot="content">
-                <a href="#/home">Back to Home</a>
-            </p>
+            <template name="home">
+                <h1 partials-slot="headline">
+                    Welcome Home!
+                </h1>
+                <p partials-slot="content">
+                    <a href="#/about">About Me</a>
+                </p>
+            </template>
+
+            <template name="about">
+                <h1 partials-slot="headline">
+                    About Me!
+                </h1>
+                <p partials-slot="content">
+                    <a href="#/home">Back to Home</a>
+                </p>
+            </template>
+
         </template>
 
     </head>

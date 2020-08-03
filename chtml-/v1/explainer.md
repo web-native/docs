@@ -960,7 +960,7 @@ We could even add the ability to add/remove items. For the *remove* feature, we'
 
     <head>
 
-        <template namespace="module/item">
+        <template name="template1">
             <li root slot="item">
                 <span id="content"></span>
                 <button id="remover">Remove</button>
@@ -975,7 +975,7 @@ We could even add the ability to add/remove items. For the *remove* feature, we'
 
     <body>
 
-        <div root id="todo" template="module/item">
+        <div root id="todo" template="template1">
 
             <h2 id="title"></h2>
 
@@ -1024,22 +1024,26 @@ This example makes an SPA of *templates and slots* composition. Below, we're usi
 
     <head>
 
-        <template namespace="route/home">
-            <h1 slot="headline">
-                Welcome Home!
-            </h1>
-            <p slot="content">
-                <a href="#/about">About Me</a>
-            </p>
-        </template>
+        <template name="route">
 
-        <template namespace="route/about">
-            <h1 slot="headline">
-                About Me!
-            </h1>
-            <p slot="content">
-                <a href="#/home">Back to Home</a>
-            </p>
+            <template name="home">
+                <h1 slot="headline">
+                    Welcome Home!
+                </h1>
+                <p slot="content">
+                    <a href="#/about">About Me</a>
+                </p>
+            </template>
+
+            <template name="about">
+                <h1 slot="headline">
+                    About Me!
+                </h1>
+                <p slot="content">
+                    <a href="#/home">Back to Home</a>
+                </p>
+            </template>
+
         </template>
 
     </head>

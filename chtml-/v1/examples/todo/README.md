@@ -7,7 +7,7 @@ Below is a TODO list composed from a JavaScript array using Scoped HTML, Scoped 
 
     <head>
 
-        <template namespace="module/item">
+        <template name="template1">
             <li partials-slot="item">
                 <script type="scoped">this.innerHTML = text;</script>
             </li>
@@ -17,7 +17,7 @@ Below is a TODO list composed from a JavaScript array using Scoped HTML, Scoped 
 
     <body>
 
-        <div root id="todo" template="module/item">
+        <div root id="todo" template="template1">
 
             <h2 scoped:id="title"></h2>
 
@@ -56,7 +56,7 @@ We could even add the ability to add/remove items. For the *remove* feature, we'
 
     <head>
 
-        <template namespace="module/item">
+        <template name="template1">
             <li root partials-slot="item">
                 <span scoped:id="content"></span>
                 <button scoped:id="remover">Remove</button>
@@ -71,7 +71,7 @@ We could even add the ability to add/remove items. For the *remove* feature, we'
 
     <body>
 
-        <div root id="todo" template="module/item">
+        <div root id="todo" template="template1">
 
             <h2 scoped:id="title"></h2>
 

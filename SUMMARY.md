@@ -5,7 +5,6 @@
   * [Scoped CSS](/chtml/v1/scoped-css/README.md)
   * [Scoped JS](/chtml/v1/scoped-js/README.md)
   * [HTML Partials](/chtml/v1/html-partials/README.md)
-    * [Bundling](/chtml/v1/html-partials/bundling.md)
   * [Examples](/chtml/v1/examples/README.md)
   * [Installation](/chtml/v1/installation.md)
   * [Explainer](/chtml/v1/explainer.md)

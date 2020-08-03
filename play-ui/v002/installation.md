@@ -6,15 +6,13 @@ PlayUI can be installed and used as a composed, instantiable module. Its core fu
 
 * [Embed As Script](#embed-as-script)
 * [Install Via NPM](#install-via-npm)
-  * [Import the Default Export](#import-the-default-export)
-  * [Import Individual Modules](#import-individual-modules)
 * [Next Steps](#next-steps)
 
 ## Embed As Script
 
 Add the following script tag to your page to include the instantiable edition of PlayUI.
 
-```markup
+```html
 <script src="https://unpkg.com/@web-native-js/play-ui/dist/main.js"></script>
 
 <script>
@@ -30,25 +28,24 @@ $ npm i -g npm
 $ npm i --save @web-native-js/play-ui
 ```
 
-PlayUI is written in and distributed as standard JavaScript modules, and is thus imported only with the `import` keyword.
+The installed package is designed to be *initialized* with the *window* object of the current browser or server evironment. To do this, import the `ENV` object and assign the *window* object to it, then call the initializer.
 
-### Import the Default Export
++ **Initialize the Constructible Build** - Initialize the module below for the constructible build of PlayUI.
 
-Import the default export to include the instantiable edition of PlayUI in a project.
-
-```javascript
+```js
 // Node-style import
-import $ from '@web-native-js/play-ui';
-
+import PlayUI, { ENV } from '@web-native-js/play-ui';
 // Standard JavaScript import. (Actual path depends on where you installed PlayUI to.)
-import $ from './node_modules/@web-native-js/play-ui/src/index.js';
+import PlayUI, { ENV } from './node_modules/@web-native-js/play-ui/src/index.js';
+
+// Initialize
+ENV.window = window;
+PlayUI.INIT();
 ```
 
-### Import Individual Modules
++ **Initialize Individual Utility** - Import a specific utility to your project. Each utility has been documented with their specific installation path. Here are examples.
 
-Import a module to use a specific functionality in your project. Each module has been documented with their specific installation path. Here are examples.
-
-```javascript
+```js
 // Simgle imports
 import on from '@web-native-js/play-ui/src/evt/on.js';
 import play from '@web-native-js/play-ui/src/ani/play.js';

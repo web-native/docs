@@ -253,14 +253,14 @@ CHTML is a suite of four new technologies that provide for a component-based HTM
 
     [Read the full Scoped JS docs](https://docs.web-native.dev/chtml/v060/specs/scoped-js)
 
-+ **HTML Transport** - An import/export system that lets us define, extend, and distribute HTML components – now, the platform itself as an UI component framework.
++ **HTML Partials** - An import/export system that lets us define, extend, and distribute HTML components – now, the platform itself as an UI component framework.
 
-    HTML Transport uses existing HTML features to make a feature-rich system of defining and reusing HTML snippets.
+    HTML Partials uses existing HTML features to make a feature-rich system of defining and reusing HTML snippets.
 
     
     ```html
     <head>
-        <template is="html-bundle">
+        <template is="partials-bundle">
 
             <div namespace="export/one"></div>
             <div namespace="export/two"></div>
@@ -273,17 +273,17 @@ CHTML is a suite of four new technologies that provide for a component-based HTM
 
     ```html
     <body>
-        <html-import namespace="export/one"></html-import>
-        <html-import namespace="export/two"></html-import>
+        <partials-import namespace="export/one"></partials-import>
+        <partials-import namespace="export/two"></partials-import>
     </body>
     ```
 
     And in a script, we could programmatically import them.
 
     ```js
-    let import1 = HTMLTransport.import('export/one');
+    let import1 = HTMLPartials.import('export/one');
     ```
 
-    Taking things beyond imports and exports, HTML Transport sets a new bar in code organization, extensibility and composability.
+    Taking things beyond imports and exports, HTML Partials sets a new bar in code organization, extensibility and composability.
 
-    [Read the full HTML Transport docs](https://docs.web-native.dev/chtml/v060/specs/html-transport)
+    [Read the full HTML Partials docs](https://docs.web-native.dev/chtml/v060/specs/html-partials)

@@ -3,7 +3,7 @@ Here is the suite of specifications and tooling that lets you build elegant user
 + [**Scoped HTML**](/chtml/v060/specs/scoped-html/) - Scope-based markup pattern that lets us break an HTML document into smaller-sized structural scopes.
 + [**Scoped JS**](/chtml/v060/specs/scoped-js/) - Scripts that are scoped to their containing elements.
 + [**Scoped CSS**](/chtml/v060/specs/scoped-css/) - Stylesheets that are scoped to their containing elements.
-+ [**HTML Transport**](/chtml/v060/specs/html-transport/) - An import/export system that lets us define, extend, and distribute HTML components.
++ [**HTML Partials**](/chtml/v060/specs/html-partials/) - An import/export system that lets us define, extend, and distribute HTML components.
 
 While all four technologies fit together seamlessly, they can also be used independently.
 
@@ -207,11 +207,11 @@ A scope may also receive application data, and further distribute received data 
 
 Visit the [Scoped JS docs](/chtml/v060/specs/scoped-js/) to learn more.
 
-### HTML Transport
-HTML Transport is an export/import system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
+### HTML Partials
+HTML Partials is an export/import system for HTML. Here, reusable HTML fragments are defined as *exports* within a `<template>` element.
 
 ```html
-<template is="html-bundle">
+<template is="partials-bundle">
 
     <div namespace="export/one"></div>
     <div namespace="export/two"></div>
@@ -223,15 +223,15 @@ These *exports* could be easily placed anywhere in the main document.
 
 ```html
 <body>
-    <html-import namespace="export/one"></html-import>
-    <html-import namespace="export/two"></html-import>
+    <partials-import namespace="export/one"></partials-import>
+    <partials-import namespace="export/two"></partials-import>
 </body>
 ```
 
 And in a script, we could programmatically import an *export*.
 
 ```js
-let import1 = HTMLTransport.import('export/one');
+let import1 = HTMLPartials.import('export/one');
 ```
 
 Now, while we have statically defined exports in a `<template>` element above, we could also have defined them as standalone HTML files on the server with a view to dynamically bundling them together as a remote *HTML bundle*.
@@ -255,12 +255,12 @@ This remote bundle is easily connected to a page by using the `src` attribute on
 ```html
 <html>
     <head>
-        <template is="html-bundle" src="bundle.html"></template>
+        <template is="partials-bundle" src="bundle.html"></template>
     </head>
     </body>...</body>
 </html>
 ```
 
-Code organization, extensibility and composability are HTML Transport's distinguishing features that let us build an entire app with much fewer components.
+Code organization, extensibility and composability are HTML Partials's distinguishing features that let us build an entire app with much fewer components.
 
-Visit the [HTML Transport docs](/chtml/v060/specs/html-transport/) to learn more.
+Visit the [HTML Partials docs](/chtml/v060/specs/html-partials/) to learn more.

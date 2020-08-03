@@ -1,26 +1,27 @@
----
-description: 'Put up amazing UIs in one go - complete with styling and automatic functionality without leaving HTML!'
----
+# CHTML v1
 
-# CHTML
-CHTML is a suite of short specifications and technologies that **bring a component architecture to the HTML language itself**. This lets us create the UI and its components entirely in HTML - a new **pure-HTML** approach that requires no build tools, or compilers, or even a template syntax!
+CHTML is a suite of new DOM features that brings language support for modern UI development paradigms: a component-based architecture, data binding, and reactivity. This lets us build elegant user interfaces using the web platform itself.
 
 [Check this project out on GitHub](https://github.com/web-native/chtml).
 
+## Documentation
+
++ [Scoped HTML](https://docs.web-native.dev/chtml/v1/scoped-html/) - Structure your document as a hierarchy of *scopes* and *subscopes*.
++ [Scoped CSS](https://docs.web-native.dev/chtml/v1/scoped-css/) - Put stylesheets where you need them using Scoped CSS.
++ [Scoped JS](https://docs.web-native.dev/chtml/v1/scoped-js/) - Create behaviours on the fly with scoped scripts.
++ [HTML Partials](https://docs.web-native.dev/chtml/v1/html-partials/) - Define, extend, import/export reusable HTML snippets.
+
+If you'd be interested in the motivation for this project, [here](https://docs.web-native.dev/chtml/v1/explainer.md)'s the explainer.
+
 ## Getting Started
-[Start here](/chtml/v060/specs/) for a brief overview of CHTML and follow each topic to learn more. You may also dive straight into a subject:
-+ [Scoped HTML](/chtml/v060/specs/scoped-html/README.md)
-+ [Scoped CSS](/chtml/v060/specs/scoped-css/README.md)
-+ [Scoped JS](/chtml/v060/specs/scoped-js/README.md)
-+ [HTML Transport](/chtml/v060/specs/html-transport/README.md) 
 
-Next, follow the [installation guide](/chtml/v060/guide/installation.md) to add CHTML to your page.
++ [Installation](https://docs.web-native.dev/chtml/v1/Installation.md) - Follow the installation guide to add CHTML to your page.
++ [Examples](https://docs.web-native.dev/chtml/v1/examples) - Get a head start with these few examples.
 
-## Guides
-+ [Installation Guide](/chtml/v060/guide/installation.md)
-+ [Server-Side Rendering](/chtml/v060/guide/server-side-rendering.md)
+## Issues
 
-## Issues?
-We're sure there will be errors around here - typos on our docs, clever bugs in code. Feel free to bring these to our notice by filing a GitHub issue. 
+To report bugs or request features, please submit an [issue](https://github.com/web-native/chtml/issues).
 
-It's also important to note that CHTML is a bleeding edge technology and may change quickly. Please do thread safely! But as much as we know today, stability is just a few iterations away.
+## License
+
+MIT.

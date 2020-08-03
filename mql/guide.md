@@ -4,7 +4,7 @@
 
 ### Embed as script
 
-```markup
+```html
 <script src="https://unpkg.com/@web-native-js/mql/dist/main.js"></script>
 
 <script>

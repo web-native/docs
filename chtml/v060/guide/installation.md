@@ -14,7 +14,7 @@ Chtml can be embedded as a script tag on your HTML page or installed via *npm*. 
 ## Embed As Script
 
 ### Embed The Complete Build
-The complete build ships everything about CHTML - ScopedHTML, ScopedJS, ScopeCSS, and HTMLTransport.
+The complete build ships everything about CHTML - ScopedHTML, ScopedJS, ScopeCSS, and HTMLPartials.
 
 ```html
 <script src="https://unpkg.com/@web-native-js/chtml/dist/main.js"></script>
@@ -28,7 +28,7 @@ const Chtml = window.WebNative.Chtml;
 const ScopedHTML = window.WebNative.ScopedHTML;
 const ScopeCSS = window.WebNative.ScopeCSS;
 const ScopedJS = window.WebNative.ScopedJS;
-const HTMLTransport = window.WebNative.HTMLTransport;
+const HTMLPartials = window.WebNative.HTMLPartials;
 </script>
 ```
 
@@ -71,15 +71,15 @@ const ScopedJS = window.WebNative.ScopedJS;
 </script>
 ```
 
-#### HTMLTransport
+#### HTMLPartials
 
 ```html
-<script src="https://unpkg.com/@web-native-js/chtml/dist/html-transport.js"></script>
+<script src="https://unpkg.com/@web-native-js/chtml/dist/html-partials.js"></script>
 
 <script>
-// The above tag loads HTMLTransport into a global "WebNative" object.
-// HTMLTransport would be automatically initialized with the browser's window object
-const HTMLTransport = window.WebNative.HTMLTransport;
+// The above tag loads HTMLPartials into a global "WebNative" object.
+// HTMLPartials would be automatically initialized with the browser's window object
+const HTMLPartials = window.WebNative.HTMLPartials;
 </script>
 ```
 
@@ -136,14 +136,14 @@ import {ScopedJS} from '@web-native-js/chtml';
 import ScopedJS from './node_modules/@web-native-js/chtml/src/scoped-js/index.js';
 ```
 
-#### HTMLTransport
+#### HTMLPartials
 
 ```js
 // Node-style import
-import {HTMLTransport} from '@web-native-js/chtml';
+import {HTMLPartials} from '@web-native-js/chtml';
 
 // Standard JavaScript import. (Actual path depends on where you installed CHTML to.)
-import HTMLTransport from './node_modules/@web-native-js/chtml/src/html-transport/index.js';
+import HTMLPartials from './node_modules/@web-native-js/chtml/src/html-partials/index.js';
 ```
 
 ### Initialization

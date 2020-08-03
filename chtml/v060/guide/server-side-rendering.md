@@ -3,13 +3,13 @@ THIS DOCUMENT IS BEING UPDATED!
 
 In the [installation guide](/chtml/guide/intallation.md), we saw how to setup CHTML for server-side rendering. In this section, we will see how to link bundle files from the server during setup.
 
-As discussed in an [earlier section](/chtml/html-transport/README.md#bundles), bundle files are, in a browser environment, linked to a document as external `<template>` files. In the case of server-side rendering, we are now closer to these bundle files, so we should be able to link the files directly from the filesystem.
+As discussed in an [earlier section](/chtml/html-partials/README.md#bundles), bundle files are, in a browser environment, linked to a document as external `<template>` files. In the case of server-side rendering, we are now closer to these bundle files, so we should be able to link the files directly from the filesystem.
 
 The code below is similar to what we've seen before. We are now only supplying CHTML with these bundles on the `Chtml.init()` function.
 
 ```js
 // Import the class directly
-import Chtml, {HTMLTransport} from '@web-native-js/chtml';
+import Chtml, {HTMLPartials} from '@web-native-js/chtml';
 // Import jsDom
 import jsdom from 'jsdom';
 // Utilities we'll need
@@ -34,7 +34,7 @@ Chtml.init(JSDOM.window);
 // -----------
 // Render
 // -----------
-HTMLTransport.ready(() => {
+HTMLPartials.ready(() => {
     let app = {};
     JSDOM.window.document.body.bind(app);
 });

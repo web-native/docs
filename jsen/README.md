@@ -1,7 +1,17 @@
-# JSEN
+# JSEN v0.5.0
+
 JSEN is a general-purpose library for parsing JavaScript expressions that execute in user-defined scopes.
 
-This project is opensource and [hosted on Github](https://github.com/web-native/jsen).
+[Check this project out on GitHub](https://github.com/web-native/jsen).
 
-Take the [guide](guide.md) and discover new ways to build smarter.
+## Documentation
 
++ [JSEN Guide](https://docs.web-native.dev/jsen/v050/guide.md)
+
+## Issues
+
+To report bugs or request features, please submit an [issue](https://github.com/web-native/jsen/issues).
+
+## License
+
+MIT.

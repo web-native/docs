@@ -272,11 +272,11 @@ HTML Partials introduces a few new DOM properties for working with composition.
 **For the document object:**
 
 + `.templatesReadyState` - This property reflects the status of loading templates:
-    + `loading` - Templates currently loading.
-    + `complete` - Templates done loading, or no remote templates at all. The `templatesreadystatechange` event is fired on the document object.
+    + `loading` - This is the initial value of this property.
+    + `complete` - This is the value of this property when templates are done loading, or when there are no remote templates at all. For this state, the `templatesreadystatechange` event is fired on the document object.
 + `.templates` - This property represents the list of templates in the document. Templates are exposed here by name. So `document.templates.template1` should return the template element used in the examples above.
 
-**For the <template> element:**
+**For the `<template>` element:**
 
 + `.partials` - This property represents the list of partials defined by the template. It is an object holding a reference to partials by name. Unnamed partials are treated as having the name *default*. So, for the template below,
     
@@ -308,7 +308,7 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 + `.template` - This property represents a copy of the `<template>` element referenced by an element. So if an element implements a template as in `<div template="html/temp"></div>`, then `element.template` should be a copy of the `<template>` at the `module/temp` namespace; `element.template.partials.default` should thus return an array like the above.
 
-**For the <slot> element:**
+**For the `<slot>` element:**
 
 + `.slottedElements` - This property represents the list of partials slotted into a slot. (Much like the [`HTMLSlotElement.assignedElements()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedElements) method.)
 + `.resolve()` - This method, without arguments, is used to programatically resolve a slot from the appropriate partial in the template given in context.

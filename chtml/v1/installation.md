@@ -40,7 +40,7 @@ $ npm i --save @web-native-js/chtml
 
 The installed package is designed to be *initialized* with the *window* object of the current browser or server evironment. To do this, import the `ENV` object and assign the *window* object to it, then call the initializer.
 
-+ **Initialize the Complete Suite**
++ **Initialize the Complete Suite** - Initialize the module below for everything about CHTML.
 
   ```js
   // Import
@@ -50,7 +50,7 @@ The installed package is designed to be *initialized* with the *window* object o
   init();
   ```
 
-+ **Initialize Individual Features**
++ **Initialize Individual Features** - Find a module below for a specific CHTML feature.
 
   + **Scoped HTML**
     

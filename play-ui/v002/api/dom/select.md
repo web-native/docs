@@ -1,4 +1,4 @@
-# `DOM/select()`
+# DOM/select\(\)
 
 This function finds and returns the first DOM element that matches the given CSS selecotr. Where no matches are found, `NULL` is returned.
 

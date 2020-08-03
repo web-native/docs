@@ -1,8 +1,12 @@
-# `DOM/attrAsync()`
+# DOM/attrAsync\(\)
 
 This function sets or gets an element's attribute. It is the shorter alternative to [`Element.setAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/setAttribute), [`Element.getAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute), and [`Element.removeAttribute()`](https://developer.mozilla.org/en-US/docs/Web/API/Element/removeAttribute). It also has special support for list-based attributes like `class`.
 
+<<<<<<< HEAD:play-ui/v002/api/dom/attrasync.md
 The suffix _Async_ differentiates this method from its _Sync_ counterpart - [`attrSync()`](/play-ui/v002/api/dom/attrsync.md). Unlike the _Sync_ counterpart, `attrAsync()` is a promised-based function that runs in a different flow from that of the calling code. It follows a performance strategy that lets the browser engine decide the most convenient time to honour its call.
+=======
+The suffix _Async_ differentiates this method from its _Sync_ counterpart - [`attrSync()`](attrsync.md). Unlike the _Sync_ counterpart, `attrAsync()` is a promised-based function that runs in a different flow from that of the calling code. It follows a performance strategy that lets the browser engine decide the most convenient time to honour its call.
+>>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/attrasync.md
 
 ## Import
 
@@ -116,7 +120,11 @@ attrAsync(article, 'role').then(value => {
 
 ## Implementation Note
 
+<<<<<<< HEAD:play-ui/v002/api/dom/attrasync.md
 Technically, DOM operations initiated with `attrAsync()` are internally batched to an appropriate queue using the [Reflow](/play-ui/v002/api/reflow.md) utility. _Read_ operations run first, then _write_ operations. This works to eliminate _layout thrashing_ as discussed in _Reflow_'s documentation.
+=======
+Technically, DOM operations initiated with `attrAsync()` are internally batched to an appropriate queue using the [Reflow](https://github.com/web-native/docs/tree/4d4ea8f2ac9ea9b989339a1423c7dd36c5a6108a/play-ui/api/reflow.md) utility. _Read_ operations run first, then _write_ operations. This works to eliminate _layout thrashing_ as discussed in _Reflow_'s documentation.
+>>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/attrasync.md
 
 Notice the order of execution in the following example.
 

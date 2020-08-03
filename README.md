@@ -13,9 +13,9 @@ Here are some exciting tools that will help you get the most of web-native devel
 > [Observer](observer/) - _Apply reactivity to any JavaScript object_
 >
 > [JSEN](jsen/) - _Run JavaScript expressions in user-defined scopes_
-
+>
 > [Play UI](play-ui/) - _Manipulate the DOM and the UI with more resilience_
-
-> [Observables](observables/) - _Components for your reflex-based apps_
+>
+> [Observables](reflex-components/) - _Components for your reflex-based apps_
 
 

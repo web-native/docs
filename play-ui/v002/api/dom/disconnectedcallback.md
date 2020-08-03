@@ -1,38 +1,51 @@
+<<<<<<< HEAD:play-ui/v002/api/dom/disconnectedcallback.md
 # `DOM/disconnectedCallback()`
 This function observes when the specified elements are removed from the document or given context. This is a convenience function for [`mutationCallback()`](/play-ui/v002/api/dom/mutationcallback.md)
+=======
+# DOM/disconnectedCallback\(\)
+
+This function observes when the specified elements are removed from the document or given context. This is a convenience function for [`mutationCallback()`](mutationcallback.md)
+>>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/disconnectedcallback.md
 
 ## Import
 
-```js
+```javascript
 import disconnectedCallback from '@web-native-js/play-ui/src/dom/disconnectedCallback.js';
 ```
 
 ## Syntax
 
-```js
+```javascript
 disconnectedCallback(els, callback[, context = null[, observeIndirectMutation = true]]);
 ```
 
 ### Parameters
-+ `els` - `HTMLElement|String|Array`: The specific element or elements to observe. This could be a single element instance, a CSS selector or an array of element specifiers.
-+ `callback` - `Function`: The callback function that recieves the notification. This callback will recieve the following arguments.
-    + `nodes` - `[HTMLElement]`: A variadic list of the elements removed from the DOM.
-+ `context` - `DOMDocument|HTMLElement`: (Optional) The subtree to observe. This is the *document* itself by default.
-+ `observeIndirectMutation` - `Boolean`: (Optional) A specifier that tells whether to watch direct or indirect mutations of the specified elements.
 
+* `els` - `HTMLElement|String|Array`: The specific element or elements to observe. This could be a single element instance, a CSS selector or an array of element specifiers.
+* `callback` - `Function`: The callback function that recieves the notification. This callback will recieve the following arguments.
+  * `nodes` - `[HTMLElement]`: A variadic list of the elements removed from the DOM.
+* `context` - `DOMDocument|HTMLElement`: \(Optional\) The subtree to observe. This is the _document_ itself by default.
+* `observeIndirectMutation` - `Boolean`: \(Optional\) A specifier that tells whether to watch direct or indirect mutations of the specified elements.
+
+<<<<<<< HEAD:play-ui/v002/api/dom/disconnectedcallback.md
 **Return**
 + `MutationObserver` - The instantiated MutationObserver.
+=======
+#### Return
+
+* `MutationObserver` - The instantiated MutationObserver.
+>>>>>>> cb39f35064f56fa8e785a6c3dc76ad40ec3a079d:play-ui/api/dom/disconnectedcallback.md
 
 ## Usage
 
-```html
+```markup
 <body>
   <div id="el1"></div>
   <div id="el2"></div>
 </body>
 ```
 
-```js
+```javascript
 // Obtain an element instance
 let el1 = document.querySelector('#el1');
 
@@ -49,3 +62,4 @@ setTimeout(() => {
     }, 1000);
 }, 1000);
 ```
+

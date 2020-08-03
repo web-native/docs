@@ -1,4 +1,4 @@
-# `DOM/el()`
+# DOM/el\(\)
 
 This function translates a variety of input types to an element. You can supply a CSS selector or an HTML markup and get an `HTMLElement` in return.
 

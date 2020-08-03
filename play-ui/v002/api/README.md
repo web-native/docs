@@ -84,7 +84,9 @@ DOM manipulation methods. The most of these methods come in a *sync* and *async*
 
 This method *asynchronously* sets or gets the HTML content for the current matched element. It uses the [`dom/htmlAsync()`](/play-ui/v002/api/dom/htmlasync.md) function.
 
-```js
+This method _asynchronously_ sets or gets the HTML content for the current matched element. It uses the [`dom/htmlAsync()`](dom/htmlasync.md) function.
+
+```javascript
 // Set the HTML content, do something else afterward
 $('#el').htmlAsync('Hello player!').then(instance => {
     // Do something else
@@ -102,7 +104,9 @@ See [`dom/htmlAsync()`](/play-ui/v002/api/dom/htmlasync.md) for details.
 
 This method *synchronously* sets or gets the HTML content for the current matched element. It uses the [`dom/htmlSync()`](/play-ui/v002/api/dom/htmlsync.md) function.
 
-```js
+This method _synchronously_ sets or gets the HTML content for the current matched element. It uses the [`dom/htmlSync()`](https://github.com/web-native/docs/tree/201e05f348ffbec3ef9e613f36713ffdc10badc9/play-ui/api/dom/htmlsync.md) function.
+
+```javascript
 // Set the HTML content
 let instance = $('#el').htmlSync('Hello player!');
 
@@ -121,7 +125,9 @@ This is an alias of the [`instance.htmlAsync()`](#instancehtmlasync) method.
 
 This method *asynchronously* sets or gets the text content for the current matched element. It uses the [`dom/textAsync()`](/play-ui/v002/api/dom/textasync.md) function.
 
-```js
+This method _asynchronously_ sets or gets the text content for the current matched element. It uses the [`dom/textAsync()`](dom/textasync.md) function.
+
+```javascript
 // Set the text content, do something else afterward
 $('#el').textAsync('Hello player!').then(instance => {
     // Do something else
@@ -139,7 +145,9 @@ See [`dom/textAsync()`](/play-ui/v002/api/dom/textasync.md) for details.
 
 This method *synchronously* sets or gets the text content for the current matched element. It uses the [`dom/textSync()`](/play-ui/v002/api/dom/textsync.md) function.
 
-```js
+This method _synchronously_ sets or gets the text content for the current matched element. It uses the [`dom/textSync()`](https://github.com/web-native/docs/tree/201e05f348ffbec3ef9e613f36713ffdc10badc9/play-ui/api/dom/textsync.md) function.
+
+```javascript
 // Set the text content
 let instance = $('#el').textSync('Hello player!');
 
@@ -158,7 +166,9 @@ This is an alias of the [`instance.textAsync()`](#instancetextasync) method.
 
 This method *asynchronously* appends text content to the current matched element. It uses the [`dom/appendAsync()`](/play-ui/v002/api/dom/appendasync.md) function.
 
-```js
+This method _asynchronously_ appends text content to the current matched element. It uses the [`dom/appendAsync()`](dom/appendasync.md) function.
+
+```javascript
 // Append content, do something else afterward
 $('#el').appendAsync('Hello player!').then(instance => {
     // Do something else
@@ -171,7 +181,9 @@ See [`dom/appendAsync()`](/play-ui/v002/api/dom/appendasync.md) for details.
 
 This method *synchronously* appends text content to the current matched element. It uses the [`dom/appendSync()`](/play-ui/v002/api/dom/appendsync.md) function.
 
-```js
+This method _synchronously_ appends text content to the current matched element. It uses the [`dom/appendSync()`](https://github.com/web-native/docs/tree/201e05f348ffbec3ef9e613f36713ffdc10badc9/play-ui/api/dom/appendsync.md) function.
+
+```javascript
 // Append content
 let instance = $('#el').appendSync('Hello player!');
 ```
@@ -186,7 +198,9 @@ This is an alias of the [`instance.appendAsync()`](#instanceappendasync) method.
 
 This method *asynchronously* prepends text content to the current matched element. It uses the [`dom/prependAsync()`](/play-ui/v002/api/dom/prependasync.md) function.
 
-```js
+This method _asynchronously_ prepends text content to the current matched element. It uses the [`dom/prependAsync()`](dom/prependasync.md) function.
+
+```javascript
 // Prepend content, do something else afterward
 $('#el').prependAsync('Hello player!').then(instance => {
     // Do something else
@@ -199,7 +213,9 @@ See [`dom/prependAsync()`](/play-ui/v002/api/dom/prependasync.md) for details.
 
 This method *synchronously* prepends text content to the current matched element. It uses the [`dom/prependSync()`](/play-ui/v002/api/dom/prependsync.md) function.
 
-```js
+This method _synchronously_ prepends text content to the current matched element. It uses the [`dom/prependSync()`](dom/prependsync.md) function.
+
+```javascript
 // Prepend content
 let instance = $('#el').prependSync('Hello player!');
 ```
@@ -214,7 +230,9 @@ This is an alias of the [`instance.prependAsync()`](#instanceprependasync) metho
 
 This method *asynchronously* sets or gets an attribute for the current matched element. It uses the [`dom/attrAsync()`](/play-ui/v002/api/dom/attrasync.md) function.
 
-```js
+This method _asynchronously_ sets or gets an attribute for the current matched element. It uses the [`dom/attrAsync()`](dom/attrasync.md) function.
+
+```javascript
 // Set an attribute, do something else afterward
 $('#el').attrAsync('name', 'value').then(instance => {
     // Do something else
@@ -232,7 +250,9 @@ See [`dom/attrAsync()`](/play-ui/v002/api/dom/attrasync.md) for details.
 
 This method *synchronously* sets or gets an attribute for the current matched element. It uses the [`dom/attrSync()`](/play-ui/v002/api/dom/attrsync.md) function.
 
-```js
+This method _synchronously_ sets or gets an attribute for the current matched element. It uses the [`dom/attrSync()`](dom/attrsync.md) function.
+
+```javascript
 // Set an attribute
 let instance = $('#el').attrSync('name', 'value');
 
@@ -251,7 +271,9 @@ This is an alias of the [`instance.attrAsync()`](#instanceattrasync) method.
 
 This method is used to *asynchronously* set/unset the *class* attribute or add/remove entries on the *class* list for the current matched element. It uses the [`dom/classAsync()`](/play-ui/v002/api/dom/classasync.md) function.
 
-```js
+This method is used to _asynchronously_ set/unset the _class_ attribute or add/remove entries on the _class_ list for the current matched element. It uses the [`dom/classAsync()`](dom/classasync.md) function.
+
+```javascript
 // Add a class, do something else afterward
 $('#el').classAsync('class1', true).then(instance => {
     // Do something else
@@ -269,7 +291,9 @@ See [`dom/classAsync()`](/play-ui/v002/api/dom/classasync.md) for details.
 
 This method is used to *synchronously* set/unset the *class* attribute or add/remove entries on the *class* list for the current matched element. It uses the [`dom/classSync()`](/play-ui/v002/api/dom/classsync.md) function.
 
-```js
+This method is used to _synchronously_ set/unset the _class_ attribute or add/remove entries on the _class_ list for the current matched element. It uses the [`dom/classSync()`](dom/classsync.md) function.
+
+```javascript
 // Add a class
 let instance = $('#el').classAsync('class1', true);
 
@@ -291,7 +315,9 @@ CSS-processing methods. A few of these methods come in a *sync* and *async* flav
 
 This method *asynchronously* sets or gets CSS rules for the current matched element. It uses the [`css/cssAsync()`](/play-ui/v002/api/css/cssasync.md) function.
 
-```js
+This method _asynchronously_ sets or gets CSS rules for the current matched element. It uses the [`css/cssAsync()`](css/cssasync.md) function.
+
+```javascript
 // Set a CSS rule, do something else afterward
 $('#el').cssAsync('color', 'blue').then(instance => {
     // Do something else
@@ -309,7 +335,9 @@ See [`css/cssAsync()`](/play-ui/v002/api/css/cssasync.md) for details.
 
 This method *synchronously* sets or gets CSS rules for the current matched element. It uses the [`css/cssSync()`](/play-ui/v002/api/css/csssync.md) function.
 
-```js
+This method _synchronously_ sets or gets CSS rules for the current matched element. It uses the [`css/cssSync()`](css/csssync.md) function.
+
+```javascript
 // Set a CSS rule
 let instance = $('#el').cssSync('color', 'blue');
 
@@ -328,7 +356,9 @@ This is an alias of the [`instance.cssAsync()`](#instancecssasync) method.
 
 This method returns one or more style properties from the current matched element's style attribute. It uses the [`css/readInline()`](/play-ui/v002/api/css/readinline.md) function.
 
-```js
+This method returns one or more style properties from the current matched element's style attribute. It uses the [`css/readInline()`](css/readinline.md) function.
+
+```javascript
 // Read an inline CSS rule
 let value = $('#el').cssInline('color');
 console.log(value);
@@ -340,7 +370,9 @@ See [`css/readInline()`](/play-ui/v002/api/css/readinline.md) for details.
 
 This method returns one or more style properties associated with the current matched element accross the document's stylesheets. It uses the [`css/readStylesheet()`](/play-ui/v002/api/css/readstylesheet.md) function.
 
-```js
+This method returns one or more style properties associated with the current matched element accross the document's stylesheets. It uses the [`css/readStylesheet()`](css/readstylesheet.md) function.
+
+```javascript
 // Read a CSS rule from stylesheet
 let value = $('#el').cssStylesheet('color');
 console.log(value);
@@ -352,7 +384,9 @@ See [`css/readStylesheet()`](/play-ui/v002/api/css/readstylesheet.md) for detail
 
 This method establishes a CSS operation on the current matched element that can be rolledback safely. It uses the [`css/transaction()`](/play-ui/v002/api/css/transaction.md) function.
 
-```js
+This method establishes a CSS operation on the current matched element that can be rolledback safely. It uses the [`css/transaction()`](css/transaction.md) function.
+
+```javascript
 // Obtaine a Transaction instance
 let transaction = $('#el').cssTransaction('color');
 
@@ -380,7 +414,9 @@ Methods for animation.
 
 This method creates and play an animation on the current matched element. It uses the [`ani/play()`](/play-ui/v002/api/ani/play.md) function.
 
-```js
+This method creates and play an animation on the current matched element. It uses the [`ani/play()`](ani/play.md) function.
+
+```javascript
 // Play fadeout
 $('#el').play([{opacity:1}, {opacity:0}], {duration:600}).then(instance => {
     console.log('The end!');
@@ -397,7 +433,9 @@ Methods for binding events and gestures.
 
 This method binds an event/gesture handler to the current matched element. It uses the [`evt/on()`](/play-ui/v002/api/evt/on.md) function.
 
-```js
+This method binds an event/gesture handler to the current matched element. It uses the [`evt/on()`](evt/on.md) function.
+
+```javascript
 // Bind a "doubletap" gesture handler
 $('#el').on('doubletap', event => {
     alert('You doubletapped me!');
@@ -410,7 +448,9 @@ See [`evt/on()`](/play-ui/v002/api/evt/on.md) for details.
 
 This method unbinds event/gesture handlers oreviously bound using the [`instance.on()`](#instanceon) method. It uses the [`evt/off()`](/play-ui/v002/api/evt/off.md) function.
 
-```js
+This method unbinds event/gesture handlers oreviously bound using the [`instance.on()`](./#instanceon) method. It uses the [`evt/off()`](evt/off.md) function.
+
+```javascript
 // Unbind "doubletap" gesture handlers
 $('#el').off('doubletap';
 ```
@@ -421,7 +461,9 @@ See [`evt/off()`](/play-ui/v002/api/evt/off.md) for details.
 
 This method triggers event/gesture handlers oreviously bound using the [`instance.on()`](#instanceon) method. It uses the [`evt/trigger()`](/play-ui/v002/api/evt/trigger.md) function.
 
-```js
+This method triggers event/gesture handlers oreviously bound using the [`instance.on()`](./#instanceon) method. It uses the [`evt/trigger()`](evt/trigger.md) function.
+
+```javascript
 // Unbind "doubletap" gesture handlers
 $('#el').trigger('doubletap';
 ```
@@ -436,7 +478,9 @@ Methods on cross-cutting concerns.
 
 This method sets or gets custom data/values associated with the current matched element. It uses the [`dom/data()`](/play-ui/v002/api/dom/data.md) function.
 
-```js
+This method sets or gets custom data/values associated with the current matched element. It uses the [`dom/data()`](dom/data.md) function.
+
+```javascript
 // Set a value
 let instance = $('#el').data('key', value);
 
@@ -455,7 +499,9 @@ Observer APIs.
 
 This method observes when the current matched element is added to the document or given context. It uses the [`dom/connectedCallback()`](/play-ui/v002/api/dom/connectedcallback.md) function.
 
-```js
+This method observes when the current matched element is added to the document or given context. It uses the [`dom/connectedCallback()`](dom/connectedcallback.md) function.
+
+```javascript
 // Observe "onconnected"
 $('#el').onconnected(() => {
     console.log('I am now connected to the DOM!');
@@ -468,7 +514,9 @@ See [`dom/connectedCallback()`](/play-ui/v002/api/dom/connectedcallback.md) for 
 
 This method observes when the current matched element is removed from the document or given context. It uses the [`dom/disonconnectedCallback()`](/play-ui/v002/api/dom/disconnectedcallback.md) function.
 
-```js
+This method observes when the current matched element is removed from the document or given context. It uses the [`dom/disonconnectedCallback()`](dom/disconnectedcallback.md) function.
+
+```javascript
 // Observe "ondisonconnected"
 $('#el').ondisonconnected(() => {
     console.log('I am now disconnected from the DOM!');
@@ -481,7 +529,9 @@ See [`dom/disconnectedCallback()`](/play-ui/v002/api/dom/disconnectedcallback.md
 
 This method observes when the current matched element is added to, or removed from the document or given context. It uses the [`dom/mutationCallback()`](/play-ui/v002/api/dom/mutationcallback.md) function.
 
-```js
+This method observes when the current matched element is added to, or removed from the document or given context. It uses the [`dom/mutationCallback()`](dom/mutationcallback.md) function.
+
+```javascript
 // Observe "onmutated"
 $('#el').onmutated(connectedState => {
     // If connectedState === 1, connected else if connectedState === 0, disconnected
@@ -495,7 +545,9 @@ See [`dom/mutationCallback()`](/play-ui/v002/api/dom/mutationcallback.md) for de
 
 This method observes changes on attributes of the current matched element. It uses the [`dom/attrChangeCallback()`](/play-ui/v002/api/dom/attrchangecallback.md) function.
 
-```js
+This method observes changes on attributes of the current matched element. It uses the [`dom/attrChangeCallback()`](dom/attrchangecallback.md) function.
+
+```javascript
 // Observe "onattrchange"
 $('#el').onattrchange(changes => {
     changes.forEach(change => {
@@ -510,7 +562,9 @@ See [`dom/attrChangeCallback()`](/play-ui/v002/api/dom/attrchangecallback.md) fo
 
 This method observes changes on the size of the current matched element. It uses the [`ui/resizeCallback()`](/play-ui/v002/api/ui/resizecallback.md) function.
 
-```js
+This method observes changes on the size of the current matched element. It uses the [`ui/resizeCallback()`](ui/resizecallback.md) function.
+
+```javascript
 // Observe "onresize"
 $('#el').onresize(newSize => {
     console.log(newSize);

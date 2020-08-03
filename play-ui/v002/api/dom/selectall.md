@@ -1,4 +1,4 @@
-# `DOM/selectAll()`
+# DOM/selectAll\(\)
 
 This function finds and returns all DOM elements that matche the given CSS selecotr as a `NodeList`. Where no matches are found, an empty `NodeList` is returned.
 

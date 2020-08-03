@@ -1,15 +1,16 @@
-# Custom Event Implementation
-PlayUI's event system can be hooked into to provide custom event implementations. For example, its *tripletap*, (doubletap), and *singletap* gestures are custom implementations/variations of the *tap* gesture. But custom events can also be just an alias for another event. PlayUI makes everything easy!
+# Custom Events
+
+PlayUI's event system can be hooked into to provide custom event implementations. For example, its _tripletap_, \(doubletap\), and _singletap_ gestures are custom implementations/variations of the _tap_ gesture. But custom events can also be just an alias for another event. PlayUI makes everything easy!
 
 To create a custom event, import the `CustomEvents` object.
 
-```js
+```javascript
 import CustomEvents from '@web-native-js/play-ui/src/evt/CustomEvents.js';
 ```
 
 To create an alias of an existing event:
 
-```js
+```javascript
 // Simply map the custom event name to an existing event name
 CustomEvents.hit = 'tap';
 
@@ -19,9 +20,9 @@ on(document.body, 'hit', event => {
 })
 ```
 
-To create a full custom event implementation, provide a class with two methods: *setup* and *teardown*. The *setup* method will be called at the first call to bind to the event for the given element. This function will receive certain useful parameters - the emitter being the most important. The *teardown* method will be called at the last call to unbinding the event for the given element.
+To create a full custom event implementation, provide a class with two methods: _setup_ and _teardown_. The _setup_ method will be called at the first call to bind to the event for the given element. This function will receive certain useful parameters - the emitter being the most important. The _teardown_ method will be called at the last call to unbinding the event for the given element.
 
-```js
+```javascript
 CustomEvents.tick = class {
     // When the fisrt listenr of this event
     // is attached to the element, we start ticking
@@ -46,3 +47,4 @@ on(document.body, 'tick', event => {
     console.log(event.type);
 });
 ```
+

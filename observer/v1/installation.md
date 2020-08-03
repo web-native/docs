@@ -1,6 +1,6 @@
 # Installation
 
-Observer is written in and distributed as standard JavaScript modules; usable in both browser and server environments.
+Observer is usable in both browser and server environments.
 
 ## Embed as script
 

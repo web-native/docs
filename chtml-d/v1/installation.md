@@ -1,6 +1,6 @@
 # Installation Guide
 
-CHTML is designed as a polyfill and this can be embedded on an HTML page as a script tag or installed via *npm*. In each case, you can choose to install the entire suite or one of its four features.
+This library is a polyfill for the proposed CHTML suite.
 
 ## On this Page
 
@@ -10,42 +10,26 @@ CHTML is designed as a polyfill and this can be embedded on an HTML page as a sc
 + [Install Via NPM](#install-via-npm)
   + [Initialize the Complete Suite](#initialize-the-complete-suite)
   + [Initialize Individual Features](#initialize-individual-features)
-+ [Server-Side Usage](#server-side-usage)
++ [Server-Side Initialization](#server-side-initialization)
 + [Next Steps](#next-steps)
 
 ## Embed As Script 
 
-+ **Embed The Complete Suite** - The complete suite ships everything about CHTML - Scoped HTML, Scope CSS, Scoped JS, and HTML Partials.
++ **Embed The Complete Suite** - Embed the build below for everything about CHTML.
 
   ```html
   <script src="https://unpkg.com/@web-native-js/chtml/dist/main.js"></script>
   ```
 
-+ **Embed Individual Features** - To use only a specific feature of CHTML on your page, add a component library .
++ **Embed Individual Features** - Find a build below for a specific CHTML feature.
 
-  + **Scoped HTML**
+  + **Scoped HTML** - `<script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-html.js"></script>`
 
-    ```html
-    <script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-html.js"></script>
-    ```
+  + **Scoped CSS** - `<script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-css.js"></script>`
 
-  + **Scoped CSS**
+  + **Scoped JS** - `<script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-js.js"></script>`
 
-    ```html
-    <script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-css.js"></script>
-    ```
-
-  + **Scoped JS**
-
-    ```html
-    <script src="https://unpkg.com/@web-native-js/chtml/dist/scoped-js.js"></script>
-    ```
-
-  + **HTML Partials**
-
-    ```html
-    <script src="https://unpkg.com/@web-native-js/chtml/dist/html-partials.js"></script>
-    ```
+  + **HTML Partials** - `<script src="https://unpkg.com/@web-native-js/chtml/dist/html-partials.js"></script>`
 
 ## Install Via NPM
 
@@ -54,9 +38,7 @@ $ npm i -g npm
 $ npm i --save @web-native-js/chtml
 ```
 
-\* CHTML is written in, and distributed as, standard JavaScript modules, and is imported with the `import` keyword.
-
-In each case below, we are importing the `ENV` object and assigning our environment's *window* object to it before initializing the module.
+The installed package is designed to be *initialized* with the *window* object of the current browser or server evironment. To do this, import the `ENV` object and assign the *window* object to it, then call the initializer.
 
 + **Initialize the Complete Suite**
 
@@ -110,9 +92,9 @@ In each case below, we are importing the `ENV` object and assigning our environm
     init();
     ```
 
-## Server-Side Usage
+## Server-Side Initialization
 
-CHTML can be polyfilled on DOM instances created on the server with a library like [jsdom](https://github.com/jsdom/jsdom). In this case, the `window` object in the examples above will be the `window` object of the jsdom instance.
+Here is how CHTML could be initialized on DOM instances created on the server with a library like [jsdom](https://github.com/jsdom/jsdom) (using the `window` object from the DOM instance.)
 
 
 ```js

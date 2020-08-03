@@ -1,14 +1,14 @@
 # API Documentation
 
-## Interception
-
-+ [`Observer.intercept()`](/observer/v1/api/intercept.md)
-+ [`Observer.unintercept()`](/observer/v1/api/unintercept.md)
-
 ## Observer
 
 + [`Observer.observe()`](/observer/v1/api/observe.md)
 + [`Observer.unobserve()`](/observer/v1/api/unobserve.md)
+
+## Interception
+
++ [`Observer.intercept()`](/observer/v1/api/intercept.md)
++ [`Observer.unintercept()`](/observer/v1/api/unintercept.md)
 
 ## Operators
 

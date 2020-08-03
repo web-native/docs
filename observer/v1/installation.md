@@ -33,4 +33,4 @@ import Observer from './node_modules/@web-native-js/observer/v1/src/index.js';
 ## Usage
 
 + [Examples](/observer/v1/examples.md)
-+ [API Docs](/observer/v1/api)
++ [API Docs](/observer/v1/api/README.md)

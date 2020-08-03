@@ -10,7 +10,7 @@ Observer is a simple set of functions for intercepting and observing JavaScript 
 
 + [Installation](/observer/v1/installation.md)
 + [Examples](/observer/v1/examples.md)
-+ [API](/observer/v1/api)
++ [API](/observer/v1/api/README.md)
 
 ## Issues
 

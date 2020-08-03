@@ -22,7 +22,7 @@
 * [Observer](/observer/README.md)
   + [Installation](/observer/v1/installation.md)
   + [Examples](/observer/v1/examples.md)
-  + [API](/observer/v1/api)
+  + [API](/observer/v1/api/README.md)
 * [Observables](/observables/README.md)
 * [PlayUI](/play-ui/README.md)
   * [Installation](/play-ui/v002/installation.md)

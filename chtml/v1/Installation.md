@@ -13,7 +13,7 @@ CHTML is designed as a polyfill and can be embedded as a script tag on an HTML p
 + [Server-Side Usage](#server-side-usage)
 + [Next Steps](#next-steps)
 
-## Embed As Script
+## Embed As Script 
 
 + **Embed The Complete Suite** - The complete set ships everything about CHTML - Scoped HTML, Scope CSS, Scoped JS, and HTML Partials.
 

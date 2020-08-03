@@ -52,10 +52,6 @@ Other variables in a scoped script are to be explicitly-bound from external valu
 
 Scoped JS gives us this special ability to bring DOM manipulation logic closer to their targets and away from an application. It has *presentational logic* as its sole responsibility and thus helps us keep the main application layer void of the implementation details of the UI. As shown above, an application simply binds its hard-earned values and is done!
 
-From a high-level view, it seems that with Scoped JS we can now strike a line of symetry between CSS and JS in their relationship with HTML! Consider:
-+ If we could have `<style type="scoped">` for styling; we can also have `<script type="scoped">` for behaviour.
-+ If we could have `element.style` for styling; we can also have `element.bindings` for behaviour.
-
 ## Selective Execution
 
 Scoped JS follows the normal top-down execution of a script. Calling the `.bind()` method with different variable-bindings reruns the script top-down. But as a UI binding langauge, it also features *Selective Execution* where an update to a variable gets to rerun only the corresponding statements within the script - skipping the other statements. This makes for the most-efficient way to keep a block of the UI in sync with little updates from an application. 
@@ -139,7 +135,7 @@ Scoped JS is also able to pick up deep mutations for statements that reference d
 </body>
 ```
 
-Within the script, the dependency chain is followed even when broken into local variables. Below, a change to `clock.currentTime` will still propagate through `variable1` and  `variable2`. The first and last statements in the script aren't touched, as expected.
+Within the script, the dependency chain is followed even when broken into local variables. Below, a change to `clock.currentTime` will still propagate through `variable1` and  `variable2`. (The first and last statements in the script are left untouched touched, as expected.)
 
 ```html
 <body>
@@ -177,7 +173,7 @@ document.bindings.greeting = 'Good Evening!';
 
 ## Runtime
 
-By design, Scoped JS parses scoped scripts immediately they land on the DOM, but runs them only after the global scope has been initialized with `document.bind()` or the `document.bindings` property. Newer scipts are run immediately after this global runtime initilization. But the runtime of an individual script can begin before the global one by calling the element's `.bind()` method or assigning to its `.bindings` property.
+By design, Scoped JS parses scoped scripts immediately they land on the DOM, but runs them only after the global scope has been initialized with `document.bind()` or the `document.bindings` property. Newer scipts are run immediately after this global runtime initilization. But the runtime of an individual script will begin before the global one on calling the element's `.bind()` method or assigning to its `.bindings` property, or by setting the `autorun` *Boolean* attribute on the script element.
 
 Also, an element may receive bindings before its scoped script is appended or is ready to run. The element's runtime begins the first time both are available.
 

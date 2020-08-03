@@ -725,7 +725,7 @@ Templates may reference remote content using the `src` attribute.
 </head>
 ```
 
-Where remote templates are detected in a document, slots are resolved after all templates have loaded their content. The status of loading content is reflected on the `document.templatesReadyState` property. This property has the initial value of `loading`, and a final value of `complete`, with state change announced on the document object in a `templatesreadystatechange` event.
+Where remote templates are detected in a document, slots are resolved after all templates have loaded their content.
 
 #### Partials API
 
@@ -733,7 +733,7 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 **For the document object:**
 
-+ `.templatesReadyState` - This property reflects the status of loading templates:
++ `.templatesReadyState` - This property reflects the document's loading status of remote templates:
     + `loading` - This is the initial value of this property.
     + `complete` - This is the value of this property when templates are done loading, or when there are no remote templates at all. For this state, the `templatesreadystatechange` event is fired on the document object.
 + `.templates` - This property represents the list of templates in the document. Templates are exposed here by name. So `document.templates.template1` should return the template element used in the examples above.
@@ -782,7 +782,7 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 #### Isomorphic Rendering
 
-One thing with slots-based compostion is the promise of persistent slots - placeholders that must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; the browser must maintain references to all slots, even those replaced on the server. 
+Persistent slots is the promise of slots-based composition; placeholders must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; the browser must maintain references to all slots, even those replaced on the server. 
 
 HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. Now in the browser, deleting a server-slotted element, for example, should trigger the restoration of the original slot element; changing the `template` attribute of any element should dispose off all its server-slotted elements and recompose the block from the new referenced template.
 
@@ -844,7 +844,7 @@ HTML Partials addresses this by serializing slot elements as *comment nodes* wit
 
 **Now on the Browser**
 
-Find and delete the server-slotted element with ID `#headline`. The original slot element should now be restored and ready to recieve the next partial.
+Find and delete the server-slotted element with ID `#headline`. The original slot element should now be restored and ready to replaced on the next composition.
 
 ```html
 <html>

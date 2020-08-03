@@ -320,9 +320,9 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 ## Isomorphic Rendering
 
-One thing with slots-based compostion is the promise of persistent slots - placeholders must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced - with the use of empty text nodes, for example. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; replaced slots must have to be *hydratable* by the browser. 
+One thing with slots-based compostion is the promise of persistent slots - placeholders that must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; the browser must maintain references to all slots, even those replaced on the server. 
 
-HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. For example, deleting a server-slotted element now in the client should trigger the restoration of the original slot element; changing the `template` attribute of the composition block should dispose off all its slotted elements and recompose the block from the new referenced template.
+HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. Now in the browser, deleting a server-slotted element, for example, should trigger the restoration of the original slot element; changing the `template` attribute of any element should dispose off all its server-slotted elements and recompose the block from the new referenced template.
 
 **Before Rendering on the Server**
 

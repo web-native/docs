@@ -734,11 +734,11 @@ HTML Partials introduces a few new DOM properties for working with composition.
 **For the document object:**
 
 + `.templatesReadyState` - This property reflects the status of loading templates:
-    + `loading` - Templates currently loading.
-    + `complete` - Templates done loading, or no remote templates at all. The `templatesreadystatechange` event is fired on the document object.
+    + `loading` - This is the initial value of this property.
+    + `complete` - This is the value of this property when templates are done loading, or when there are no remote templates at all. For this state, the `templatesreadystatechange` event is fired on the document object.
 + `.templates` - This property represents the list of templates in the document. Templates are exposed here by name. So `document.templates.template1` should return the template element used in the examples above.
 
-**For the <template> element:**
+**For the `<template>` element:**
 
 + `.partials` - This property represents the list of partials defined by the template. It is an object holding a reference to partials by name. Unnamed partials are treated as having the name *default*. So, for the template below,
     
@@ -770,7 +770,7 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 + `.template` - This property represents a copy of the `<template>` element referenced by an element. So if an element implements a template as in `<div template="html/temp"></div>`, then `element.template` should be a copy of the `<template>` at the `module/temp` namespace; `element.template.partials.default` should thus return an array like the above.
 
-**For the <slot> element:**
+**For the `<slot>` element:**
 
 + `.slottedElements` - This property represents the list of partials slotted into a slot. (Much like the [`HTMLSlotElement.assignedElements()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedElements) method.)
 + `.resolve()` - This method, without arguments, is used to programatically resolve a slot from the appropriate partial in the template given in context.
@@ -782,9 +782,9 @@ HTML Partials introduces a few new DOM properties for working with composition.
 
 #### Isomorphic Rendering
 
-One thing with slots-based compostion is the promise of persistent slots - placeholders must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced - with the use of empty text nodes, for example. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; replaced slots must have to be *hydratable* by the browser. 
+One thing with slots-based compostion is the promise of persistent slots - placeholders that must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; the browser must maintain references to all slots, even those replaced on the server. 
 
-HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. For example, deleting a server-slotted element now in the client should trigger the restoration of the original slot element; changing the `template` attribute of the composition block should dispose off all its slotted elements and recompose the block from the new referenced template.
+HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. Now in the browser, deleting a server-slotted element, for example, should trigger the restoration of the original slot element; changing the `template` attribute of any element should dispose off all its server-slotted elements and recompose the block from the new referenced template.
 
 **Before Rendering on the Server**
 
@@ -899,6 +899,8 @@ All of *HTML Partials* is currently implemented in the CHTML at Web-Native, but 
 [Read the full HTML Partials docs](https://docs.web-native.dev/chtml/v1/html-partials)
 
 ## Examples
+
+Here are some of CHTML's possibilities. To try the examples below with the current implementation of CHTML, please visit [docs.web-native.dev/chtml](https://docs.web-native.dev/chtml) to find the corresponding sample code in the examples given.
 
 ### A TODO List Example
 

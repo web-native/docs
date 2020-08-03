@@ -1,6 +1,6 @@
 # Installation Guide
 
-CHTML is designed as a polyfill and can be embedded as a script tag on an HTML page or installed via *npm*. In each case, you can choose to install the entire suite or one of its four features.
+CHTML is designed as a polyfill and this can be embedded as a script tag on an HTML page or installed via *npm*. In each case, you can choose to install the entire suite or one of its four features.
 
 ## On this Page
 

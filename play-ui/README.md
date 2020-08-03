@@ -40,8 +40,8 @@ on(el1, 'doubletap', e => {
 
 ## Documentation
 
-+ [Installation](https://docs.web-native.dev/play-ui/v002/installation.md).
-+ [API](https://docs.web-native.dev/play-ui/v002/api).
++ [Installation](/play-ui/v002/installation.md).
++ [API](/play-ui/v002/api).
 
 ## Issues
 

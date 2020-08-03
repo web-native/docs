@@ -6,7 +6,7 @@ JSEN is a general-purpose library for parsing JavaScript expressions that execut
 
 ## Documentation
 
-+ [JSEN Guide](https://docs.web-native.dev/jsen/v050/guide.md)
++ [JSEN Guide](/jsen/v050/guide.md)
 
 ## Issues
 

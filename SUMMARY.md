@@ -109,8 +109,8 @@
   * [JSEN Guide](/jsen/v050/guide.md)
 * [Commons](/commons/README.md)
   * [Commons Guide](/commons/v050/guide.md)
-* [MQL](/mql/README.md)
-  * [MQL Guide](/mql/guide.md)
+* [RQL](/mql/README.md)
+  * [RQL Guide](/rql/guide.md)
 * [Reflex](/reflex/README.md)
   * [Reflex Guide](/reflex/guide.md)
 

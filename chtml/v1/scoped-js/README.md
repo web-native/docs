@@ -56,7 +56,22 @@ Scoped JS gives us this special ability to bring DOM manipulation logic closer t
 
 Scoped JS follows the normal top-down execution of a script. Calling the `.bind()` method with different variable-bindings reruns the script top-down. But as a UI binding langauge, it also features *Selective Execution* where an update to a variable gets to rerun only the corresponding statements within the script - skipping the other statements. This makes for the most-efficient way to keep a block of the UI in sync with little updates from an application. 
 
-Scoped JS exposes a new DOM property `.bindings` for selectively updating an element's bindings. This is illustrated in the clock below.
+To update a variable or multiple variables, call `.bind()` with `false` as a second paremeter.
+
+```js
+alertEl.bind({
+    variable2: 'New value',
+    variable5: 'New value',
+}, false);
+```
+
+Also, Scoped JS exposes a new DOM property `.bindings` for selectively updating an element's bindings.
+
+```js
+alertEl.bindings.variable5 = 'New value',
+```
+
+This is illustrated in the clock below.
 
 ```html
 <body>

@@ -7,7 +7,6 @@
   * [HTML Partials](/chtml/v1/html-partials/README.md)
   * [Examples](/chtml/v1/examples/README.md)
   * [Installation](/chtml/v1/installation.md)
-  * [Explainer](/chtml/v1/explainer.md)
   * [v0.6.0](/chtml/v060/README.md)
     * [Guide](/chtml/v060/guide/README.md)
     * [Specs](/chtml/v060/specs/README.md)

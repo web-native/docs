@@ -5,7 +5,7 @@ Below is a TODO list composed from a JavaScript array using Scoped HTML, Scoped 
 It features the ability to add/remove items. For the *remove* feature, we'd let the `<li>` element expose a *remover* button that the main `<ul>` logic can bind to the `removeItem()` method of the TODO application. For the *add* feature, we'd add a button to the TODO container that calls the `addItem()` method of the TODO application.
 
 We've also decided to use [the Observer API](https://docs.web-native.dev/observer) and [PlayUI's `.itemize()`](https://docs.web-native.dev/play-ui/api/dom/itemize) method that provides a simple way to keep the list container in sync with application items.
-
+ 
 [Check the live example here](https://web-native.dev/examples/todo.html)
 
 ```html

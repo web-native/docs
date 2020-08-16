@@ -30,7 +30,7 @@ Tooling can also help us acheive more efficient DOM manipulation. Generally, sur
 This technique is a native feature of the DOM manipulation APIs from the [PlayUI](https://docs.web-native.dev/play-ui) library. We will now use PlayUI as a drop-in replacement for jQuery.
 
 [Check the live example here](https://web-native.dev/examples/jquery.html)
-
+ 
 ```html
 <body>
 

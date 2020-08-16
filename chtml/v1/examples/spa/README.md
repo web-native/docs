@@ -45,7 +45,7 @@ This example makes an SPA of *templates and slots* composition. Below, we're usi
                 <partials-slot name="content">Page not Found!</partials-slot>
             </div>
         </main>
-
+ 
         <footer></footer>
 
         <script>

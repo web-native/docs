@@ -1,12 +1,15 @@
 # Observables
 
-Observables are a collection of observer-based components (routing, forms, collections and more) for building client-side applications.
+This is a collection of application components and browser APIs implemented as Observable objects.
 
 [Check this project out on GitHub](https://github.com/web-native/observables).
 
-## Documentation
+## Collection
 
-[The Observables Docs](https://docs.web-native.dev/observables)
++ [Web Monentization Observable](https://github.com/web-native/observables/srweb-monentization)
++ [Form Observable](https://github.com/web-native/observables/form)
++ [Collection Observable](https://github.com/web-native/observables/collection)
+
 
 ## Issues
 

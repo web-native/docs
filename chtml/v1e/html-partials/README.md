@@ -1,6 +1,6 @@
 # HTML Partials
 
-HTML Partials is a DOM feature that brings the ability to define, extend, import/export reusable HTML snippets using the *template*, *partials*, and *slots* paradigm.
+HTML Partials is a DOM feature that brings the ability to define, extend, import reusable HTML snippets using the *template*, *partials*, and *slots* paradigm.
 
 ## On this page:
 + [Templates, Partials and Slots](#templates-partials-and-slots)
@@ -87,11 +87,9 @@ An implementation block can implement another template by simply pointing to it;
 
 The `<partials-slot>` element, even though replaced, is never really destroyed. It returns to its exact position whenever the last of its slotted elements get deleted, or whenever the slot has no corresponding partial in the next implemented template.
 
-A template is to the composition block what the Light DOM of a custom element is to the Shadow DOM - providing *slottable* contents for *slots*; called *slottables* in Web Components, *partials* in CHTML.
-
 HTML Partials also supports *Default Slots*. A template's direct children without an explicit `partials-slot` attribute are slotted into the *Default Slot* in the implementation block.
 
-**Unscoped Slots**
+**Universal Slots**
 
 By default, slots are scoped to their containing implementation block. But the `<partials-slot>` element may also be used independent of an implementation block to point to its own template.
 
@@ -139,7 +137,7 @@ Inherittable properties can be both attributes and content.
 
 A slot's attributes, other than the slot-exclusive `name` and `template` attributes, are inheritted by every slotted element.
 
-On inheriting single-value attributes, like the `id` attribute, any such attribute is replaced on the slotted element. On inheriting space-delimitted attributes, like the `class` attribute, new and non-duplicate values are placed after any existing values. On inheriting key/value attributes, like the `style` attribute, new declarations are placed after any existing declarations, making CSS cascading work on the `style` attribute.
+When a partial inherits attributes from a slot, inheritted attributes are made to take priority over any existing attributes. On inheriting single-value attributes, like the `id` attribute, any such attribute is replaced on the slotted element. On inheriting space-delimitted attributes, like the `class` attribute, new and non-duplicate values are placed after any existing values. On inheriting key/value attributes, like the `style` attribute, new declarations are placed after any existing declarations, making CSS cascading work on the `style` attribute.
 
 Below, we are using Slot Attributes to recompose the same partial differently for each usecase.
 
@@ -170,9 +168,9 @@ Below, we are using Slot Attributes to recompose the same partial differently fo
 
 **Content**
 
-A slot can have default content that renders before slotting takes place. But this content can instead be defined as a new set of *partials* that can be *implemented* by slotted elements. So we have the slot element acting as the *template* and the slotted element as the *implementation block*. (In the light/shadow paradigm, this is the slot element acting as an element's *Light DOM* and the slotted element as its *Shadow DOM*.)
+Normally, a slot can have default content that renders before slotting takes place. But this content can instead be defined as a new set of *partials* that can be *implemented* by slotted elements. This time, the slot element gets to act as the *template* and the slotted element as the *implementation block*. (In the light/shadow paradigm, this is the slot element acting as an element's *Light DOM* and the slotted element as its *Shadow DOM*.)
 
-To implement a slot, a *partial* would set its `template` attribute to the keyword *slot* instead of pointing to an actual template.
+To implement a slot, a *partial* would set its `template` attribute to the keyword `@slot`*` instead of pointing to an actual template.
 
 ```html
 <html>
@@ -182,7 +180,7 @@ To implement a slot, a *partial* would set its `template` attribute to the keywo
         <template name="template2">
 
             <!-- I am a recomposable partial. My ideal slot provides the partials for me -->
-            <div partials-slot="slot-1" template="slot">
+            <div partials-slot="slot-1" template="@slot">
                 <partials-slot name="slot-1-1"></partials-slot>
             </div>
             
@@ -259,70 +257,15 @@ Templates may reference remote content using the `src` attribute.
 
 ```html
 <head>
-    <template name="template1" src="http://localhost/templates.html"></template>
+    <template name="template1" src="/templates.html"></template>
 </head>
 ```
 
 Where remote templates are detected in a document, slots are resolved after all templates have loaded their content.
 
-## Partials API
-
-HTML Partials introduces a few new DOM properties for working with composition.
-
-**For the document object:**
-
-+ `.templatesReadyState` - This property reflects the document's loading status of remote templates:
-    + `loading` - This is the initial value of this property.
-    + `complete` - This is the value of this property when templates are done loading, or when there are no remote templates at all. For this state, the `templatesreadystatechange` event is fired on the document object.
-+ `.templates` - This property represents the list of templates in the document. Templates are exposed here by name. So `document.templates.template1` should return the template element used in the examples above.
-
-**For the `<template>` element:**
-
-+ `.partials` - This property represents the list of partials defined by the template. It is an object holding a reference to partials by name. Unnamed partials are treated as having the name *default*. So, for the template below,
-    
-    ```html
-    <template name="template1">
-        <div slot="one"></div>
-        <div slot="two"></div>
-        <div slot="default"></div>
-        <p></p>
-    </template>
-    ```
-
-    accessing `document.templates.template1.partials.one` should return an array containing the first `<div>`; while `document.templates.template1.partials.default` should return an array containing the last `<div>` and `<p>`.
-
-+ `.templates` - This property represents the list of templates nested within the template. It is an object holding a reference to templates by name.
-    
-    ```html
-    <template name="template1">
-        <template name="nested1"></template>
-        <template name="nested2">
-            <div slot="one"></div>
-        </template>
-    </template>
-    ```
-
-    accessing `document.templates.template1.templates.nested1` should return the first nested template, while `document.templates.template1.templates.nested2` the second nested template. And the nesting can go on as much as code organization requires.
-
-**For every element:**
-
-+ `.template` - This property represents a copy of the `<template>` element referenced by an element. So if an element implements a template as in `<div template="html/temp"></div>`, then `element.template` should be a copy of the `<template>` at the `module/temp` namespace; `element.template.partials.default` should thus return an array like the above.
-
-**For the `<partials-slot>` element:**
-
-+ `.slottedElements` - This property represents the list of partials slotted into a slot. (Much like the [`HTMLSlotElement.assignedElements()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedElements) method.)
-+ `.resolve()` - This method, without arguments, is used to programatically resolve a slot from the appropriate partial in the template given in context.
-+ `.empty([silently = false])` - This method is used to programatically empty the slot of its partials, thereby triggering the restoration of the slot element itself. To empty the slot silently without restoring the original slot element, provide `true` on the first parameter.
-
-**For slotted elements:**
-
-+ `.slotReference` - This property gives a reference to the slot element an element was assigned to. (Much like the [`Slottable.assignedSlot`](https://developer.mozilla.org/en-US/docs/Web/API/Slottable/assignedSlot) property.)
-
 ## Isomorphic Rendering
 
-Persistent slots is the promise of slots-based composition; placeholders must never really lose their place. This promise is easy to keep on a live DOM, as slot positions can be easily maintained - even after a slot is replaced. Where the challenge lies is when rendering happens on the server and has to be serialized for the browser to take over; the browser must maintain references to all slots, even those replaced on the server. 
-
-HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. Now in the browser, deleting a server-slotted element, for example, should trigger the restoration of the original slot element; changing the `template` attribute of any element should dispose off all its server-slotted elements and recompose the block from the new referenced template.
+When rendering happens on the server and has to be serialized for the browser to take over, the browser must still be able to maintain references to all slots, even those replaced on the server. HTML Partials addresses this by serializing slot elements as *comment nodes* with a view to recreating the original slot elements from these comments on getting to the browser. This way, composition is able to continue. Now in the browser, deleting a server-slotted element, for example, should trigger the restoration of the original slot element; changing the `template` attribute of any element should dispose off all its server-slotted elements and recompose the block from the new referenced template.
 
 **Before Rendering on the Server**
 
@@ -425,3 +368,56 @@ Since slots serialization is only necessary for isomorphic pages, this feature i
 ```
 
 \* The trailing semi-colon (;) in the CHTML META tag is optional.
+
+## Partials API
+
+HTML Partials introduces a few new DOM properties for working with composition.
+
+**For the document object:**
+
++ `.templatesReadyState` - This property reflects the document's loading status of remote templates:
+    + `loading` - This is the initial value of this property.
+    + `complete` - This is the value of this property when templates are done loading, or when there are no remote templates at all. For this state, the `templatesreadystatechange` event is fired on the document object.
++ `.templates` - This property represents the list of templates in the document. Templates are exposed here by name. So `document.templates.template1` should return the template element used in the examples above.
+
+**For the `<template>` element:**
+
++ `.partials` - This property represents the list of partials defined by the template. It is an object holding a reference to partials by name. Unnamed partials are treated as having the name *default*. So, for the template below,
+    
+    ```html
+    <template name="template1">
+        <div partials-slot="one"></div>
+        <div partials-slot="two"></div>
+        <div partials-slot="default"></div>
+        <p></p>
+    </template>
+    ```
+
+    accessing `document.templates.template1.partials.one` should return an array containing the first `<div>`; while `document.templates.template1.partials.default` should return an array containing the last `<div>` and `<p>`.
+
++ `.templates` - This property represents the list of templates nested within the template. It is an object holding a reference to templates by name.
+    
+    ```html
+    <template name="template1">
+        <template name="nested1"></template>
+        <template name="nested2">
+            <div partials-slot="one"></div>
+        </template>
+    </template>
+    ```
+
+    accessing `document.templates.template1.templates.nested1` should return the first nested template, while `document.templates.template1.templates.nested2` the second nested template. And the nesting can go on as much as code organization requires.
+
+**For every element:**
+
++ `.template` - This property represents a copy of the `<template>` element referenced by an element. So if an element implements a template as in `<div template="html/temp"></div>`, then `element.template` should be a copy of the `<template>` at the `module/temp` namespace; `element.template.partials.default` should thus return an array like the above.
+
+**For the `<partials-slot>` element:**
+
++ `.slottedElements` - This property represents the list of partials slotted into a slot. (Much like the [`HTMLSlotElement.assignedElements()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement/assignedElements) method.)
++ `.resolve()` - This method, without arguments, is used to programatically resolve a slot from the appropriate partial in the template given in context.
++ `.empty([silently = false])` - This method is used to programatically empty the slot of its partials, thereby triggering the restoration of the slot element itself. To empty the slot silently without restoring the original slot element, provide `true` on the first parameter.
+
+**For slotted elements:**
+
++ `.slotReference` - This property gives a reference to the slot element an element was assigned to. (Much like the [`Slottable.assignedSlot`](https://developer.mozilla.org/en-US/docs/Web/API/Slottable/assignedSlot) property.)

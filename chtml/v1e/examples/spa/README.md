@@ -2,6 +2,8 @@
 
 This example makes an SPA of *templates and slots* composition. Below, we're using the two template elements to each represent a route - each holding partials that are unique to a route. Then we point the body element to implement the template whose namespace matches the current URL.
 
+[Check the live example here](https://web-native.dev/examples/spa.html)
+
 ```html
 <html>
 

@@ -68,7 +68,7 @@ This gives an application a more bankable tree than the DOM tree as it lets a UI
 
 ### Scope Observability
 
-An element's `.namespace` property is implemented as a live object to capture the element's scope tree in real time. CHTML also supports the [Observer API](https://docs.web-native.dev/observer) for change detection; `Obs.observe()` can thus be used to observe additions and removals on the scope tree.
+An element's `.namespace` property is implemented as a live object that reflects the element's namespace tree in real time. CHTML also supports the [Observer API](https://docs.web-native.dev/observer) for change detection; [`Obs.observe()`](https://docs.web-native.dev/observer/api/observe) can thus be used to observe when IDs enter or exit the namespace.
 
 ```js
 Obs.observe(continents.namespace, changes => {
@@ -76,7 +76,7 @@ Obs.observe(continents.namespace, changes => {
 });
 ```
 
-With the code below, our observer above should report adding a new ID (africa) to the namespace.
+With the code below, our observer above should report having added a new ID `africa` to the namespace.
 
 ```js
 continents.append('<section id="africa"></section>');

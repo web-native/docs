@@ -1,9 +1,10 @@
 # Scoped JS
 
-Scoped JS is a new DOM feature that lets us scope a `<script>` element to its immediate containing element and completely out of the global browser scope.
+Scoped JS is a DOM feature that makes it possible to scope a script to its immediate host element and completely out of the global browser scope.
 
 ## On this page:
 + [Scoped Scripts](#scoped-scripts)
++ [Variable Bindings](#variable-bindings)
 + [Selective Execution](#selective-execution)
 + [Globals](#globals)
 + [Runtime](#runtime)
@@ -12,34 +13,43 @@ Scoped JS is a new DOM feature that lets us scope a `<script>` element to its im
 
 ## Scoped Scripts
 
- Scoped scripts have their `this` variable implicitly bound to their containing element. They are defined with the `scoped` MIME type.
+ Scoped scripts have their `this` variable implicitly bound to their host element. They are defined with the `scoped` MIME type.
 
 ```html
 <div id="alert">
+
   <script type="scoped">
     // this === #alert
   </script>
+
 </div>
 ```
 
 This lets us place behaviours just where we need them! This way, we are able to keep the main application layer void of the implementation details of the UI.
 
-Here's an *alert* component with a "remove* feature.
+Here's an *#alert* component with a "remove* feature.
 
 ```html
 <div id="alert">
+
     <div class="message"></div>
     <div class="exit" title="Close this message.">X</div>
+
     <script type="scoped">
         // details of how the #alert block should behave...
         this.querySelector('.exit').addEventListener('click', () => {
             this.remove();
         });
     </script>
+
 </div>
 ```
 
-Now, other variables in a scoped script are to be explicitly-bound from external values; variables are bound by name. This lets us implement a `message` variable below. 
+## Variable Bindings
+
+Besides the `this` variable being implicitly bound to the script's host element, other variables in a scoped script are to be explicitly-bound to external values; variables are bound by name.
+
+Below, we're implementing a `message` variable in our *#alert* component. 
 
 ```html
 <body>
@@ -93,12 +103,15 @@ This is illustrated in the clock below.
 <body>
 
     <div id="clock">
+
         <div class="greeting"></div>
         <div class="current-time"></div>
+
         <script type="scoped">
             this.querySelector('.greeting').innerHTML = greeting;
             this.querySelector('.current-time').innerHTML = currentTime;
         </script>
+
     </div>
 
     <script>
@@ -117,7 +130,7 @@ This is illustrated in the clock below.
 </body>
 ```
 
-Scoped JS also supports the [Observer API](https://docs.web-native.dev/observer) for object observability. With Observer, Scoped JS is able to respond to mutations made on the bound data object itself. So the clock above could be driven by direct updates to the data object.
+Scoped JS also supports the [Observer API](https://docs.web-native.dev/observer) for object observability. With Observer, Scoped JS is able to respond to mutations made directly to the bound data object. So, the *#clock* above could be *ticked* by directly updating the data object.
 
 ```html
 <script>
@@ -140,12 +153,15 @@ Statements may also reference deep mutations made on the bound data object, as i
 <body>
 
     <div id="clock">
+
         <div class="greeting"></div>
         <div class="current-time"></div>
+
         <script type="scoped">
             this.querySelector('.greeting').innerHTML = clock.greeting;
             this.querySelector('.current-time').innerHTML = clock.currentTime;
         </script>
+
     </div>
 
     <script>
@@ -172,8 +188,10 @@ Within the script, the dependency chain is followed even when broken into local 
 <body>
 
     <div id="clock">
+
         <div class="greeting"></div>
         <div class="current-time"></div>
+
         <script type="scoped">
             this.querySelector('.greeting').innerHTML = clock.greeting;
             let variable1 = clock.currentTime;
@@ -181,6 +199,7 @@ Within the script, the dependency chain is followed even when broken into local 
             this.querySelector('.current-time').innerHTML = variable2;
             this.style.color = 'blue';
         </script>
+
     </div>
 
 </body>
@@ -188,13 +207,14 @@ Within the script, the dependency chain is followed even when broken into local 
 
 ## Globals
 
-By default, scoped scripts have no access to anything besides what has been explicitly bound into the scope. But they also have an idea of a global scope, seen by every scoped script. This global scope is created by binding on the `document` object itself, using a new `document.bind()` method.
+By default, scoped scripts have no access to anything besides what is explicitly bound into the scope. But they also have an idea of a global scope - that is, bindings seen by every scoped script. This global scope is created by binding on the `document` object itself, using a new `document.bind()` method.
 
 ```js
 document.bind({
     greeting: 'Good Afternoon!',
 });
 ```
+
 To update a *global* or multiple *globals*, call `document.bind()` with a `params` object as a second paremeter and set `params.update` to `true`.
 
 ```js
@@ -215,11 +235,35 @@ By design, Scoped JS parses scoped scripts immediately they land on the DOM, but
 
 Alternatively, the `autorun=true` directive may be set on the CHTML META tag. The `autorun` *Boolean* attribute may also be set on individual script elements.
 
-Also, an element may receive bindings before its scoped script is appended or is ready to run. The element's runtime begins the first time both are available.
+```html
+<html>
+    <head>
+        <meta name="chtml" content="autorun=true;" />
+    </head>
+    <body>
+        <div id="alert">
+            <script type="scoped" autorun>
+            ...
+            </script>
+        </div>
+    </body>
+</html>
+```
+
+Also, it is allowed for an element to receive bindings before its scoped script is appended or is ready to run. The element's runtime begins the first time both are available.
+
+```js
+alertEl.bind({
+    message: 'This task is now complete!',
+});
+
+// Sometime later
+alertEl.append('<script scoped>this.innerHTML = message</script>');
+```
 
 ## Error Handling
 
-Scoped JS features a way to handle syntax or reference errors that may occur with scoped scripts. Normally, these are shown in the console as warnings. But they can be silently ignored by setting a directive on the CHTML META tag. Induvidual scripts may also be given a directive, to override whatever the global directive is.
+Scoped JS features a way to handle *syntax* or *reference* errors that may occur with scoped scripts. Normally, these are shown in the console as warnings. But they can be silently ignored by setting a directive on the CHTML META tag. Individual scripts may also be given a directive, to override whatever the global directive is.
 
 ```html
 <html>
@@ -234,8 +278,6 @@ Scoped JS features a way to handle syntax or reference errors that may occur wit
     </body>
 </html>
 ```
-
-\* The trailing semi-colon (;) in the CHTML META tag is optional.
 
 ## Isomorphic Rendering
 
@@ -255,9 +297,7 @@ The script tag of a scoped script is not always needed for the lifetime of the p
 </html>
 ```
 
-Now, running the code `document.bind({headline: 'Hello World'})` both on the server and on the browser should give us the same result.
-
-\* The trailing semi-colon (;) in the CHTML META tag is optional.
+Now, this binding will always be there for when we run the code `document.bind({headline: 'Hello World'})` - whether on the server and on the browser.
 
 **Environment-Specific Bindings**
 
@@ -273,7 +313,7 @@ Sometimes, we want certain bindings to apply only on the server; sometimes, only
 </div>
 ```
 
-Above, `condition` could be a simple question about the current environment, and this can be acheived by simply exposing a global `env` variable: `document.bind({env:'server', headline: 'Hello World'})`.
+Above, `condition` could be a simple question about the current environment, and this can be acheived by simply binding a global variable, `env`, for example: `document.bind({env:'server', headline: 'Hello World'})`.
 
 ```html
 <div>

@@ -6,7 +6,7 @@ It features the ability to add/remove items. For the *remove* feature, we'd let 
 
 We've also decided to use [the Observer API](https://docs.web-native.dev/observer) and [PlayUI's `.itemize()`](https://docs.web-native.dev/play-ui/api/dom/itemize) method that provides a simple way to keep the list container in sync with application items.
  
-[Check the live example here](https://web-native.dev/examples/todo.html)
+[Check the live example here](https://web-native.dev/package/chtml/docs/demos/todo.html)
 
 ```html
 <html>
